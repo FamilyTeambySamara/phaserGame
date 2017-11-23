@@ -12,29 +12,33 @@ var computerBetSpeed = 150;
 var ballSpeed = 300;
 var score = 0;
 
+var nextLevelScore = 20;
+var Level = 1;
+
 
 
 var Game =
 {
     preload: function () {
-        game.load.image('bet', 'assets/bet_3.png');
-        game.load.image('ball', 'assets/ball.png');
-        game.load.image('background', 'assets/starfield.jpg');
-        game.load.image('button_over', 'img/button.jpg');
+        game.load.image('bet', 'assets/img/bet_3.png');
+        game.load.image('ball', 'assets/img/ball.png');
+        game.load.image('background', 'assets/img/menu.jpg');
+        game.load.image('button_over', 'assets/img/button.jpg');
     },
 
     create: function () {
 
       game.physics.startSystem(Phaser.Physics.ARCADE);
 
-      game.add.tileSprite(0, 0, 640, 450, 'background');
+      game.add.tileSprite(0, 0, 800, 600, 'background');
 
-      scoreTable =  game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: 'red' });
+      scoreTable =  game.add.text(16, 60, 'score: ' + score, { fontSize: '32px', fill: 'red' });
+      game.add.text(16, 16, 'Level: ' + Level, { fontSize: '32px', fill: 'white' });
 
       computerBet = this.createBet(game.world.centerX, 600);
       playerBet = this.createBet(game.world.centerX, 20);
 
-      game.add.button( 15, 50, 'button_over', this.goMenu, this);
+    //  game.add.button( 15, 50, 'button_over', this.goMenu, this);
 
       ball = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
        ball.anchor.setTo(0.5, 0.5);
@@ -98,10 +102,15 @@ var Game =
          if (ball.y < 15) {
           score = score + 10;
            scoreTable.text = 'player: ' + score;
+           if (score > nextLevelScore) {
+             this.state.start('nextLevel');
+           }
             this.setBall();
          } else if (ball.y > 430) {
-           this.goOverMenu();
           score = score - 10;
+          if (score < 0){
+            this.goOverMenu();
+          }
           scoreTable.text = 'player: ' + score;
             this.setBall();
           }
