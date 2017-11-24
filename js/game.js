@@ -32,6 +32,21 @@ var Game =
 
       game.add.tileSprite(0, 0, 800, 600, 'background');
 
+      back_emitter = this.add.emitter(game.world.centerX, -32, 600);
+      back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
+      back_emitter.maxParticleScale = 0.2;
+      back_emitter.minParticleScale = 0.1;
+      back_emitter.setYSpeed(20, 100);
+      back_emitter.gravity = 0;
+      back_emitter.width = game.world.width * 1.5;
+      back_emitter.minRotation = 0;
+      back_emitter.maxRotation = 40;
+
+      back_emitter.start(false, 14000, 20);
+
+
+
+
       scoreTable =  game.add.text(16, 60, 'score: ' + score, { fontSize: '32px', fill: 'red' });
       game.add.text(16, 16, 'Level: ' + Level, { fontSize: '32px', fill: 'white' });
 

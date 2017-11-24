@@ -1,6 +1,6 @@
 var game;
 
-game = new Phaser.Game(800, 500, Phaser.AUTO, '');
+game = new Phaser.Game(800, 500, Phaser.CANVAS, '');
 
 game.state.add('Menu', Menu);
 // game.state.add('Menu_over', Game_over);
