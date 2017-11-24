@@ -15,6 +15,15 @@ var score = 0;
 var nextLevelScore = 20;
 var Level = 1;
 
+var health = 0;
+var healthTable;
+
+var playerPosition = 0;
+var compPosition = 1;
+
+
+var weapon;
+var fireButton;
 
 
 var Game =
@@ -28,9 +37,11 @@ var Game =
 
     create: function () {
 
+
       game.physics.startSystem(Phaser.Physics.ARCADE);
 
-      game.add.tileSprite(0, 0, 800, 600, 'background');
+
+    //  game.add.tileSprite(0, 0, 800, 600, 'background');
 
       back_emitter = this.add.emitter(game.world.centerX, -32, 600);
       back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
@@ -49,17 +60,29 @@ var Game =
 
       scoreTable =  game.add.text(16, 60, 'score: ' + score, { fontSize: '32px', fill: 'red' });
       game.add.text(16, 16, 'Level: ' + Level, { fontSize: '32px', fill: 'white' });
+      healthTable = game.add.text(16, 95, 'Health: ' + health, { fontSize: '32px', fill: 'blue' });
 
       computerBet = this.createBet(game.world.centerX, 600);
       playerBet = this.createBet(game.world.centerX, 20);
 
-    //  game.add.button( 15, 50, 'button_over', this.goMenu, this);
 
-      ball = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
-       ball.anchor.setTo(0.5, 0.5);
-       game.physics.arcade.enable(ball);
-       ball.body.collideWorldBounds = true;
-       ball.body.bounce.setTo(1, 1);
+        weapon = game.add.weapon(1, 'ball');
+       weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+       weapon.bulletAngleOffset = 90;
+       weapon.bulletSpeed = -400;
+       weapon.trackSprite(playerBet, 14, 0);
+       fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+
+
+    //  game.add.button( 15, 50, 'button_over', this.goMenu, this);
+      if(playerPosition == compPosition){
+        ball = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
+        ball.anchor.setTo(0.5, 0.5);
+        game.physics.arcade.enable(ball);
+        ball.body.collideWorldBounds = true;
+        ball.body.bounce.setTo(1, 1);
+      }
+
 
 
        game.input.onDown.add(this.releaseBall, this);
@@ -87,13 +110,13 @@ var Game =
     },
 
     releaseBall: function () {
-      if (!ballReleased) {
-        ball.body.velocity.x = ballSpeed;
-        ball.body.velocity.y = -ballSpeed;
-        ballReleased = true;
-      }
+      // if (!ballReleased) {
+      //   ball.body.velocity.x = ballSpeed;
+      //   ball.body.velocity.y = -ballSpeed;
+      //   ballReleased = true;
+      // }
     },
-
+///пересечение со снарядом==================================================================
     ballHitsBet: function (_ball, _bet) {
          var diff = 0;
 
@@ -113,22 +136,32 @@ var Game =
          }
      },
 
+
+     boomBol: function (){
+
+            ball.kill();
+            health = + 1;
+
+     },
+///////////================================================================================
      checkGoal: function () {
-         if (ball.y < 15) {
-          score = score + 10;
-           scoreTable.text = 'player: ' + score;
-           if (score > nextLevelScore) {
-             this.state.start('nextLevel');
-           }
-            this.setBall();
-         } else if (ball.y > 430) {
-          score = score - 10;
-          if (score < 0){
-            this.goOverMenu();
-          }
-          scoreTable.text = 'player: ' + score;
-            this.setBall();
-          }
+         // if (ball.y < 15) {
+         //  score = score + 10;
+         //   scoreTable.text = 'player: ' + score;
+         //   if (score > nextLevelScore) {
+         //     this.state.start('nextLevel');
+         //   }
+         //    this.setBall();
+         // } else if (ball.y > 430) {
+         //  score = score - 10;
+         //  if (score < 0){
+         //    this.goOverMenu();
+         //  }
+         //  scoreTable.text = 'player: ' + score;
+         //    this.setBall();
+         //  }
+
+        healthTable.text = 'Попаданий: ' + health;
      },
 
      setBall: function () {
@@ -141,7 +174,23 @@ var Game =
          }
      },
 
+     goSnowBall: function ()
+     {
+       // if (playerBet.x == computerBet.x)
+       // {
+       //  game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
+       // }
+
+       playerPosition = playerBet.x;
+       compPosition = computerBet.x;
+     },
+
      update: function () {
+
+       if (fireButton.isDown)
+        {
+            weapon.fire();
+        }
          //Управляем ракеткой игрока
          playerBet.x = game.input.x;
 
@@ -155,10 +204,10 @@ var Game =
          }
 
          //Управляем ракеткой компьютерного соперника
-         if(computerBet.x - ball.x < -15) {
+         if(computerBet.x - playerBet.x < -15) {
             computerBet.body.velocity.x = computerBetSpeed;
          }
-         else if(computerBet.x - ball.x > 15) {
+         else if(computerBet.x - playerBet.x > 15) {
             computerBet.body.velocity.x = -computerBetSpeed;
          }
          else {
@@ -166,11 +215,13 @@ var Game =
          }
 
          // game.physics.arcade.collide(ball, playerBet);
-         // game.physics.arcade.collide(ball, computerBet);
+         //game.physics.arcade.collide(ball, computerBet);
 
-         game.physics.arcade.collide(ball, playerBet, this.ballHitsBet, null, this);
-         game.physics.arcade.collide(ball, computerBet, this.ballHitsBet, null, this);
+         game.physics.arcade.overlap(weapon, computerBet, this.boomBol, null, this);
 
+         // game.physics.arcade.collide(ball, playerBet, this.boomBol(playerBet), null, this);
+         // game.physics.arcade.collide(ball, computerBet, this.boomBol(computerBet), null, this);
+         this.goSnowBall();
          this.checkGoal();
      }
 

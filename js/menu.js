@@ -12,7 +12,6 @@ var Menu =
         game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
         game.load.image('Game_over', 'assets/img/menu_over.jpg');
         game.load.image('moon', 'assets/img/moon.png');
-        game.load.image('gif', 'assets/img/time.gif');
 
 
         //делаем снежок
@@ -36,15 +35,12 @@ var Menu =
 
       var moon = this.add.image(350, 15, 'moon');
       moon.scale.setTo(0.5, 0.5);
-      var star = this.add.sprite(250, 80, 'star');
 
-      var shine = star.animations.add('shine');
-
-      star.animations.play('shine', 4, true);
-
-      game.add.image(250, 200, 'gif');
-
-
+      // var star = this.add.sprite(250, 80, 'star');
+      //
+      // var shine = star.animations.add('shine');
+      //
+      // star.animations.play('shine', 4, true);
 
       // shadow = game.add.sprite(game.world.centerX, game.world.centerY, 'button');
       // shadow.anchor.set(0.5);
@@ -97,6 +93,5 @@ var Menu =
     update: function ()
     {
       load_time = game.load.progress;
-
     }
 }
