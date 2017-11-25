@@ -1,7 +1,13 @@
 // var game = new Phaser.Game(480, 640, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 //
+
+
+
+(function () {
 var playerBet;
 var computerBet;
+var computerBet_2;
+
 var ball;
 
 
@@ -39,12 +45,31 @@ var bullets;
 var bullet;
 var trigerBullet = false;
 
+//enemys
+
 var bulletTime = 0;
 var enemyBulletTime = 0;
 var enemyBulletvelocity = 400;
 var timeDilay = 1000;
 
-var Game =
+
+var bigemnemys;
+var bigenemy;
+var emnemysBig;
+
+var enemyBullets;
+var enemyBullet;
+
+var enemyBulletBig;
+
+var  enemyBullestBig;
+
+
+
+
+
+
+ var Game =
 {
     preload: function () {
         game.load.image('bet', 'assets/img/bet_3.png');
@@ -93,6 +118,39 @@ var Game =
       enemyBullets.setAll('outOfBoundsKill', true);
       enemyBullets.setAll('checkWorldBounds', true);
 //===================================================
+
+//========BIG bullets========================
+      enemyBulletsBig = game.add.group();
+      enemyBulletsBig.enableBody = true;
+      enemyBulletsBig.physicsBodyType = Phaser.Physics.ARCADE;
+      enemyBulletsBig.createMultiple(30, 'ball');
+      enemyBulletsBig.setAll('anchor.x', 0.5);
+      enemyBulletsBig.setAll('anchor.y', 1);
+      enemyBulletsBig.setAll('outOfBoundsKill', true);
+      enemyBulletsBig.setAll('checkWorldBounds', true);
+//============================================
+
+
+          computerBet_2 = this.createBet(game.world.centerX, 600);
+          computerBet_2.scale.setTo(1.5, 1.5);
+          //computerBet_2.body.collideWorldBounds = true;
+
+
+//=================Big Enemy============================
+
+      // emnemysBig = game.add.group();
+      // emnemysBig.enableBody = true;
+      // emnemysBig.physicsBodyType = Phaser.Physics.ARCADE;
+      // emnemysBig.createMultiple(1, 'bet');
+      // emnemysBig.setAll('anchor.x', 0.5);
+      // emnemysBig.setAll('anchor.y', 1);
+      // emnemysBig.setAll('outOfBoundsKill', true);
+      // emnemysBig.setAll('checkWorldBounds', true);
+    //  emnemysBigBullets.scale.setTo(2, 2);
+      // emnemysBig.setAll('outOfBoundsKill', true);
+      // emnemysBig.setAll('checkWorldBounds', true);
+
+//=====================================
       // function bulletGo ()
       // {
       //   if (trigerBullet){
@@ -118,6 +176,8 @@ var Game =
 //==========Создаем игроков================================
       computerBet = this.createBet(game.world.centerX, 450);
       playerBet = this.createBet(game.world.centerX, 20);
+
+
 //==========================================================
 
        //  weapon = game.add.weapon(1, 'ball');
@@ -205,6 +265,8 @@ var Game =
           //  Grab the first bullet we can from the pool
           enemyBullet = enemyBullets.getFirstExists(false);
 
+          //enemyBullet.scale.setTo(2,2);
+          //moon.scale.setTo(0.5, 0.5);
           if (enemyBullet)
           {
               //  And fire it
@@ -214,6 +276,8 @@ var Game =
           }
       }
     },
+
+
 
     // goOverMenu: function ()
     // {
@@ -255,7 +319,13 @@ var Game =
             scoreTable.text = 'Score: ' + score;
 
             if (score > nextLevelScore){
-                game.state.start('nextLevel');
+
+                nextLevelScore += 5;
+                enemyBulletvelocity += 70;
+                timeDilay -= 50;
+                ++Level;
+                levelTable.text = "Level" + Level;
+                //game.state.start('nextLevel', false);
             }
      },
 ///////////================================================================================
@@ -301,7 +371,7 @@ var Game =
             this.fireBullet();
         }
 
-        if (playerBet.x == computerBet.x || Math.abs(playerBet.x - computerBet.x) < 10 ){
+        if ( Math.abs(playerBet.x - computerBet.x) < 35 ){
 
             this.fireBulletEnemy();
         }
@@ -327,7 +397,44 @@ var Game =
          else {
             computerBet.body.velocity.x = 0;
          }
+//==================Управление большим врагом=============================
+          // var i = 0;
+          //
+          // if (Level == 2 && i == 0){
+          //   i++;
+          //     //enemyBullets.getFirstExists(false)
+          //   computerBet_2 = emnemysBig.getFirstExists(false);
+          //
+          //   if (computerBet_2)
+          //   {
+          //       //  And fire it
+          //       computerBet_2.reset(50, 250);
+          //       computerBet_2.body.velocity.x = (computerBetSpeed/2);
+          //   }
+          //
+          // }
 
+         if(Level >= 2 ){
+
+              if (computerBet_2.y > 400){
+                    computerBet_2.body.velocity.y = -100;
+              }else if (computerBet_2.y <= 400){
+                  computerBet_2.body.velocity.y = 0;
+              }
+
+
+              if(playerBet.x > 400 && !(computerBet_2.x > 800)){
+                  computerBet_2.body.velocity.x = computerBetSpeed/2;
+              } else if (playerBet.x < 400 && !(computerBet_2.x < 0)){
+                  computerBet_2.body.velocity.x = -computerBetSpeed/2;
+              } else {
+                  computerBet_2.body.velocity.x = 0;
+              }
+              if (Math.abs(computerBet_2.x - playerBet.x) < 400 ){
+                    fireBulletEnemyBig();
+              }
+         }
+//==========================================================================
          // game.physics.arcade.collide(ball, playerBet);
          //game.physics.arcade.collide(ball, computerBet);
 
@@ -340,4 +447,32 @@ var Game =
          //this.checkBall();
      }
 
+
+
+
+
 }
+
+window.Game = Game;
+
+
+ function fireBulletEnemyBig () {
+
+  if (game.time.now > enemyBulletTime)
+  {
+      //  Grab the first bullet we can from the pool
+      enemyBulletBig = enemyBulletsBig.getFirstExists(false);
+
+      enemyBulletBig.scale.setTo(3,3);
+      //moon.scale.setTo(0.5, 0.5);
+      if (enemyBulletBig)
+      {
+          //  And fire it
+          enemyBulletBig.reset(computerBet_2.x, computerBet_2.y - 15);
+          enemyBulletBig.body.velocity.y = -enemyBulletvelocity/2;
+          enemyBulletTime = game.time.now + timeDilay;
+      }
+  }
+}
+
+})();

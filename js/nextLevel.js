@@ -16,9 +16,9 @@ var nextLevel =
 
   goNext: function ()
   {
-        nextLevelScore += 5;
-        enemyBulletvelocity += 70;
-        timeDilay -= 50;
+        // nextLevelScore += 5;
+        // enemyBulletvelocity += 70;
+        // timeDilay -= 50;
         this.state.start('Game');
   }
 

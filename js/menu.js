@@ -80,6 +80,7 @@ var Menu =
     startGame: function ()
     {
       score = 0;
+      Level = 1;
       music.stop();
 
       this.state.start('Game');
