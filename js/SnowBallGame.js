@@ -46,7 +46,7 @@ var timeDilayPlayer = 600;//перезардка выстрела  Enemys
 //=================Результат матча========================================
 var saveBox = {};
 /////////================================================\\\\\\\\\\\\\\\\\\\\
-window.Game =
+window.SnowBallGame =
 {
     preload: function () {
         game.load.image('bet', 'assets/img/bet_3.png');

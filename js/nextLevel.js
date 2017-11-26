@@ -19,7 +19,7 @@ var nextLevel =
         // nextLevelScore += 5;
         // enemyBulletvelocity += 70;
         // timeDilay -= 50;
-        this.state.start('Game');
+        this.state.start('SnowBallGame');
   }
 
 }
