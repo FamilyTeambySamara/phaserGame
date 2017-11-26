@@ -29,14 +29,14 @@ var Preload = {
     game.load.spritesheet('star', 'assets/img/star.png', 50, 50);
     game.load.spritesheet('snow_big', 'assets/img/snowflakes_large.png', 64, 64);
     //Добавлем музыку
-    game.load.audio('cristmas', ['assets/audio/menu.mp3', 'assets/audio/menu.ogg']);
+
     game.load.audio('throw', 'assets/audio/throw_2.wav');
     game.load.audio('snowBallGame_mainTrack', 'assets/audio/snowBallGame.mp3');
 
     },
 
     create: function() {
-
+    
       //console.log('%cSTATE::PRELOAD', 'color: #fff; background: #0f0;');
 
       game.state.start('Menu');

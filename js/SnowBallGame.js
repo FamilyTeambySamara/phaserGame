@@ -7,6 +7,8 @@ var computerBet_2;
 //======================
 //Музыка и звкуи
 var throw_player;
+var throw_enemy;
+
 //====================
 ///Таблица данных об игре
 var scoreTable;
@@ -54,7 +56,7 @@ window.SnowBallGame =
         game.load.image('bet', 'assets/img/bet_3.png');
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('background', 'assets/img/menu.jpg');
-        game.load.image('button_over', 'assets/img/button.jpg');
+        //game.load.image('button_over', 'assets/img/button.jpg');
     },
 
     create: function () {
@@ -62,8 +64,12 @@ window.SnowBallGame =
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  game.add.tileSprite(0, 0, 800, 600, 'background');
     //====================Добавлем музыку и звуки
+    //звуки бросков
     throw_plyer = game.add.audio('throw');
     throw_plyer.volume = 1;
+    throw_enemy = game.add.audio('throw');
+    throw_enemy.volume = 0.85;
+    //=======================================
     mainTrack = game.add.audio('snowBallGame_mainTrack');
     mainTrack.volume = 0.2;
     mainTrack.play();
@@ -169,6 +175,7 @@ window.SnowBallGame =
           if (enemyBullet)
           {
               //  And fire it
+              throw_enemy.play();
               enemyBullet.reset(computerBet.x, computerBet.y - 8);
               enemyBullet.body.velocity.y = -enemyBulletvelocity;
               enemyBulletTime = game.time.now + timeDilayEnemy;
@@ -212,6 +219,7 @@ window.SnowBallGame =
             score = 0;
             timeDilayEnemy = 1000;
             enemyBulletvelocity = 400;
+            mainTrack.pause();
             //==============================
             this.state.start('Game_over');
         }

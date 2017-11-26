@@ -1,14 +1,16 @@
 var front_emitter;
 var mid_emitter;
 var back_emitter;
-var music;
+
 var load_time = 0;
+var button;
 
 var Menu =
 {
     preload: function ()
     {
-
+      // game.load.image('dragonTexture', 'assets/img/character.png');
+      // game.load.json('dragonMesh', 'assets/img/character.json');
 
 
 
@@ -16,9 +18,22 @@ var Menu =
 
     create: function ()
     {
+
       this.add.image(0, 0, 'menu');
-      this.add.button(250, 150, 'button', this.startGame, this, 2, 1 ,0);
-      game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
+      button = this.add.button(300, 150, 'button', this.startGame, this, 2, 1 ,0);
+      //button.anchor.setTo(0.5,0.5);
+      button.alpha = 0;
+     // button.enableBody = true;
+     //   button.physicsBodyType = Phaser.Physics.ARCADE;
+
+
+      //game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
+
+      // var dragon = game.add.creature(450, 350, 'dragonTexture', 'dragonMesh');
+      //
+      // dragon.scale.set(25.0);
+      //
+      // dragon.play(true); //  true = loop
 
 
       var moon = this.add.image(350, 15, 'moon');
@@ -42,8 +57,7 @@ var Menu =
       // shadow.x = sprite.x + offset.x;
       // shadow.y = sprite.y + offset.y;
 
-       music = game.add.audio('cristmas');
-       music.play();
+
 
 
 
@@ -81,6 +95,11 @@ var Menu =
 
     update: function ()
     {
-      load_time = game.load.progress;
+
+      if (button.alpha < 1){
+          button.alpha += 0.0025;
+      }
+      // load_time = game.load.progress;
+
     }
 }
