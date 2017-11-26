@@ -5,7 +5,9 @@ var playerBet;
 var computerBet;
 var computerBet_2;
 //======================
-
+//Музыка и звкуи
+var throw_player;
+//====================
 ///Таблица данных об игре
 var scoreTable;
 var levelTable;
@@ -59,6 +61,13 @@ window.SnowBallGame =
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //  game.add.tileSprite(0, 0, 800, 600, 'background');
+    //====================Добавлем музыку и звуки
+    throw_plyer = game.add.audio('throw');
+    throw_plyer.volume = 1;
+    mainTrack = game.add.audio('snowBallGame_mainTrack');
+    mainTrack.volume = 0.2;
+    mainTrack.play();
+    //=============================================
 
 //=============Снег на фоне игры===================================
       back_emitter = this.add.emitter(game.world.centerX, -32, 600);
@@ -141,6 +150,7 @@ window.SnowBallGame =
         if (bullet)
         {
             //  And fire it
+            throw_plyer.play();
             bullet.reset(playerBet.x, playerBet.y + 8);
             bullet.body.velocity.y = playerBulletVelocity;
             bulletTime = game.time.now + timeDilayPlayer;
