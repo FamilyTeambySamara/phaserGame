@@ -30,7 +30,7 @@ var Menu =
      //   button.physicsBodyType = Phaser.Physics.ARCADE;
 
 
-      //game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
+      game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
 
       // var dragon = game.add.creature(450, 350, 'dragonTexture', 'dragonMesh');
       //
