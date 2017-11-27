@@ -17,7 +17,7 @@ var Preload = {
       //game.load.image('test_3', 'http://peraalto.se/wp-content/uploads/2013/03/PanoramaRaps.jpg');
     //  game.load.image('test_4', 'http://parkerlab.bio.uci.edu/pictures/photography%20pictures/2008_12_19_select/Untitled_Panorama1.jpg');
 
-    game.load.image('menu', 'assets/img/pingvi.png');
+    game.load.image('menu', 'assets/img/menuWrapper.png');
     game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
     game.load.image('Game_over', 'assets/img/menu_over.jpg');
     game.load.image('moon', 'assets/img/moon.png');
@@ -36,7 +36,7 @@ var Preload = {
     },
 
     create: function() {
-    
+
       //console.log('%cSTATE::PRELOAD', 'color: #fff; background: #0f0;');
 
       game.state.start('Menu');

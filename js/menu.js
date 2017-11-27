@@ -11,6 +11,7 @@ var Menu =
     {
       // game.load.image('dragonTexture', 'assets/img/character.png');
       // game.load.json('dragonMesh', 'assets/img/character.json');
+      game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
 
 
 
@@ -18,6 +19,8 @@ var Menu =
 
     create: function ()
     {
+      music = game.add.audio('cristmas');
+      music.loopFull();
 
       this.add.image(0, 0, 'menu');
       button = this.add.button(300, 150, 'button', this.startGame, this, 2, 1 ,0);
@@ -36,8 +39,12 @@ var Menu =
       // dragon.play(true); //  true = loop
 
 
-      var moon = this.add.image(350, 15, 'moon');
-      moon.scale.setTo(0.5, 0.5);
+      // var moon = this.add.image(350, 15, 'moon');
+      // moon.scale.setTo(0.5, 0.5);
+      var star = game.add.sprite(565, 100, 'star');
+      star.animations.add('star');
+      star.play('star', 4, true, true);
+      //explode.play('kaboom', 30, false, true);
 
       // var star = this.add.sprite(250, 80, 'star');
       //
@@ -57,10 +64,6 @@ var Menu =
       // shadow.x = sprite.x + offset.x;
       // shadow.y = sprite.y + offset.y;
 
-
-
-
-
       //////////////снег
       back_emitter = this.add.emitter(game.world.centerX, -32, 600);
       back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
@@ -75,8 +78,6 @@ var Menu =
       back_emitter.start(false, 14000, 20);
 
       ///////////////////////////////////
-
-
     },
 
     startGame: function ()

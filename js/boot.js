@@ -13,8 +13,7 @@ var Boot = {
         // game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         // game.scale.pageAlignHorizontally = true;
         // game.scale.pageAlignVertically = true;
-        music = game.add.audio('cristmas');
-        music.loopFull();
+        
 
         this.game.state.start('Preload');
       }
