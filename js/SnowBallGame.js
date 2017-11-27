@@ -9,6 +9,8 @@ var simplePolarMan;
 var smartPolarMan;
 var bigPolarMan;
 
+var timeDealyPolarCreate = 1000;
+
 var simplePolarMen;
 //====================
 var refuse;
@@ -325,6 +327,24 @@ window.SnowBallGame =
         healthTable.text = 'HitPoint: ' + health;
      },
 
+   manipulate:    function (polar) {
+                   if(simplePolarMan.countLiving() > 0){
+
+                     if(polar.x - playerBet.x < -15) {
+                         polar.animations.play('right');
+                         polar.body.velocity.x = computerBetSpeed;
+                     }
+                     else if(polar.x - playerBet.x > 15) {
+                        polar.body.velocity.x = -computerBetSpeed;
+                        polar.animations.play('left');
+                     }
+                     else {
+                         polar.animations.stop();
+                         polar.body.velocity.x = 0;
+                     }
+                   }
+                 },
+
      update: function () {
        //Если нажат пробел запускаем стрельбу PLayer
         if (fireButton.isDown)
@@ -425,28 +445,36 @@ window.SnowBallGame =
 
               //простые полярники
 
-              if(simplePolarMan.countLiving() < 2){
+
+
+
+              if(simplePolarMan.countLiving() < 2 && timeDealyPolarCreate < game.time.now){
                 simplePolarMen = simplePolarMan.getFirstExists(false);
                 if (simplePolarMen)
                 {
                     simplePolarMen.reset(400, 300);
-                }
-              }
-              if(simplePolarMan.countLiving() > 0){
+                    timeDealyPolarCreate = game.time.now + 1500;
 
-                if(simplePolarMen.x - playerBet.x < -15) {
-                    simplePolarMen.animations.play('right');
-                    simplePolarMen.body.velocity.x = computerBetSpeed;
-                }
-                else if(simplePolarMen.x - playerBet.x > 15) {
-                   simplePolarMen.body.velocity.x = -computerBetSpeed;
-                   simplePolarMen.animations.play('left');
-                }
-                else {
-                    simplePolarMen.animations.stop();
-                    simplePolarMen.body.velocity.x = 0;
                 }
               }
+
+              simplePolarMan.forEachAlive(this.manipulate, this);
+
+              // if(simplePolarMan.countLiving() > 0){
+              //
+              //   if(simplePolarMen.x - playerBet.x < -15) {
+              //       simplePolarMen.animations.play('right');
+              //       simplePolarMen.body.velocity.x = computerBetSpeed;
+              //   }
+              //   else if(simplePolarMen.x - playerBet.x > 15) {
+              //      simplePolarMen.body.velocity.x = -computerBetSpeed;
+              //      simplePolarMen.animations.play('left');
+              //   }
+              //   else {
+              //       simplePolarMen.animations.stop();
+              //       simplePolarMen.body.velocity.x = 0;
+              //   }
+              // }
 
 
          }

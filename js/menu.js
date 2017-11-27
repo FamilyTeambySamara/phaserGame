@@ -41,9 +41,9 @@ var Menu =
 
       // var moon = this.add.image(350, 15, 'moon');
       // moon.scale.setTo(0.5, 0.5);
-      var star = game.add.sprite(565, 100, 'star');
-      star.animations.add('star');
-      star.play('star', 4, true, true);
+      // var star = game.add.sprite(565, 100, 'star');
+      // star.animations.add('star');
+      // star.play('star', 4, true, true);
       //explode.play('kaboom', 30, false, true);
 
       // var star = this.add.sprite(250, 80, 'star');
