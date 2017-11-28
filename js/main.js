@@ -5,6 +5,8 @@ game.state.add('Menu', Menu);
 // game.state.add('Menu_over', Game_over);
 game.state.add('SnowBallGame', SnowBallGame);
 
+game.state.add('Win_SnowBallGame', Win_SnowBallGame);
+
 game.state.add('Boot', Boot);
 
 game.state.add('Preload', Preload);
