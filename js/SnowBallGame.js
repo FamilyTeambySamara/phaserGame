@@ -80,7 +80,7 @@ window.SnowBallGame =
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
         game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
-        game.load.spritesheet('bet', 'assets/img/Poo.png', 100, 80);
+        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 70, 70);
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('mainLayer', 'assets/img/SnowBall_mainLayer.png');
         game.load.image('bigSnow', 'assets/img/bigSnow.png');
@@ -94,7 +94,7 @@ window.SnowBallGame =
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.image(0, 0, 'mainLayer');
     //====================MAINPLAYEEEEEEER===
-    playerBet = game.add.sprite(game.world.centerX, 20, 'bigPolarMan');
+    playerBet = game.add.sprite(game.world.centerX, 20, 'bet');
     playerBet.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(playerBet);
     playerBet.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 12, true);
