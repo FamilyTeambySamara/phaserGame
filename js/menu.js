@@ -83,8 +83,8 @@ var Menu =
       Level = 1;
       music.stop();
 
-      this.state.start('SnowBallGame');
-      // this.state.start('presentSnowBallGames');
+      // this.state.start('SnowBallGame');
+      this.state.start('presentSnowBallGames');
 
     },
 
