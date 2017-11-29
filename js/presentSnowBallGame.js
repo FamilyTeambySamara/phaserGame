@@ -2,8 +2,9 @@ var slides;
 var index = 0;
 var button_next;
 var button_prev;
-var timeDelay = 5000;
-var timeDilay_2 = 4000;
+var timeDelay = 3000;
+var timeDilay_Big = 9000;
+var timeDilay_Small = 100;
 var presentSnowBallGames = {
 
     preload: function (){
@@ -32,27 +33,39 @@ var presentSnowBallGames = {
     update: function () {
 
       if (button_next.alpha ==  0){
-             game.add.tween(button_next).to( { alpha: 1 }, 10000, Phaser.Easing.Exponential.Out, true, 0);
+             game.add.tween(button_next).to( { alpha: 1 }, 8000, Phaser.Easing.Exponential.Out, true, 0);
       }
     },
 
     goNext: function (){
           var slide = slides.getChildAt(index);
-          if (index + 2 == 3){
-            var timeDelay = 100;
+          ++index;
+          // var tween;
+
+          if (index + 1 == 3){
+            // alert(slide);
+            alert(timeDilay_Small);
+            var tween_1 = game.add.tween(slide).to( { alpha: 0 }, timeDilay_Small, Phaser.Easing.Exponential.Out, true, 0);
+            tween_1.onStart.add(this.start, this);
+            tween_1.onComplete.add(this.killAll, this);
+          }else {
+            var tween_2 = game.add.tween(slide).to( { alpha: 0 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
+            tween_2.onStart.add(this.start, this);
+            tween_2.onComplete.add(this.killAll, this);
           }
-          var tween = game.add.tween(slide).to( { alpha: 0 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
-          tween.onStart.add(this.start, this);
-          tween.onComplete.add(this.killAll, this);
     },
 
     start: function (){
-        var slide = slides.create(0, 0, 'slide_' + (++index + 1));
+        var slide = slides.create(0, 0, 'slide_' + (index + 1));
+        //alert(index);
         slide.alpha = 0;
         if (index + 1 == 3){
-            // var timeDelay = 10000;
+            //удар корабля
+            alert(timeDilay_Big);
+            game.add.tween(slide).to( { alpha: 1 }, timeDilay_Big , Phaser.Easing.Exponential.Out, true, 0);
+        } else{
+            game.add.tween(slide).to( { alpha: 1 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);//Phaser.Easing.Linear.None
         }
-        game.add.tween(slide).to( { alpha: 1 }, timeDelay, Phaser.Easing.Linear.None, true, 0);//Phaser.Easing.Linear.None
 
         if (index >= 1){
             game.add.tween(button_prev).to( { x : 10 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
@@ -62,23 +75,22 @@ var presentSnowBallGames = {
 
     goBack: function (){
         var slide = slides.getChildAt(index);
+        --index;
         var tween = game.add.tween(slide).to( { alpha: 0 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
 
         tween.onStart.add(this.back, this);
         tween.onComplete.add(this.killAll, this);
 
-
     },
     back: function () {
       // var slide = slides.getChildAt(index).kill() ;
-      var slide = slides.create(0, 0, 'slide_' + (--index + 1));
+      var slide = slides.create(0, 0, 'slide_' + (index + 1));
       slide.alpha = 0;
       game.add.tween(slide).to( { alpha: 1 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
       if (index < 1){
             game.add.tween(button_prev).to( { x : -200 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
       }
     },
-
     killAll: function (something) {
       something.kill();
     }
