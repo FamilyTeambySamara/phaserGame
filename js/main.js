@@ -7,6 +7,8 @@ game.state.add('SnowBallGame', SnowBallGame);
 
 game.state.add('Win_SnowBallGame', Win_SnowBallGame);
 
+game.state.add('presentSnowBallGames', presentSnowBallGames);
+
 game.state.add('Boot', Boot);
 
 game.state.add('Preload', Preload);
