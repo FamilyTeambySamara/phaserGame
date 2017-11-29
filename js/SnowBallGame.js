@@ -92,7 +92,7 @@ window.SnowBallGame =
         game.load.image('smallSnow', 'assets/img/smallSnow.png');
         game.load.image('midleSnow', 'assets/img/midleSnow.png');
         game.load.image('refuse', 'assets/img/refuse.png');
-        game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
+        game.load.spritesheet('star', 'assets/img/stars.png', 50, 50);
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
     },
@@ -492,7 +492,7 @@ window.SnowBallGame =
             refuse.kill();
             var star = gifts.getFirstExists(false);
             star.reset(refuse.x, refuse.y);
-            star.animations.play('play', 5, true, true);
+            star.animations.play('play', 12, true, true);
         }
         bullet.kill();
      },
