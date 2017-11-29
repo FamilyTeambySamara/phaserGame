@@ -11,10 +11,7 @@ var Menu =
     {
       // game.load.image('dragonTexture', 'assets/img/character.png');
       // game.load.json('dragonMesh', 'assets/img/character.json');
-      game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
-
-
-
+      //game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
     },
 
     create: function ()
@@ -30,7 +27,7 @@ var Menu =
      //   button.physicsBodyType = Phaser.Physics.ARCADE;
 
 
-      game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
+      //game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
 
       // var dragon = game.add.creature(450, 350, 'dragonTexture', 'dragonMesh');
       //
@@ -87,6 +84,8 @@ var Menu =
       music.stop();
 
       this.state.start('SnowBallGame');
+      // this.state.start('presentSnowBallGames');
+
     },
 
     hello: function ()

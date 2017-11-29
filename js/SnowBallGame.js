@@ -16,7 +16,8 @@ var timeDealyPolarCreate = 1000;
 
 //====================
 var refuse;
-var snowdrift;
+var gifts;
+var gift;
 //var refuseLive = 10;
 //======================
 //Музыка и звкуи
@@ -28,6 +29,7 @@ var throw_enemy;
 var scoreTable;
 var levelTable;
 var healthTable;
+var starTable;
 
 //Статистика смертей===========
 var bigPolarDead = 0;
@@ -45,6 +47,7 @@ var score = 0; //Количество попаданий
 var nextLevelScore = 3; //Критерий перехода на следующий уровень
 var Level = 1; //Текущий уровень
 var health = 8; //Жизни игрока
+var scoreStars = 0;
 //==================================================================
 //===========Управление============================================
 // var plyaerMouse;
@@ -69,6 +72,8 @@ var enemyBulletTime = 1000;//Начальная задержка пуль по �
 var enemyBulletvelocity = 400;//скорость пуль PLayer
 var playerBulletVelocity = 300;//скорость пуль Enemys
 
+var mark = 'right';//марке стрельбы
+
 var timeDilayEnemy = 2000;//перезардка выстрела  Enemys
 var timeDilayPlayer = 600;//перезардка выстрела  PLayer
 //=================Результат матча========================================
@@ -84,7 +89,10 @@ window.SnowBallGame =
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('mainLayer', 'assets/img/SnowBall_mainLayer.png');
         game.load.image('bigSnow', 'assets/img/bigSnow.png');
-        game.load.image('refuse', 'assets/img/refuse.png')
+        game.load.image('smallSnow', 'assets/img/smallSnow.png');
+        game.load.image('midleSnow', 'assets/img/midleSnow.png');
+        game.load.image('refuse', 'assets/img/refuse.png');
+        game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
     },
@@ -196,50 +204,63 @@ window.SnowBallGame =
         invader.animations.add('kaboom');
       }, this);
 //===========Статичные объект====================
+        //Подарочки
+        gifts = game.add.group();
+        gifts.enableBody = true;
+        //gifts.physicsBodyType = Phaser.Physics.ARCADE;
+        gifts.createMultiple(30, 'star');
+        gifts.setAll('anchor.x', 0.5);
+        gifts.setAll('anchor.y', 0.5);
+        gifts.forEach(
+          function (invader){
+            invader.animations.add('play');
+          }, this);
+        // var new_star = gifts.getFirstExists(false);
+        // new_star.reset(110, 250);
+        // new_star.animations.play('play', true);
+        // new_star = gifts.getFirstExists(false);
+        // new_star.reset(390, 240);
+        // new_star.animations.play('play', 4, true ,true);
       //хижина
       refuse = game.add.group()
-      //refuse.physicsBodyType = Phaser.Physics.ARCADE;
+      refuse.physicsBodyType = Phaser.Physics.ARCADE;
       refuse.enableBody = true;
-      refuse.createMultiple(30, 'refuse');
-      refuse.setAll('anchor.x', 0.5);
-      refuse.setAll('anchor.y', 0.5);
-      // refuse.scale.setTo(0.5, 0.5);
-     refuse.forEach(setParams, this);
-      // for (var i = 0; i < 15, i++){
-      //
-      // }
       //Сугробы
-      // snowdrift = game.add.group();
-      // bigggg.scale.setTo(0.5, 0.5);
-      // game.physics.arcade.enable(bigggg);
-      // // bigggg.enableBody = true;
-      // bigggg.physicsBodyType = Phaser.Physics.ARCADE;
-      // bigggg.body.immovable = true;
-      function setParams(obj){
-        obj.scale.x = 1;
-        obj.scale.y = 1;
-        obj.hp = 10;
-        //obj.enableBody = true;
-        obj.body.immovable = true;
-      }
-      //game.physics.arcade.collide(player, platforms);
-      var ref = refuse.getFirstExists(false);
-      ref.reset(250, 150);
-      // var ref_1 = refuse.getFirstExists(false);
-      // ref_1.reset(450, 250);
-      //ref_1.enableBody = true;
-      //ref_1.body.immovable = true;
-        // refuse.create(350, 400, 'refuse');
-
-      //  = game.add.sprite(400, 90, 'refuse');
-      // refuse.scale.setTo(0.7,0.7);
-      // refuse.anchor.x = 0.5;
-      // refuse.anchor.y = 0.5;
-      // game.physics.arcade.enable(refuse);
-//==========================================================
-      scoreTable =  game.add.text(16, 60, 'score: ' + score, { fontSize: '32px', fill: 'red' });
-      levelTable = game.add.text(16, 16, 'Level: ' + Level, { fontSize: '32px', fill: 'white' });
-      healthTable = game.add.text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'blue' });
+      var ref = refuse.create(390, 240, 'bigSnow');
+      ref.body.immovable = true;
+      ref.hp = 8;
+      ref.anchor.x = 0.5;
+      ref.anchor.y = 0.5;
+      var ref_2 = refuse.create(70, 70, 'refuse');
+      ref_2.body.immovable = true;
+      ref_2.hp = 10;
+      ref_2.anchor.x = 0.5;
+      ref_2.anchor.y = 0.5;
+      var ref_3 = refuse.create(510, 10, 'midleSnow');
+      ref_3.body.immovable = true;
+      ref_3.hp = 5;
+      ref_3.anchor.x = 0.5;
+      ref_3.anchor.y = 0.5;
+      var ref_4 = refuse.create(260, 320, 'smallSnow');
+      ref_4.body.immovable = true;
+      ref_4.hp = 2;
+      ref_4.anchor.x = 0.5;
+      ref_4.anchor.y = 0.5;
+      var ref_5 = refuse.create(110, 250, 'smallSnow');
+      ref_5.body.immovable = true;
+      ref_5.hp = 2;
+      ref_5.anchor.x = 0.5;
+      ref_5.anchor.y = 0.5;
+      var ref_6 = refuse.create(420, 20, 'smallSnow');
+      ref_6.body.immovable = true;
+      ref_6.hp = 2;
+      ref_6.anchor.x = 0.5;
+      ref_6.anchor.y = 0.5;
+//==================Табло=======================
+      scoreTable =  game.add.text(16, 60, 'score: ' + score, { fontSize: '32px', fill: 'white' });
+      levelTable = game.add.text(16, 16, 'Level: ' + Level, { fontSize: '32px', fill: 'blue' });
+      healthTable = game.add.text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
+      starTable = game.add.text(16, 130, 'Stars: ' +  scoreStars, { fontSize: '32px', fill: 'white' });
 //=========Управление игроком========================================
        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
        cursors = game.input.keyboard.createCursorKeys();
@@ -255,21 +276,89 @@ window.SnowBallGame =
     {
       bullet = bullets.getFirstExists(false);
 
-      if (cursors.down.isDown && bullet){
-        //  And fire it
-        throw_plyer.play();
-        bullet.reset(playerBet.x, playerBet.y + 5);
-        bullet.body.velocity.y = playerBulletVelocity;
-        bulletTime = game.time.now + timeDilayPlayer;
-      } else if (bullet) {
-        //  And fire it
-        throw_plyer.play();
-        bullet.reset(playerBet.x + 4, playerBet.y);
-        bullet.body.velocity.x = playerBulletVelocity;
-        bulletTime = game.time.now + timeDilayPlayer;
+      // if (cursors.down.isDown && bullet){
+      //   throw_plyer.play();
+      //   bullet.reset(playerBet.x, playerBet.y + 5);
+      //   bullet.body.velocity.y = playerBulletVelocity;
+      //   bulletTime = game.time.now + timeDilayPlayer;
+      // } else if (cursors.up.isDown && bullet) {
+      //   throw_plyer.play();
+      //   bullet.reset(playerBet.x, playerBet.y - 5);
+      //   bullet.body.velocity.y = -playerBulletVelocity;
+      //   bulletTime = game.time.now + timeDilayPlayer;
+      // } else if (cursors.left.isDown && bullet) {
+      //   throw_plyer.play();
+      //   bullet.reset(playerBet.x - 5, playerBet.y);
+      //   bullet.body.velocity.x = -playerBulletVelocity;
+      //   bulletTime = game.time.now + timeDilayPlayer;
+      // } else if (cursors.right.isDown && bullet) {
+      //   throw_plyer.play();
+      //   bullet.reset(playerBet.x + 5, playerBet.y);
+      //   bullet.body.velocity.x = playerBulletVelocity;
+      //   bulletTime = game.time.now + timeDilayPlayer;
+      // } else if (bullet) {
+      // alert(playerBet.angle);
+          switch (playerBet.angle) {
+            case 90:
+            //вниз
+                throw_plyer.play();
+                bullet.reset(playerBet.x, playerBet.y + 5);
+                bullet.body.velocity.y = playerBulletVelocity;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+            case 45:
+              //вниз-право
+                throw_plyer.play();
+                bullet.reset(playerBet.x, playerBet.y + 5);
+                bullet.body.velocity.y = playerBulletVelocity/2;
+                bullet.body.velocity.x = playerBulletVelocity/2;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+            case -45:
+                //вверх-право
+                throw_plyer.play();
+                bullet.reset(playerBet.x, playerBet.y + 5);
+                bullet.body.velocity.y = -playerBulletVelocity/2;
+                bullet.body.velocity.x = playerBulletVelocity/2;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+            case 135:
+              //вниз-лево
+              throw_plyer.play();
+              bullet.reset(playerBet.x, playerBet.y + 5);
+              bullet.body.velocity.y = playerBulletVelocity/2;
+              bullet.body.velocity.x = -playerBulletVelocity/2;
+              bulletTime = game.time.now + timeDilayPlayer;
+              break;
+            case -135:
+              //вверх-лево
+              throw_plyer.play();
+              bullet.reset(playerBet.x, playerBet.y + 5);
+              bullet.body.velocity.y = -playerBulletVelocity/2;
+              bullet.body.velocity.x = -playerBulletVelocity/2;
+              bulletTime = game.time.now + timeDilayPlayer;
+              break;
+            case -90:
+                throw_plyer.play();
+                bullet.reset(playerBet.x, playerBet.y - 5);
+                bullet.body.velocity.y = -playerBulletVelocity;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+            case -180:
+                throw_plyer.play();
+                bullet.reset(playerBet.x - 5, playerBet.y);
+                bullet.body.velocity.x = -playerBulletVelocity;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+            case 0:
+                throw_plyer.play();
+                bullet.reset(playerBet.x + 5, playerBet.y);
+                bullet.body.velocity.x = playerBulletVelocity;
+                bulletTime = game.time.now + timeDilayPlayer;
+                break;
+          }
+        // }
       }
-
-    }
 
 },
       fireBulletSmartEnemy: function (enemy) {
@@ -368,6 +457,7 @@ window.SnowBallGame =
               case 15:
                   saveBox = {score: score};
                   //========Сброс настроек====
+                  scoreStars = 0;
                   simplePolarDead = 0;
                   smartPolarDead = 0;
                   bigPolarDead = 0;
@@ -400,6 +490,9 @@ window.SnowBallGame =
 
         if (refuse.hp < 1){
             refuse.kill();
+            var star = gifts.getFirstExists(false);
+            star.reset(refuse.x, refuse.y);
+            star.animations.play('play', 5, true, true);
         }
         bullet.kill();
      },
@@ -424,6 +517,7 @@ window.SnowBallGame =
         {
             saveBox = {score: score};
             //========Сброс настроек====
+            scoreStars = 0;
             simplePolarDead = 0;
             smartPolarDead = 0;
             bigPolarDead = 0;
@@ -440,6 +534,13 @@ window.SnowBallGame =
             this.state.start('Game_over');
         }
         healthTable.text = 'HitPoint: ' + health;
+     },
+
+     killGifts: function (player, star){
+       star.kill();
+       scoreStars += 1;
+       starTable.text = "Stars: " + scoreStars;
+
      },
 
       manipulate: function (polar) {
@@ -518,26 +619,50 @@ window.SnowBallGame =
               playerBet.body.velocity.x = 250;
               //playerBet.angle = 90;
               //  playerBet.animations.play('left'); ждем спрайтов
-         } else if (cursors.left.isDown && !(cursors.up.isDown) && !(cursors.down.isDown)){
+         } else if (cursors.left.isDown && !cursors.up.isDown && !cursors.down.isDown){
               playerBet.animations.play('right');
               playerBet.angle = 180;
               playerBet.body.velocity.x = -250;
               //  playerBet.animations.play('left'); ждем спрайтов
-         } else if (cursors.up.isDown){
+         } else if (cursors.up.isDown && !cursors.left.isDown && !cursors.right.isDown){
               playerBet.animations.play('right');
               playerBet.angle = 270;
               playerBet.body.velocity.y = -250;
              //playerBet.animations.stop();
              // player.frame = 4;
-         } else if (cursors.down.isDown){
+         } else if (cursors.down.isDown && !cursors.left.isDown && !cursors.right.isDown){
                playerBet.animations.play('right');
                playerBet.angle = 90;
               playerBet.body.velocity.y = 250;
-         } else {
-              playerBet.animations.stop('right');
-              playerBet.body.velocity.y = 0;
-              playerBet.body.velocity.x = 0;
-         }
+         } else if (cursors.down.isDown && cursors.left.isDown){
+               playerBet.animations.play('right');
+               playerBet.angle = 135;
+               playerBet.body.velocity.y = 125;
+               playerBet.body.velocity.x = -125;
+
+          } else if (cursors.down.isDown && cursors.right.isDown){
+                playerBet.animations.play('right');
+                playerBet.angle = 45;
+                playerBet.body.velocity.y = 125;
+                playerBet.body.velocity.x = 125;
+
+         } else if (cursors.up.isDown && cursors.left.isDown){
+               playerBet.animations.play('right');
+               playerBet.angle = 225;
+               playerBet.body.velocity.y = -125;
+               playerBet.body.velocity.x = -125;
+
+          } else if (cursors.up.isDown && cursors.right.isDown){
+                playerBet.animations.play('right');
+                playerBet.angle = 315;
+                playerBet.body.velocity.y = -125;
+                playerBet.body.velocity.x = 125;
+
+           } else {
+            playerBet.animations.stop('right');
+            playerBet.body.velocity.y = 0;
+            playerBet.body.velocity.x = 0;
+       }
 //=========================================================================
 //Ограничения для игрока по высоте и ширине карты
          var playerBetHalfWidth = playerBet.width / 2;
@@ -679,6 +804,8 @@ window.SnowBallGame =
               game.physics.arcade.overlap(refuse, enemyBullets,  this.killBullets, null, this);
               game.physics.arcade.overlap(refuse, enemyBulletsBig,  this.killBulletsBig, null, this);
               game.physics.arcade.overlap(refuse, bullets,  this.killBullets, null, this);
+
+              game.physics.arcade.overlap(gifts, playerBet,  this.killGifts, null, this);
 //======================================================================================
          // game.physics.arcade.collide(ball, playerBet, this.boomBol(playerBet), null, this);
          // game.physics.arcade.collide(ball, computerBet, this.boomBol(computerBet), null, this);
@@ -701,7 +828,7 @@ window.SnowBallGame =
       if (enemyBulletBig)
       {
           //  And fire it
-          //enemyBulletBig.scale.setTo(4,4);
+          enemyBulletBig.scale.setTo(0.7, 0.7);
           enemyBulletBig.reset(bigPolarMan.x, bigPolarMan.y - 10);
           enemyBulletBig.body.velocity.y = -enemyBulletvelocity/7;
           enemyBulletBig.animations.play('goBall');
