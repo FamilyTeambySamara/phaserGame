@@ -113,7 +113,7 @@ window.SnowBallGame =
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.image(0, 0, 'mainLayer');
     //====================MAINPLAYEEEEEEER===
-    playerBet = game.add.sprite(game.world.centerX, 20, 'bet');
+    playerBet = game.add.sprite(35, 230, 'bet');
     playerBet.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(playerBet);
     playerBet.animations.add('right',[0, 1, 2, 3, 4, 5, 6, 7 ,8,9,10,11,12,13,14,15,16,17,19,20], 12, true);
@@ -252,7 +252,7 @@ window.SnowBallGame =
       refuse.physicsBodyType = Phaser.Physics.ARCADE;
       refuse.enableBody = true;
       //Сугробы
-      var ref = refuse.create(390, 240, 'bigSnow');
+      var ref = refuse.create(420, 240, 'bigSnow');
       ref.body.immovable = true;
       ref.hp = 8;
       ref.anchor.x = 0.5;
@@ -267,17 +267,17 @@ window.SnowBallGame =
       ref_3.hp = 5;
       ref_3.anchor.x = 0.5;
       ref_3.anchor.y = 0.5;
-      var ref_4 = refuse.create(260, 320, 'smallSnow');
+      var ref_4 = refuse.create(240, 350, 'smallSnow');
       ref_4.body.immovable = true;
       ref_4.hp = 2;
       ref_4.anchor.x = 0.5;
       ref_4.anchor.y = 0.5;
-      var ref_5 = refuse.create(110, 250, 'smallSnow');
+      var ref_5 = refuse.create(100, 240, 'smallSnow');
       ref_5.body.immovable = true;
       ref_5.hp = 2;
       ref_5.anchor.x = 0.5;
       ref_5.anchor.y = 0.5;
-      var ref_6 = refuse.create(420, 20, 'smallSnow');
+      var ref_6 = refuse.create(420, 40, 'smallSnow');
       ref_6.body.immovable = true;
       ref_6.hp = 2;
       ref_6.anchor.x = 0.5;
