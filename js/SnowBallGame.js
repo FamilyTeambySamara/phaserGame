@@ -43,6 +43,7 @@ var smartPolarDead = 0;
 //Анимационные эффекты===================
 var explosions;
 var explosion;
+window.animBigPolar;
 
 //============================Переменные значения(настройки игры)==================
 var computerBetSpeed = 150; //Скорость передвижения компьютера
@@ -92,7 +93,7 @@ window.SnowBallGame =
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
         game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
-        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 70, 70);
+        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 51, 58);
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('mainLayer', 'assets/img/SnowBall_mainLayer.png');
         game.load.image('bigSnow', 'assets/img/bigSnow.png');
@@ -192,6 +193,8 @@ window.SnowBallGame =
         bigPolarMen.forEach(
           function (invader){
             invader.animations.add('go',  [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 12, true);
+            animBigPolar = invader.animations.add('throw',  [12, 13, 14], 3, false);
+
             //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
           }, this);
 //===============SmartPolarMen==============================
@@ -608,22 +611,26 @@ window.SnowBallGame =
                                     bigPolarMan.body.velocity.y = 0;
                                 }
                       //====================Управление======================
-                                if ((bigPolarMan.x - playerBet.x) < -35 ){
+                                if ((bigPolarMan.x - playerBet.x) < -35 && bigPolarMan.animations.getAnimation('throw').isFinished){
                                       bigPolarMan.angle = 0;
                                       bigPolarMan.animations.play('go');
                                       bigPolarMan.body.velocity.x = computerBetSpeed/4;
-                                } else if ((bigPolarMan.x - playerBet.x) > 35){
+                                } else if ((bigPolarMan.x - playerBet.x) > 35 && bigPolarMan.animations.getAnimation('throw').isFinished){
                                         bigPolarMan.angle = 180;
                                         bigPolarMan.animations.play('go');
                                         bigPolarMan.body.velocity.x = -computerBetSpeed/4;
-                                } else {
+                                        // bigPolarMan.animations.stop();
+                                } else if (bigPolarMan.animations.getAnimation('throw').isFinished) {
                                         bigPolarMan.angle = 270;
                                         bigPolarMan.body.velocity.x = 0;
-                                        bigPolarMan.animations.stop();
+                                        // bigPolarMan.animations.stop();
                                 }
 
                                 if (Math.abs(bigPolarMan.x - playerBet.x) < 400){
                                       fireBulletEnemyBig();
+                                      //bigPolarMan.animations.stop();
+                                      // bigPolarMan.angle = 270;
+                                      // alert(animBigPolar.isFinished);
                                 }
                               }
       },
@@ -701,8 +708,8 @@ window.SnowBallGame =
          if (playerBet.x < playerBetHalfWidth) {
             playerBet.x = playerBetHalfWidth;
          }
-         else if (playerBet.x > game.width - playerBetHalfWidth) {
-            playerBet.x = game.width - playerBetHalfWidth;
+         else if (playerBet.x > 650 - playerBetHalfWidth) {
+            playerBet.x = 650 - playerBetHalfWidth;
          }
 
          if (playerBet.y < playerBetHalfHeight) {
@@ -847,6 +854,8 @@ window.SnowBallGame =
       if (enemyBulletBig)
       {
           //  And fire it
+          bigPolarMan.angle = 270;
+          bigPolarMan.animations.play('throw');
           enemyBulletBig.scale.setTo(0.7, 0.7);
           enemyBulletBig.reset(bigPolarMan.x, bigPolarMan.y - 10);
           enemyBulletBig.body.velocity.y = -enemyBulletvelocity/7;
