@@ -26,6 +26,7 @@ var throw_enemy;
 var harmPolar;
 var clap;
 var hitPinguin
+var starSong;
 //========================
 //====================
 ///Таблица данных об игре
@@ -89,6 +90,7 @@ window.SnowBallGame =
         game.load.audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
         game.load.audio('clap', 'assets/audio/clap_2.mp3');
         game.load.audio('hitPinguin', 'assets/audio/hitPinguin.wav');
+        game.load.audio('starSong', 'assets/audio/bell.mp3');
         //
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
@@ -125,8 +127,11 @@ window.SnowBallGame =
     harmPolar = game.add.audio('harmPolar');
     clap = game.add.audio('clap');
     clap.volume = 0.3;
+    //удар в пингвина
     hitPinguin = game.add.audio('hitPinguin');
     hitPinguin.volume = 0.4;
+    //сбор звездочек
+    starSong = game.add.audio('starSong');
     //=======================================
     mainTrack = game.add.audio('snowBallGame_mainTrack');
     mainTrack.volume = 0.5;
@@ -180,7 +185,9 @@ window.SnowBallGame =
       simplePolarMan.setAll('anchor.y', 0.5);
       simplePolarMan.forEach(
         function (invader){
-          invader.animations.add('go',  [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 12, true);
+          invader.animations.add('go', [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 30, true);
+          invader.animations.add('goBack', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 30, true);
+          invader.animations.add('shoot',  [26, 27, 28], 30, true);
           //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
         }, this);
 //================BigPolarMen=============================
@@ -411,6 +418,7 @@ window.SnowBallGame =
           {
               //  And fire it
               throw_enemy.play();
+              enemy.animations.play('shoot');
               //simplePolarMan.animations.play('throwSimpleMan');
               // simplePolarMen.animations.add('throwSimpleMan');
               // simplePolarMen.animations.play('throwSimpleMan', 30, true, true);
@@ -444,10 +452,9 @@ window.SnowBallGame =
               } else {
                 bigPolarDead += 1;
               }
-              polar.animations.play('go');
+              polar.animations.play('goBack');
               polar.angle = 0;
-              polar.body.velocity.x = 200;
-
+              polar.body.velocity.x = 120 ;
             //  alert(simplePolarMan.countDead());
             }
 
@@ -561,6 +568,7 @@ window.SnowBallGame =
 
      killGifts: function (player, star){
        star.kill();
+       starSong.play();
        scoreStars += 1;
        starTable.text = "Stars: " + scoreStars;
 
@@ -569,21 +577,21 @@ window.SnowBallGame =
       manipulate: function (polar) {
             //alert(game.time.now);
               if (polar.hp > 0){
-                if (polar.timeWalk > game.time.now){
+                if (polar.timeWalk > game.time.now && polar.animations.getAnimation('shoot').isFinished){
 
                   // if(simplePolarMan.countLiving() > 0){
 
-                    if(polar.y - playerBet.y < -55) {
+                    if(polar.y - playerBet.y < -55 && polar.animations.getAnimation('shoot').isFinished) {
                         polar.angle = 90;
                         polar.animations.play('go');
                         polar.body.velocity.y = computerBetSpeed;
                     }
-                    else if(polar.y - playerBet.y > 55) {
+                    else if(polar.y - playerBet.y > 55 && polar.animations.getAnimation('shoot').isFinished) {
                       polar.angle = 270;
                        polar.body.velocity.y = -computerBetSpeed;
                        polar.animations.play('go');
                     }
-                    else {
+                    else if (polar.animations.getAnimation('shoot').isFinished) {
                         polar.angle = 180;
                         polar.animations.stop();
                         polar.body.velocity.y = 0;
@@ -619,18 +627,13 @@ window.SnowBallGame =
                                         bigPolarMan.angle = 180;
                                         bigPolarMan.animations.play('go');
                                         bigPolarMan.body.velocity.x = -computerBetSpeed/4;
-                                        // bigPolarMan.animations.stop();
                                 } else if (bigPolarMan.animations.getAnimation('throw').isFinished) {
                                         bigPolarMan.angle = 270;
                                         bigPolarMan.body.velocity.x = 0;
-                                        // bigPolarMan.animations.stop();
+                                        bigPolarMan.animations.stop();
                                 }
-
                                 if (Math.abs(bigPolarMan.x - playerBet.x) < 400){
                                       fireBulletEnemyBig();
-                                      //bigPolarMan.animations.stop();
-                                      // bigPolarMan.angle = 270;
-                                      // alert(animBigPolar.isFinished);
                                 }
                               }
       },
