@@ -11,8 +11,8 @@ var presentSnowBallGames = {
         game.load.image('slide_1', 'assets/img/presentGameSnowBall/slide_1.png');
         game.load.image('slide_2', 'assets/img/presentGameSnowBall/slide_2.png');
         game.load.image('slide_3', 'assets/img/presentGameSnowBall/slide_3.png');
-        // game.load.image('slide_4', 'assets/img/presentGameSnowBall/slide_4.png');
-        // game.load.image('slide_5', 'assets/img/presentGameSnowBall/slide_5.png');
+        game.load.image('slide_4', 'assets/img/presentGameSnowBall/slide_4.png');
+        game.load.image('slide_5', 'assets/img/presentGameSnowBall/slide_5.png');
         // game.load.image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
         // game.load.image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
 
@@ -42,9 +42,9 @@ var presentSnowBallGames = {
           ++index;
           // var tween;
 
-          if (index + 1 == 3){
+          if (index + 1 == 4){
             // alert(slide);
-            alert(timeDilay_Small);
+            // alert(timeDilay_Small);
             var tween_1 = game.add.tween(slide).to( { alpha: 0 }, timeDilay_Small, Phaser.Easing.Exponential.Out, true, 0);
             tween_1.onStart.add(this.start, this);
             tween_1.onComplete.add(this.killAll, this);
@@ -59,9 +59,9 @@ var presentSnowBallGames = {
         var slide = slides.create(0, 0, 'slide_' + (index + 1));
         //alert(index);
         slide.alpha = 0;
-        if (index + 1 == 3){
+        if (index + 1 == 4){
             //удар корабля
-            alert(timeDilay_Big);
+            // alert(timeDilay_Big);
             game.add.tween(slide).to( { alpha: 1 }, timeDilay_Big , Phaser.Easing.Exponential.Out, true, 0);
         } else{
             game.add.tween(slide).to( { alpha: 1 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);//Phaser.Easing.Linear.None

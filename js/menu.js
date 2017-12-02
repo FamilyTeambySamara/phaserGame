@@ -61,7 +61,7 @@ var Menu =
       // shadow.x = sprite.x + offset.x;
       // shadow.y = sprite.y + offset.y;
 
-      //////////////снег
+      //////////////снег===================
       back_emitter = this.add.emitter(game.world.centerX, -32, 600);
       back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
       back_emitter.maxParticleScale = 0.6;
