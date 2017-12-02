@@ -20,12 +20,13 @@ var gifts;
 var gift;
 //var refuseLive = 10;
 //======================
-//Музыка и звкуи
+//Музыка и звкуи audio
 var throw_player;
 var throw_enemy;
 var harmPolar;
 var clap;
-
+var hitPinguin
+//========================
 //====================
 ///Таблица данных об игре
 var scoreTable;
@@ -85,7 +86,8 @@ window.SnowBallGame =
 {
     preload: function () {
         game.load.audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
-        game.load.audio('clap', 'assets/audio/clap.wav');
+        game.load.audio('clap', 'assets/audio/clap_2.mp3');
+        game.load.audio('hitPinguin', 'assets/audio/hitPinguin.wav');
         //
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
@@ -121,10 +123,12 @@ window.SnowBallGame =
     //звуки полярников
     harmPolar = game.add.audio('harmPolar');
     clap = game.add.audio('clap');
-    clap.volume = 0.6;
+    clap.volume = 0.3;
+    hitPinguin = game.add.audio('hitPinguin');
+    hitPinguin.volume = 0.4;
     //=======================================
     mainTrack = game.add.audio('snowBallGame_mainTrack');
-    mainTrack.volume = 0.4;
+    mainTrack.volume = 0.5;
     mainTrack.play();
 //=============Снег на фоне игры===================================
       // back_emitter = this.add.emitter(game.world.centerX, -32, 600);
@@ -527,6 +531,7 @@ window.SnowBallGame =
      killPLayer: function (bet, bullet )
      {
         bullet.kill();
+        hitPinguin.play();
         health = health - 1;
         if (health < 1)
         {
