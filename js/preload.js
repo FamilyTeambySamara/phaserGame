@@ -38,7 +38,9 @@ var Preload = {
     create: function() {
 
       //console.log('%cSTATE::PRELOAD', 'color: #fff; background: #0f0;');
-
+      // if (trigger = 'snowBallGame'){
+      //       game.state.start('SnowBallGame');
+      // } else if ()
       game.state.start('Menu');
  }
 }
