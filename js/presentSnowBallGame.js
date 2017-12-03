@@ -59,7 +59,7 @@ var presentSnowBallGames = {
         button_next.alpha =  0;
 
         button_prev = this.add.button(-250, 390, 'arrow_2', this.goBack, this, 1, 2 ,0);
-        button_prev.angle = -180;
+        // button_prev.angle = -180;
 
         button_game = this.add.button(400, 390, 'button', this.goGame, this, 2, 1 ,0);
         button_game.alpha = 0;
