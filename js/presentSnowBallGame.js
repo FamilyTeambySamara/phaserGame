@@ -154,6 +154,7 @@ var presentSnowBallGames = {
     },
     goGame: function (){
         action.stop();
+        index = 0;
         game.state.start('SnowBallGame');
     }
 

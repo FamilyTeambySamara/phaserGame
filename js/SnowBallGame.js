@@ -93,6 +93,7 @@ window.SnowBallGame =
         game.load.audio('starSong', 'assets/audio/bell.mp3');
         //
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
+        game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
         game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
         game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
@@ -212,7 +213,7 @@ window.SnowBallGame =
         smartPolarMen = game.add.group();
         smartPolarMen.enableBody = true;
         smartPolarMen.physicsBodyType = Phaser.Physics.ARCADE;
-        smartPolarMen.createMultiple(30, 'simplePolarMan');
+        smartPolarMen.createMultiple(30, 'smartPolarMan');
         smartPolarMen.setAll('anchor.x', 0.5);
         smartPolarMen.setAll('anchor.y', 0.5);
         smartPolarMen.forEach(
@@ -906,7 +907,7 @@ window.Win_SnowBallGame =
 {
     create: function ()
     {
-      this.add.tileSprite(0, 0, 640, 450, 'Game_over');
+      this.add.image(0, 0, 'Game_over');
       this.add.text(250, 40, 'You are Win!!!', { fontSize: '32px', fill: 'red' });
       this.add.text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
       //this.add.button( 250, 250, 'button', this.startPlay, this, 2, 1, 0);
@@ -916,11 +917,16 @@ window.Win_SnowBallGame =
     startPlay: function () {
           Level = 1;
           score = 0;
+          index = 0;
           this.state.start('SnowBallGame');
     },
 
     goToMenu: function ()
+
     {
+          Level = 1;
+          score = 0;
+          index = 0;
           game.state.start('Menu');
     }
 }
