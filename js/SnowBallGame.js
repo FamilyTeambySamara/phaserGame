@@ -51,7 +51,7 @@ var computerBetSpeed = 150; //Скорость передвижения комп
 var score = 0; //Количество попаданий
 var nextLevelScore = 3; //Критерий перехода на следующий уровень
 var Level = 1; //Текущий уровень
-var health = 8; //Жизни игрока
+var health = 3; //Жизни игрока
 var scoreStars = 0;
 //==================================================================
 //===========Управление============================================
@@ -93,9 +93,10 @@ window.SnowBallGame =
         game.load.audio('starSong', 'assets/audio/bell.mp3');
         //
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
+        game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
         game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
-        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 60, 78);
+        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('mainLayer', 'assets/img/snowBall_mainLayer.png');
         game.load.image('bigSnow', 'assets/img/bigSnow.png');
@@ -116,7 +117,11 @@ window.SnowBallGame =
     playerBet = game.add.sprite(35, 230, 'bet');
     playerBet.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(playerBet);
-    playerBet.animations.add('right',[0, 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 12, true);
+        // playerBet.animations.add('throw',[0, 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
+    playerBet.animations.add('throw',[ 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
+    playerBet.animations.add('right',[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], 25, true);
+    playerBet.animations.add('hit',[42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], 25);
+
     //====================Добавлем музыку и звуки====================
     //звуки бросков
     throw_plyer = game.add.audio('throw');
@@ -208,7 +213,7 @@ window.SnowBallGame =
         smartPolarMen = game.add.group();
         smartPolarMen.enableBody = true;
         smartPolarMen.physicsBodyType = Phaser.Physics.ARCADE;
-        smartPolarMen.createMultiple(30, 'simplePolarMan');
+        smartPolarMen.createMultiple(30, 'smartPolarMan');
         smartPolarMen.setAll('anchor.x', 0.5);
         smartPolarMen.setAll('anchor.y', 0.5);
         smartPolarMen.forEach(
@@ -301,7 +306,7 @@ window.SnowBallGame =
     if (game.time.now > bulletTime)
     {
       bullet = bullets.getFirstExists(false);
-
+      playerBet.animations.play('throw');
       // if (cursors.down.isDown && bullet){
       //   throw_plyer.play();
       //   bullet.reset(playerBet.x, playerBet.y + 5);
@@ -568,6 +573,7 @@ window.SnowBallGame =
 
         }
         hitPinguin.play();
+        playerBet.animations.play('hit');
         health = health - 1;
         if (health < 1)
         {
@@ -680,7 +686,9 @@ window.SnowBallGame =
 //Управление Player============================================================
          if (cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown){
               playerBet.angle = 0;
-              playerBet.animations.play('right');
+              if ((playerBet.animations.getAnimation('hit').isFinished || !playerBet.animations.getAnimation('hit')) && (playerBet.animations.getAnimation('throw').isFinished || !playerBet.animations.getAnimation('throw'))){
+                playerBet.animations.play('right');
+              }
               playerBet.body.velocity.x = 250;
               //playerBet.angle = 90;
               //  playerBet.animations.play('left'); ждем спрайтов
@@ -899,7 +907,7 @@ window.Win_SnowBallGame =
 {
     create: function ()
     {
-      this.add.tileSprite(0, 0, 640, 450, 'Game_over');
+      this.add.image(0, 0, 'Game_over');
       this.add.text(250, 40, 'You are Win!!!', { fontSize: '32px', fill: 'red' });
       this.add.text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
       //this.add.button( 250, 250, 'button', this.startPlay, this, 2, 1, 0);
@@ -909,11 +917,16 @@ window.Win_SnowBallGame =
     startPlay: function () {
           Level = 1;
           score = 0;
+          index = 0;
           this.state.start('SnowBallGame');
     },
 
     goToMenu: function ()
+
     {
+          Level = 1;
+          score = 0;
+          index = 0;
           game.state.start('Menu');
     }
 }

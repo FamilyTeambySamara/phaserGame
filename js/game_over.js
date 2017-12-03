@@ -2,7 +2,7 @@ var Game_over =
 {
     create: function ()
     {
-      this.add.tileSprite(0, 0, 640, 450, 'Game_over');
+      this.add.image(0, 0, 'Game_over');
       this.add.text(250, 40, 'GAME OVER', { fontSize: '32px', fill: 'red' });
       this.add.text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
       this.add.button( 250, 250, 'button', this.startPlay, this, 2, 1, 0);
