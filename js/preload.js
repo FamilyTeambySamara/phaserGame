@@ -11,12 +11,6 @@ var Preload = {
       loadingText.anchor.setTo(0.5, 0.5);
 
 
-      game.load.image('test_0', 'https://upload.wikimedia.org/wikipedia/commons/c/cd/View_from_connors_hill_panorama.jpg');
-      //game.load.image('test_1', 'http://photoblogstop.com/wp-content/uploads/2012/07/Sierra_HDR_Panorama_DFX8048_2280x819_Q40_wm_mini.jpg');
-      game.load.image('test_2', 'http://www.larkinweb.co.uk/panoramas/lake_placid/Lake_Placid_south_medium_res_panorama.jpg');
-      //game.load.image('test_3', 'http://peraalto.se/wp-content/uploads/2013/03/PanoramaRaps.jpg');
-    //  game.load.image('test_4', 'http://parkerlab.bio.uci.edu/pictures/photography%20pictures/2008_12_19_select/Untitled_Panorama1.jpg');
-
     game.load.image('menu', 'assets/img/menuWrapper.png');
     game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
     game.load.image('Game_over', 'assets/img/menu_over.png');
