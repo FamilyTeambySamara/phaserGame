@@ -5,6 +5,15 @@ var back_emitter;
 var load_time = 0;
 var button;
 
+var mainLayout;
+var animLayout;
+
+var textStart;
+var textOutAnim;
+
+var windSong;
+var buttonSong;
+
 var Menu =
 {
     preload: function ()
@@ -12,6 +21,8 @@ var Menu =
       // game.load.image('dragonTexture', 'assets/img/character.png');
       // game.load.json('dragonMesh', 'assets/img/character.json');
       //game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
+      game.load.audio('wind',  'assets/audio/wind.wav');
+      game.load.audio('buttonSong',  'assets/audio/button.wav');
     },
 
     create: function ()
@@ -19,10 +30,13 @@ var Menu =
       music = game.add.audio('cristmas');
       music.loopFull();
 
-      this.add.image(0, 0, 'menu');
+      windSong = game.add.audio('wind');
+      buttonSong = game.add.audio('buttonSong');
+
+      mainLayout = this.add.image(0, 0, 'menu');
       button = this.add.button(300, 150, 'button', this.startGame, this, 2, 1 ,0);
       //button.anchor.setTo(0.5,0.5);
-      button.alpha = 0;
+      button.alpha = 1;
      // button.enableBody = true;
      //   button.physicsBodyType = Phaser.Physics.ARCADE;
 
@@ -62,7 +76,7 @@ var Menu =
       // shadow.y = sprite.y + offset.y;
 
       //////////////снег===================
-      back_emitter = this.add.emitter(game.world.centerX, -32, 600);
+      back_emitter = this.add.emitter(game.world.centerX, -32, 5200);
       back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
       back_emitter.maxParticleScale = 0.6;
       back_emitter.minParticleScale = 0.2;
@@ -74,17 +88,52 @@ var Menu =
 
       back_emitter.start(false, 14000, 20);
 
+      textStart = game.add.text(220, 200, 'Новогодние приключения \n      пингвиненка Тони', { fontSize: '32px', fill: 'red' });
+      textStart.alpha = 0;
+
       ///////////////////////////////////
+    },
+
+    animationTransition: function () {
+      game.add.tween(button).to({alpha: 0}, 3000, Phaser.Easing.Exponential.Out, true, 0);
+      animLayout = game.add.tween(mainLayout).to( {tint: 0xffffff ,alpha: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
+      textStartAnim = game.add.tween(textStart).to( {alpha: 1}, 6000, Phaser.Easing.Linear.None, true, 1500);
+
+
+      textStartAnim.onComplete.add(changeWind, this);
+
+      function changeWind (){
+          //mainLayout.kill();
+          windSong.play();
+          music.stop();
+          back_emitter.start(false, 14000, 20000000);
+          textOutAnim = game.add.tween(textStart).to( {alpha: 0}, 5000, Phaser.Easing.Linear.None, true, 0);
+
+
+          // game.particles.remove(back_emitter);
+          back_emitter.forEachAlive(function (snow) {snow.body.velocity.x = 200;}, this);
+
+          textOutAnim.onComplete.add(goPresentation, this);
+
+          function goPresentation (){
+           score = 0;
+           Level = 1;
+           //music.stop();
+           game.state.start('presentSnowBallGames');
+         }
+
+          // back_emitter.kill();
+      }
+
     },
 
     startGame: function ()
     {
-      score = 0;
-      Level = 1;
-      music.stop();
 
-      this.state.start('SnowBallGame');
-      // this.state.start('presentSnowBallGames');
+      // this.state.start('SnowBallGame');
+      this.animationTransition();
+      buttonSong.volume = 0.6;   
+      buttonSong.play();
 
     },
 
@@ -96,9 +145,9 @@ var Menu =
     update: function ()
     {
 
-      if (button.alpha < 1){
-          button.alpha += 0.0025;
-      }
+      // if (button.alpha < 1){
+      //     button.alpha += 0.5;
+      // }
       // load_time = game.load.progress;
 
     }

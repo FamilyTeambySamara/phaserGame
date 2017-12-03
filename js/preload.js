@@ -19,7 +19,7 @@ var Preload = {
 
     game.load.image('menu', 'assets/img/menuWrapper.png');
     game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
-    game.load.image('Game_over', 'assets/img/menu_over.jpg');
+    game.load.image('Game_over', 'assets/img/menu_over.png');
     game.load.image('moon', 'assets/img/moon.png');
 
 

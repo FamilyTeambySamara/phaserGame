@@ -44,7 +44,7 @@ var smartPolarDead = 0;
 //Анимационные эффекты===================
 var explosions;
 var explosion;
-window.animBigPolar;
+var animBigPolar;
 
 //============================Переменные значения(настройки игры)==================
 var computerBetSpeed = 150; //Скорость передвижения компьютера
@@ -116,7 +116,7 @@ window.SnowBallGame =
     playerBet = game.add.sprite(35, 230, 'bet');
     playerBet.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(playerBet);
-    playerBet.animations.add('right',[0, 1, 2, 3, 4, 5, 6, 7 ,8,9,10,11,12,13,14,15,16,17,19,20], 12, true);
+    playerBet.animations.add('right',[0, 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 12, true);
     //====================Добавлем музыку и звуки====================
     //звуки бросков
     throw_plyer = game.add.audio('throw');

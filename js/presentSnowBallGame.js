@@ -5,6 +5,8 @@ var button_prev;
 var timeDelay = 3000;
 var timeDilay_Big = 9000;
 var timeDilay_Small = 100;
+
+var oneSlide;
 var presentSnowBallGames = {
 
     preload: function (){
@@ -13,14 +15,22 @@ var presentSnowBallGames = {
         game.load.image('slide_3', 'assets/img/presentGameSnowBall/slide_3.png');
         game.load.image('slide_4', 'assets/img/presentGameSnowBall/slide_4.png');
         game.load.image('slide_5', 'assets/img/presentGameSnowBall/slide_5.png');
-        // game.load.image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
+
+        game.load.audio('mainTheme',  'assets/audio/Cellophane_Sam_-_05_-_Desire(present_start).mp3');
+        game.load.image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
         // game.load.image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
 
     },
 
     create: function () {
         slides = game.add.group()
-        slides.create(0, 0, 'slide_1');
+        oneSlide = slides.create(0, 0, 'slide_1');
+        oneSlide.alpha = 0;
+        game.add.tween(oneSlide).to({alpha: 1}, 5000, Phaser.Easing.Linear.None, true, 0);
+
+        mainTheme = game.add.audio('mainTheme');
+        mainTheme.volume = 0.5;
+        mainTheme.play();
 
         button_next = this.add.button(600, 390, 'button', this.goNext, this, 2, 1 ,0);
         button_next.alpha =  0;
@@ -38,6 +48,7 @@ var presentSnowBallGames = {
     },
 
     goNext: function (){
+          buttonSong.play();
           var slide = slides.getChildAt(index);
           ++index;
           // var tween;
@@ -74,6 +85,7 @@ var presentSnowBallGames = {
     },
 
     goBack: function (){
+        buttonSong.play();
         var slide = slides.getChildAt(index);
         --index;
         var tween = game.add.tween(slide).to( { alpha: 0 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
