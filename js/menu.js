@@ -23,6 +23,8 @@ var Menu =
       //game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
       game.load.audio('wind',  'assets/audio/wind.wav');
       game.load.audio('buttonSong',  'assets/audio/button.wav');
+      game.load.spritesheet('button_play', 'assets/img/button_sprite3.png', 193 , 71);
+      game.load.spritesheet('button_out', 'assets/img/button_sprite4.png', 193 , 71);
     },
 
     create: function ()
@@ -34,7 +36,7 @@ var Menu =
       buttonSong = game.add.audio('buttonSong');
 
       mainLayout = this.add.image(0, 0, 'menu');
-      button = this.add.button(300, 150, 'button', this.startGame, this, 2, 1 ,0);
+      button = this.add.button(300, 150, 'button_play', this.startGame, this, 1, 0 ,2);
       //button.anchor.setTo(0.5,0.5);
       button.alpha = 1;
      // button.enableBody = true;
@@ -95,7 +97,8 @@ var Menu =
     },
 
     animationTransition: function () {
-      game.add.tween(button).to({alpha: 0}, 3000, Phaser.Easing.Exponential.Out, true, 0);
+      var buttonAnim = game.add.tween(button).to({alpha: 0}, 3000, Phaser.Easing.Exponential.Out, true, 0);
+      buttonAnim.onComplete.add(this.killAll, this);
       animLayout = game.add.tween(mainLayout).to( {tint: 0xffffff ,alpha: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
       textStartAnim = game.add.tween(textStart).to( {alpha: 1}, 6000, Phaser.Easing.Linear.None, true, 1500);
 
@@ -119,7 +122,9 @@ var Menu =
            score = 0;
            Level = 1;
            //music.stop();
-           game.state.start('presentSnowBallGames');
+           // game.state.start('presentSnowBallGames');
+            game.state.start('SnowBallGame');
+            // game.state.start('Win_SnowBallGame');
          }
 
           // back_emitter.kill();
@@ -132,7 +137,7 @@ var Menu =
 
       // this.state.start('SnowBallGame');
       this.animationTransition();
-      buttonSong.volume = 0.6;   
+      buttonSong.volume = 0.6;
       buttonSong.play();
 
     },
@@ -140,6 +145,10 @@ var Menu =
     hello: function ()
     {
       alert('hello');
+    },
+
+    killAll: function (something) {
+      something.kill();
     },
 
     update: function ()
