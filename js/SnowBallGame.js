@@ -445,7 +445,9 @@ window.SnowBallGame =
 
             //добавляем счет
             // alert(bullet.hp);
-            score = score + 1;
+            if (polar.hp >= 1){
+              score = score + 1;
+            }
             scoreTable.text = 'Score: ' + score;
             //убиваем и взрываем пулю
             bullet.kill();
