@@ -18,11 +18,14 @@ var Preload = {
     game.load.image('Game_over', 'assets/img/menu_over.png');
     game.load.image('moon', 'assets/img/moon.png');
 
+    //win and loos
+    game.load.spritesheet('menuWin', 'assets/img/menuTruo.png', 303 , 148);
+
 
 
     //делаем снежок
     game.load.spritesheet('snow_small', 'assets/img/snowflakes.png', 17, 17);
-    game.load.spritesheet('star', 'assets/img/star.png', 50, 50);
+    // game.load.spritesheet('star', 'assets/img/star.png', 50, 50);
     game.load.spritesheet('snow_big', 'assets/img/snowflakes_large.png', 64, 64);
     //Добавлем музыку
 
