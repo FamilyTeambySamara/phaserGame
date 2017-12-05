@@ -3,7 +3,6 @@
 //Спрайты================
 var playerBet;
 var computerBet;
-
 //полярники
 var simplePolarMan;
 var simplePolarMen;
@@ -13,7 +12,6 @@ var bigPolarMen;
 var bigPolarMan;
 
 var timeDealyPolarCreate = 1000;
-
 //====================
 var refuse;
 var gifts;
@@ -307,7 +305,7 @@ window.SnowBallGame =
       scoreStarsImage.anchor.y = 0.5;
       scoreStarsImage.alpha = 1;
       scoreStarsImage.animations.add('starBar');
-      starTable = game.add.text(55, 130, scoreStars, { fontSize: '32px', fill: 'white' });
+      starTable = game.add.text(55, 130, scoreStars, { fontSize: '32px', fill: 'white', font: 'mainFont' });
       //Сердце
       scoreHartImage = game.add.sprite (20 , 110, 'HartBar');
       scoreHartImage.scale.setTo(1, 1);
@@ -315,7 +313,7 @@ window.SnowBallGame =
       scoreHartImage.anchor.y = 0.5;
       scoreHartImage.alpha = 1;
       scoreHartImage.animations.add('hartBar');
-      healthTable = game.add.text(55, 95, health, { fontSize: '32px', fill: 'red' });
+      healthTable = game.add.text(55, 95, health, { fontSize: '32px', fill: 'red', font: 'mainFont' });
       //часы
       scoreTimerImage =  game.add.sprite (20 , 180, 'timeBar');
       scoreTimerImage.scale.setTo(1, 1);
@@ -323,7 +321,7 @@ window.SnowBallGame =
       scoreTimerImage.anchor.y = 0.5;
       scoreTimerImage.alpha = 1;
       scoreTimerImage.animations.add('timeBar');
-      levelTable = game.add.text(55, 180,  '0', { fontSize: '32px', fill: 'blue' });
+      levelTable = game.add.text(55, 180,  '0', { fontSize: '32px', fill: 'blue', font: 'mainFont'  });
 
 
 
@@ -347,28 +345,6 @@ window.SnowBallGame =
     {
       bullet = bullets.getFirstExists(false);
       playerBet.animations.play('throw');
-      // if (cursors.down.isDown && bullet){
-      //   throw_plyer.play();
-      //   bullet.reset(playerBet.x, playerBet.y + 5);
-      //   bullet.body.velocity.y = playerBulletVelocity;
-      //   bulletTime = game.time.now + timeDilayPlayer;
-      // } else if (cursors.up.isDown && bullet) {
-      //   throw_plyer.play();
-      //   bullet.reset(playerBet.x, playerBet.y - 5);
-      //   bullet.body.velocity.y = -playerBulletVelocity;
-      //   bulletTime = game.time.now + timeDilayPlayer;
-      // } else if (cursors.left.isDown && bullet) {
-      //   throw_plyer.play();
-      //   bullet.reset(playerBet.x - 5, playerBet.y);
-      //   bullet.body.velocity.x = -playerBulletVelocity;
-      //   bulletTime = game.time.now + timeDilayPlayer;
-      // } else if (cursors.right.isDown && bullet) {
-      //   throw_plyer.play();
-      //   bullet.reset(playerBet.x + 5, playerBet.y);
-      //   bullet.body.velocity.x = playerBulletVelocity;
-      //   bulletTime = game.time.now + timeDilayPlayer;
-      // } else if (bullet) {
-      // alert(playerBet.angle);
           switch (playerBet.angle) {
             case 90:
             //вниз
@@ -446,9 +422,6 @@ window.SnowBallGame =
                 enemy.angle = 180;
                 enemy.body.velocity.y = 0;
                 enemy.animations.play('shoot');
-                //simplePolarMan.animations.play('throwSimpleMan');
-                // simplePolarMen.animations.add('throwSimpleMan');
-                // simplePolarMen.animations.play('throwSimpleMan', 30, true, true);
                 enemyBullet.reset(enemy.x - 10, enemy.y);
                 //enemyBullet.body.velocity.x = -enemyBulletvelocity;
                 game.physics.arcade.moveToObject(enemyBullet, playerBet,120);
@@ -471,9 +444,6 @@ window.SnowBallGame =
               enemy.angle = 180;
               enemy.body.velocity.y = 0;
               enemy.animations.play('shoot');
-              //simplePolarMan.animations.play('throwSimpleMan');
-              // simplePolarMen.animations.add('throwSimpleMan');
-              // simplePolarMen.animations.play('throwSimpleMan', 30, true, true);
               enemyBullet.reset(enemy.x - 10, enemy.y);
               enemyBullet.body.velocity.x = -enemyBulletvelocity;
               enemy.timeDelay = game.time.now + timeDilayEnemy;
@@ -603,18 +573,6 @@ window.SnowBallGame =
                   }
               }
 
-
-
-            // if (score > nextLevelScore){
-            //     nextLevelScore += 5;
-            //     enemyBulletvelocity += 70;
-            //     timeDilayEnemy -= 50;
-            //     ++Level;
-            //     levelTable.text = "Level" + Level;
-            //     //game.state.start('nextLevel', false);
-            // }
-
-
      },
 
      getInfo: function (){
@@ -696,21 +654,6 @@ window.SnowBallGame =
      },
 
       manipulate: function (polar) {
-            //alert(game.time.now);
-            // //ограниим по карте
-            // var polarHalfWidth = polar.width / 2;
-            // var polarHalfHeight = polar.height / 2;
-
-        // if (polar.x < 700 ) {
-        //        polar.x = 700;
-        //     }
-
-            // if (polar.y < polarHalfHeight) {
-            //    polar.y = polarHalfHeight;
-            // }
-            // else if (polar.y > game.height - polarHalfHeight) {
-            //    polar.y = game.height - polarHalfHeight;
-            // }
 
               if (polar.hp >= 1){
                 //анимаци выхода полярника
@@ -723,8 +666,6 @@ window.SnowBallGame =
                   //polar.animations.stop('go');
                 }
                 ///////==============================================
-
-
                 if (polar.timeWalk > game.time.now && polar.animations.getAnimation('shoot').isFinished){
 
                   // if(simplePolarMan.countLiving() > 0){
@@ -910,11 +851,11 @@ window.SnowBallGame =
             playerBet.x = 650 - playerBetHalfWidth;
          }
 
-         if (playerBet.y < playerBetHalfHeight) {
-            playerBet.y = playerBetHalfHeight;
+         if (playerBet.y < 15) {
+            playerBet.y = 15;
          }
-         else if (playerBet.y > game.height - playerBetHalfHeight) {
-            playerBet.y = game.height - playerBetHalfHeight;
+         else if (playerBet.y > game.height - 15 ) {
+            playerBet.y = game.height - 15;
          }
 //Изменение уровней====================================================
 //====Сюжет уровень 2================================================
@@ -985,7 +926,6 @@ window.SnowBallGame =
               if(bigPolarMen.countLiving() >= 1){
                 this.manipulateBigPolar();
               }
-
               //умные полярники
               if(smartPolarMen.countLiving() < 2 && timeDealyPolarCreate < game.time.now && smartPolarDead < 5){
                 smartPolarMan = smartPolarMen.getFirstExists(false);
@@ -1001,7 +941,6 @@ window.SnowBallGame =
                     timeDealyPolarCreate = game.time.now + 1500;
                 }
               }
-
               //простые полярники
               if(simplePolarMan.countLiving() < 3 && timeDealyPolarCreate < game.time.now && simplePolarDead < 7){
                 simplePolarMen = simplePolarMan.getFirstExists(false);
@@ -1048,10 +987,6 @@ window.SnowBallGame =
               game.physics.arcade.overlap(gifts, playerBet,  this.killGifts, null, this);
               game.physics.arcade.overlap(bigPolarMen, playerBet,  this.killPLayer, null, this);
 //======================================================================================
-         // game.physics.arcade.collide(ball, playerBet, this.boomBol(playerBet), null, this);
-         // game.physics.arcade.collide(ball, computerBet, this.boomBol(computerBet), null, this);
-        // this.goSnowBall();
-         //this.checkBall();
      },
 }
 ///=======================Конец объекта Game==================================================
