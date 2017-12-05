@@ -90,9 +90,8 @@ var Menu =
 
       back_emitter.start(false, 14000, 20);
 
-      textStart = game.add.text(220, 200, 'Новогодние приключения \n      пингвиненка Тони', { fontSize: '32px', fill: 'red' });
+      textStart = game.add.text(220, 200, 'Новогодние приключения \n      пингвиненка Тони', { fontSize: '32px', fill: 'red' , font: 'mainFont'});
       textStart.alpha = 0;
-
       ///////////////////////////////////
     },
 
@@ -123,8 +122,8 @@ var Menu =
            Level = 1;
            //music.stop();
            // game.state.start('presentSnowBallGames');
-            game.state.start('SnowBallGame');
-            // game.state.start('Win_SnowBallGame');
+            // game.state.start('SnowBallGame');
+            game.state.start('Win_SnowBallGame');
          }
 
           // back_emitter.kill();
@@ -154,6 +153,9 @@ var Menu =
     update: function ()
     {
 
+
+    //       textStart.style = {font: 'mainFont'};
+    //       textStart.text = 'Новогодние приключения \n      пингвиненка Тони';
       // if (button.alpha < 1){
       //     button.alpha += 0.5;
       // }
