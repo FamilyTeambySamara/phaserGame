@@ -101,20 +101,25 @@ window.SnowBallGame =
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
-        game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
-        // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
         game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
+
+        // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
+
         game.load.image('ball', 'assets/img/ball.png');
         game.load.image('mainLayer', 'assets/img/snowBall_mainLayer.png');
         game.load.image('bigSnow', 'assets/img/bigSnow.png');
         game.load.image('smallSnow', 'assets/img/smallSnow.png');
         game.load.image('midleSnow', 'assets/img/midleSnow.png');
         game.load.image('refuse', 'assets/img/refuse.png');
+        game.load.image('underLyaer', 'assets/img/endFonMenu.png');
+
+        game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
         game.load.spritesheet('star', 'assets/img/stars.png', 49, 50);
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
         game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
         game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
+
 
     },
 
@@ -298,30 +303,38 @@ window.SnowBallGame =
       ref_6.anchor.x = 0.5;
       ref_6.anchor.y = 0.5;
 //==================Табло=======================
+      //Подложка
+      game.add.image(0, 0, 'underLyaer');
       //Звузда
-      scoreStarsImage = game.add.sprite (20 , 145, 'starBar');
+      scoreStarsImage = game.add.sprite (20 , 20, 'starBar');
       scoreStarsImage.scale.setTo(1, 1);
       scoreStarsImage.anchor.x = 0.5;
       scoreStarsImage.anchor.y = 0.5;
       scoreStarsImage.alpha = 1;
       scoreStarsImage.animations.add('starBar');
-      starTable = game.add.text(55, 130, scoreStars, { fontSize: '32px', fill: 'white', font: 'mainFont' });
+      starTable = game.add.text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
+      starTable.anchor.x = 0.5;
+      starTable.anchor.y = 0.5;
       //Сердце
-      scoreHartImage = game.add.sprite (20 , 110, 'HartBar');
+      scoreHartImage = game.add.sprite (97 , 20, 'HartBar');
       scoreHartImage.scale.setTo(1, 1);
       scoreHartImage.anchor.x = 0.5;
       scoreHartImage.anchor.y = 0.5;
       scoreHartImage.alpha = 1;
       scoreHartImage.animations.add('hartBar');
-      healthTable = game.add.text(55, 95, health, { fontSize: '32px', fill: 'red', font: 'mainFont' });
+      healthTable = game.add.text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
+      healthTable.anchor.x = 0.5;
+      healthTable.anchor.y = 0.5;
       //часы
-      scoreTimerImage =  game.add.sprite (20 , 180, 'timeBar');
+      scoreTimerImage =  game.add.sprite (178 , 20, 'timeBar');
       scoreTimerImage.scale.setTo(1, 1);
       scoreTimerImage.anchor.x = 0.5;
       scoreTimerImage.anchor.y = 0.5;
       scoreTimerImage.alpha = 1;
       scoreTimerImage.animations.add('timeBar');
-      levelTable = game.add.text(55, 180,  '0', { fontSize: '32px', fill: 'blue', font: 'mainFont'  });
+      levelTable = game.add.text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
+      levelTable.anchor.x = 0.5;
+      levelTable.anchor.y = 0.5;
 
 
 
@@ -742,6 +755,14 @@ window.SnowBallGame =
        if (counterStarterTime == 0 && playerBet.status == 'start'){
           counterStarterTime++;
           starterTime = Math.floor(game.time.now/1000);
+          healthTable.text = health;
+          starTable.text = '0';
+          //scoreHartImage.animations.play('hartBar');
+          scoreTimerImage.animations.getAnimation('timeBar').onComplete.add(function () {scoreHartImage.animations.play('hartBar');}, this);
+          scoreHartImage.animations.getAnimation('hartBar').onComplete.add(function () {scoreStarsImage.animations.play('starBar');}, this);
+
+
+
        }
 
        if (playerBet.status == 'start'){
