@@ -55,7 +55,7 @@ var computerBetSpeed = 150; //Скорость передвижения комп
 var score = 0; //Количество попаданий
 var nextLevelScore = 3; //Критерий перехода на следующий уровень
 var Level = 1; //Текущий уровень
-var health = 10; //Жизни игрока
+var health = 3; //Жизни игрока
 var scoreStars = 0;
 var counterStarterTime = 0;
 var starterTime = 0;
@@ -603,7 +603,7 @@ window.SnowBallGame =
                   }
               }
 
-            
+
 
             // if (score > nextLevelScore){
             //     nextLevelScore += 5;
