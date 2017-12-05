@@ -37,6 +37,7 @@ var starTable;
 
 var scoreStarsImage;
 var scoreHartImage;
+var scoreTimerImage;
 
 //Статистика смертей===========
 var bigPolarDead = 0;
@@ -115,6 +116,7 @@ window.SnowBallGame =
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
         game.load.spritesheet('starBar', 'assets/img/startMenu.png', 40, 40);
+        game.load.spritesheet('timeBar', 'assets/img/clockMenu.png', 40, 40);
 
     },
 
@@ -314,13 +316,20 @@ window.SnowBallGame =
       scoreHartImage.alpha = 1;
       scoreHartImage.animations.add('hartBar');
       healthTable = game.add.text(55, 95, health, { fontSize: '32px', fill: 'red' });
-      //
+      //часы
+      scoreTimerImage =  game.add.sprite (20 , 180, 'timeBar');
+      scoreTimerImage.scale.setTo(1, 1);
+      scoreTimerImage.anchor.x = 0.5;
+      scoreTimerImage.anchor.y = 0.5;
+      scoreTimerImage.alpha = 1;
+      scoreTimerImage.animations.add('timeBar');
+      levelTable = game.add.text(55, 180,  '0', { fontSize: '32px', fill: 'blue' });
 
 
 
 
       scoreTable =  game.add.text(55, 60, 'score: ' + score, { fontSize: '32px', fill: 'white' });
-      levelTable = game.add.text(55, 16, 'Time: ' + 0, { fontSize: '32px', fill: 'blue' });
+
       //healthTable = game.add.text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
 
 //=========Управление игроком========================================
@@ -519,8 +528,8 @@ window.SnowBallGame =
               switch (score) {
                 case 3:
                     nextLevelScore += 5;
-                    enemyBulletvelocity += 90;
-                    timeDilayEnemy -= 80;
+                    enemyBulletvelocity += 60;
+                    timeDilayEnemy -= 50;
                     ++Level;
                     //levelTable.text = "Time " + Math.floor(game.time.now/1000);
                     break;
@@ -531,7 +540,7 @@ window.SnowBallGame =
                     ++Level;
                     //levelTable.text = "Level" + Level;
                     break;
-                case 24:
+                case 25:
                     saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
                     //========Сброс настроек====
                     counterStarterTime = 0;
@@ -733,7 +742,10 @@ window.SnowBallGame =
 
        if (playerBet.status == 'start'){
          realTimeNow = Math.floor(game.time.now/1000) - starterTime;
-         levelTable.text = "Time " + realTimeNow;
+         levelTable.text = realTimeNow;
+         if (realTimeNow % 60 == 0){
+              scoreTimerImage.animations.play('timeBar');
+         }
        }
 
 
