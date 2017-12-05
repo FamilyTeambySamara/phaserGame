@@ -728,7 +728,7 @@ window.SnowBallGame =
                 if (polar.timeWalk > game.time.now && polar.animations.getAnimation('shoot').isFinished){
 
                   // if(simplePolarMan.countLiving() > 0){
-
+                    var rand = Math.floor(Math.random() * (90 + 1));
                     if (polar.y - playerBet.y < -polar.range) {
                         polar.angle = 90;
                         polar.animations.play('go');
@@ -926,7 +926,7 @@ window.SnowBallGame =
                     simplePolarMen.hp = 1;
                     simplePolarMen.status = 'alive';
                     simplePolarMen.name = 'simplePolarMan';
-                    simplePolarMen.range = 85;
+                    simplePolarMen.range = 25;
                     simplePolarMen.timeDelay = 1000;
                     simplePolarMen.timeWalk = game.time.now + 7000;
                     simplePolarMen.reset(800, 250);
@@ -945,7 +945,7 @@ window.SnowBallGame =
                     simplePolarMen.hp = 1;
                     simplePolarMen.status = 'alive';
                     simplePolarMen.name = 'simplePolarMan';
-                    simplePolarMen.range = 85;
+                    simplePolarMen.range = 25;
                     simplePolarMen.timeDelay = 1000;
                     simplePolarMen.timeWalk = game.time.now + 7000;
                     simplePolarMen.reset(800, 250);
@@ -1003,14 +1003,14 @@ window.SnowBallGame =
               }
 
               //простые полярники
-              if(simplePolarMan.countLiving() < 2 && timeDealyPolarCreate < game.time.now && simplePolarDead < 7){
+              if(simplePolarMan.countLiving() < 3 && timeDealyPolarCreate < game.time.now && simplePolarDead < 7){
                 simplePolarMen = simplePolarMan.getFirstExists(false);
                 if (simplePolarMen)
                 {
                     simplePolarMen.hp = 2;
                     simplePolarMen.name = 'simplePolarMan';
                     simplePolarMen.status = 'alive';
-                    simplePolarMen.range = 85;
+                    simplePolarMen.range = 25;
                     simplePolarMen.timeDelay = 1000;
                     simplePolarMen.timeWalk = game.time.now + 7000;
                     simplePolarMen.reset(800, 250);
@@ -1030,7 +1030,7 @@ window.SnowBallGame =
 
 //==========================================================================
               // game.physics.arcade.collide(simplePolarMan, smartPolarMen);
-              game.physics.arcade.collide(simplePolarMan, simplePolarMan);
+              // game.physics.arcade.collide(simplePolarMan, simplePolarMan);
               game.physics.arcade.collide(playerBet, refuse);
               //game.physics.arcade.collide(playerBet, bigggg);
               //game.physics.arcade.collide(ball, computerBet);
