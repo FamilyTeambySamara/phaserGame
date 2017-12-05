@@ -19,7 +19,7 @@ var Preload = {
     game.load.image('moon', 'assets/img/moon.png');
 
     //win and loos
-    game.load.spritesheet('menuWin', 'assets/img/menuTruo.png', 303 , 148);
+    game.load.spritesheet('menuWin', 'assets/img/menuTruo.png', 350 , 171);
 
 
 
