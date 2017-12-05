@@ -103,7 +103,7 @@ window.SnowBallGame =
         game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
         game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
         game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
-        game.load.spritesheet('HartBar', 'assets/img/heartMenu.png', 40, 40);
+        game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
         // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
         game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
         game.load.image('ball', 'assets/img/ball.png');
@@ -115,7 +115,7 @@ window.SnowBallGame =
         game.load.spritesheet('star', 'assets/img/stars.png', 49, 50);
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
-        game.load.spritesheet('starBar', 'assets/img/startMenu.png', 40, 40);
+        game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
         game.load.spritesheet('timeBar', 'assets/img/clockMenu.png', 40, 40);
 
     },
