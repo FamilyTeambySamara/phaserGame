@@ -116,7 +116,7 @@ window.SnowBallGame =
         game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
         game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
         game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
-        game.load.spritesheet('timeBar', 'assets/img/clockMenu.png', 40, 40);
+        game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
 
     },
 
