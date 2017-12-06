@@ -15,6 +15,9 @@ game.state.add('Preload', Preload);
 
 game.state.add('Game_over', Game_over);
 
-game.state.add('nextLevel', nextLevel);
 
+
+//Добавить условие на старт приложени
 game.state.start('Boot');
+
+//====================================
