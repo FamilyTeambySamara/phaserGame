@@ -3,8 +3,8 @@ var Preload = {
 
     preload: function () {
 
-      var loading_line = game.add.image(400, 250, 'loading_fon');
-      loading_line.anchor.setTo(0.5, 0.5);
+      // var loading_line = game.add.image(400, 250, 'loading_fon');
+      // loading_line.anchor.setTo(0.5, 0.5);
 
 
       loadingBar = game.add.sprite(220 , 290, 'loading_bar');
