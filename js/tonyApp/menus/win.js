@@ -21,7 +21,10 @@ var amountHp = 0;
 
 var commonScore = 0;
 
-var stars = 0;
+var hp;
+var time;
+var stars;
+
 
 window.Win_SnowBallGame =
 {
@@ -34,6 +37,10 @@ window.Win_SnowBallGame =
     },
     create: function ()
     {
+      hp = window.SnowBallGame.getInfo().hp;
+      time = window.SnowBallGame.getInfo().time;
+      stars = window.SnowBallGame.getInfo().stars;
+
       calculateSong = this.add.audio('calculate');
       tempStarSong = this.add.audio('starSong');
       clockSound = this.add.audio('clockSound');
@@ -53,11 +60,8 @@ window.Win_SnowBallGame =
       menuAnim.animations.play('menuWin', 20, true);
         // game.add.tween(oneSlide).to({alpha: 1}, 5000, Phaser.Easing.Linear.None, true, 0);
       var shouwMenu = game.add.tween(menuAnim).to({alpha: 1}, 12000, Phaser.Easing.Exponential.Out, true, 0);
-      // var hp = snowBallGame.getInfo().hp;
-      // var time = snowBallGame.getInfo().time;
-      // var stars = snowBallGame.getInfo().stars;
-      var hp = 15;
-      var time = 15;
+
+
       // var stars = 0;
       //Считаем звузды
       calulateStarsEvent = game.time.create();
@@ -107,18 +111,22 @@ window.Win_SnowBallGame =
     },
 
     startPlay: function () {
-          Level = 1;
-          score = 0;
-          index = 0;
+          game.sound.stopAll();
+          amountStars = 0;
+          amountClock = 0;
+          amountHp = 0;
+          commonScore = 0;
           this.state.start('SnowBallGame');
     },
 
     goToMenu: function ()
 
     {
-          Level = 1;
-          score = 0;
-          index = 0;
+          game.sound.stopAll();
+          amountStars = 0;
+          amountClock = 0;
+          amountHp = 0;
+          commonScore = 0;
           game.state.start('Menu');
     },
     calculateStars: function (){

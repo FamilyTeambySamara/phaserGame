@@ -122,8 +122,8 @@ var Menu =
            Level = 1;
            //music.stop();
            // game.state.start('presentSnowBallGames');
-            // game.state.start('SnowBallGame');
-            game.state.start('Win_SnowBallGame');
+            game.state.start('SnowBallGame');
+            // game.state.start('Win_SnowBallGame');
          }
 
           // back_emitter.kill();
