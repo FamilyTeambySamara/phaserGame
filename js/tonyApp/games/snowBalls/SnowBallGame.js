@@ -93,33 +93,33 @@ var saveBox = {stars: 0, hp: 0, time: 0, score: 0};
 window.SnowBallGame =
 {
     preload: function () {
-        game.load.audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
-        game.load.audio('clap', 'assets/audio/clap_2.mp3');
-        game.load.audio('hitPinguin', 'assets/audio/hitPinguin.wav');
-        game.load.audio('starSong', 'assets/audio/bell.mp3');
-
+        // game.load.audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
+        // game.load.audio('clap', 'assets/audio/clap_2.mp3');
+        // game.load.audio('hitPinguin', 'assets/audio/hitPinguin.wav');
+        // game.load.audio('starSong', 'assets/audio/bell.mp3');
         //
-        game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
-        game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
-        game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
-        game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
-
-        // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
-
-        game.load.image('ball', 'assets/img/ball.png');
-        game.load.image('mainLayer', 'assets/img/snowBall_mainLayer.png');
-        game.load.image('bigSnow', 'assets/img/bigSnow.png');
-        game.load.image('smallSnow', 'assets/img/smallSnow.png');
-        game.load.image('midleSnow', 'assets/img/midleSnow.png');
-        game.load.image('refuse', 'assets/img/refuse.png');
-        game.load.image('underLyaer', 'assets/img/endFonMenu.png');
-
-        game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
-        game.load.spritesheet('star', 'assets/img/stars.png', 49, 50);
-        game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
-        game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
-        game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
-        game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
+        // //
+        // game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
+        // game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
+        // game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
+        // game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
+        //
+        // // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
+        //
+        // game.load.image('ball', 'assets/img/ball.png');
+        // game.load.image('mainLayer', 'assets/img/snowBall_mainLayer.png');
+        // game.load.image('bigSnow', 'assets/img/bigSnow.png');
+        // game.load.image('smallSnow', 'assets/img/smallSnow.png');
+        // game.load.image('midleSnow', 'assets/img/midleSnow.png');
+        // game.load.image('refuse', 'assets/img/refuse.png');
+        // game.load.image('underLyaer', 'assets/img/endFonMenu.png');
+        //
+        // game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
+        // game.load.spritesheet('star', 'assets/img/stars.png', 49, 50);
+        // game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
+        // game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
+        // game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
+        // game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
 
 
     },

@@ -98,8 +98,6 @@ window.Win_SnowBallGame =
       wholeScore = this.add.text(400, 270, 'Итоговый счет:', { fontSize: '32px', fill: 'white', font: 'mainFont' });
       wholeScore.anchor.x = 0.5;
 
-
-
       // whole = this.add.text()
       // this.add.text(250, 40, 'You are Win!!!', { fontSize: '32px', fill: 'red' });
       // this.add.text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
