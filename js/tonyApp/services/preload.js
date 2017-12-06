@@ -71,6 +71,8 @@ var Preload = {
     game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
     game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
     game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
+
+    game.load.spritesheet('button_again', 'assets/img/button_sprite5.png', 193 , 71);
     //============
 
     },

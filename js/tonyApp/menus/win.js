@@ -34,12 +34,16 @@ window.Win_SnowBallGame =
           game.load.audio('clockSound', 'assets/audio/clockSound.mp3');
           game.load.audio('hartSound', 'assets/audio/hartSound.mp3');
           game.load.audio('winSound', 'assets/audio/Kevin_MacLeod_-_Running_Fanfare(win_sound).mp3');
+
+
     },
     create: function ()
     {
       hp = window.SnowBallGame.getInfo().hp;
       time = window.SnowBallGame.getInfo().time;
       stars = window.SnowBallGame.getInfo().stars;
+
+
 
       calculateSong = this.add.audio('calculate');
       tempStarSong = this.add.audio('starSong');
@@ -104,6 +108,9 @@ window.Win_SnowBallGame =
       //this.add.button( 250, 250, 'button', this.startPlay, this, 2, 1, 0);
       var button_out = this.add.button( 400, 420, 'button_out', this.goToMenu, this, 1, 0 ,2);
       button_out.anchor.x = 0.5;
+
+      var button_again = this.add.button( 400, 350, 'button_again', this.startPlay, this, 1, 0 ,2);
+      button_again.anchor.x = 0.5;
 
 
     },
