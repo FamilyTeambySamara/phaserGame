@@ -2,14 +2,19 @@ var loadingBar;
 var Preload = {
 
     preload: function () {
-      loadingBar = game.add.sprite(250, 250, 'loading_bar');
-      loadingBar.anchor.setTo(0, 0.5);
+      loadingBar = game.add.sprite(400, 250, 'loading_bar');
+      var loading_line = game.add.image(400, 250, 'loading_fon');
+      loading_line.anchor.setTo(0.5, 0.5);
+      loadingBar.anchor.setTo(0.5, 0.5);
 
       game.load.setPreloadSprite(loadingBar, 0);
 
-      var loadingText = this.game.add.bitmapText(410, 150, 'ds_digital', 'loading...', 72);
-      loadingText.anchor.setTo(0.5, 0.5);
-
+      // var loadingText = this.game.add.bitmapText(410, 150, 'ds_digital', 'loading...', 72);
+      // loadingText.anchor.setTo(0.5, 0.5);
+    game.load.audio('wind',  'assets/audio/wind.wav');
+    game.load.audio('buttonSong',  'assets/audio/button.wav');
+    game.load.spritesheet('button_play', 'assets/img/button_sprite3.png', 193 , 71);
+    game.load.spritesheet('button_out', 'assets/img/button_sprite4.png', 193 , 71);
 
     game.load.image('menu', 'assets/img/menuWrapper.png');
     game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
@@ -31,6 +36,7 @@ var Preload = {
 
     game.load.audio('throw', 'assets/audio/throw_2.wav');
     game.load.audio('snowBallGame_mainTrack', 'assets/audio/snowBallGame.mp3');
+    game.load.audio('happySong', 'assets/audio/HappySong.mp3');
 
     },
 
