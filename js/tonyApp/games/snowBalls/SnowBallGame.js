@@ -547,7 +547,7 @@ window.SnowBallGame =
                     //levelTable.text = "Time " + Math.floor(game.time.now/1000);
                     break;
                 case changeLevel_2:
-                    nextLevelScore += 5;
+                    // nextLevelScore += 5;
                     enemyBulletvelocity += 100;
                     timeDilayEnemy -= 80;
                     ++Level;
@@ -908,7 +908,7 @@ window.SnowBallGame =
 //Изменение уровней====================================================
 //====Сюжет уровень 2================================================
           if(Level == 1){
-                if(simplePolarMan.countLiving() < aliveSimple_1 && simplePolarDead + simplePolarMan.total < countSimple_1){
+                if(simplePolarMan.countLiving() < aliveSimple_1 && timeDealyPolarCreate < game.time.now && simplePolarDead + simplePolarMan.total < countSimple_1){
                   simplePolarMen = simplePolarMan.getFirstExists(false);
                   // alert(simplePolarMan.total);
                   if (simplePolarMen)
@@ -920,6 +920,7 @@ window.SnowBallGame =
                     simplePolarMen.timeDelay = 1000;
                     simplePolarMen.timeWalk = game.time.now + 7000;
                     simplePolarMen.reset(800, 250);
+                    timeDealyPolarCreate = game.time.now + 1500;
                   }
                 }
           }
@@ -1062,8 +1063,10 @@ window.SnowBallGame =
 
 window.changeLevel = function (mod) {
   switch (mod) {
+
     case 3:
       saveBox.mod = mod;
+      alert(saveBox.mod);
       //уровень 1
       countSimple_1 = 5;  //общее количество
       aliveSimple_1 = 2;  //одновременно живых
@@ -1078,17 +1081,18 @@ window.changeLevel = function (mod) {
 
       changeLevel_2 = countSimple_2 + countSmart_2;
       //уровень 3
-      countSimple_3 = 9;
+      countSimple_3 = 13;
       aliveSimple_3 = 3;
 
-      countSmart_3 = 5;
-      aliveSmart_3 = 2;
+      countSmart_3 = 8;
+      aliveSmart_3 = 3;
 
       countBig_3 = 2;
       aliveBig_3 = 1;
 
       changeLevel_3 = countSimple_3 + countSmart_3 + countBig_3;
       break;
+
     case 2:
       saveBox.mod = mod;
       //уровень 1

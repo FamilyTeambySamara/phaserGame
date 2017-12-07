@@ -126,7 +126,7 @@ var Menu =
            Level = 1;
            //music.stop();
            // game.state.start('presentSnowBallGames');
-            changeLevel(2);
+            changeLevel(3);
             game.state.start('SnowBallGame');
             // game.state.start('Win_SnowBallGame');
          }

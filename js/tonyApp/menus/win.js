@@ -44,7 +44,7 @@ window.Win_SnowBallGame =
       time = window.SnowBallGame.getInfo().time;
       stars = window.SnowBallGame.getInfo().stars;
       mod = window.SnowBallGame.getInfo().mod;
-
+      alert(mod);
 
 
 
@@ -183,13 +183,14 @@ window.Win_SnowBallGame =
       else if (amountClock !== 0 && amountHp == 0 && amountStars !== 0){
           wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * mod * mod);
+        alert(mod);
+            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
       }
       // Звезды равны нулю
       if (amountClock !== 0 && amountHp == 0 && amountStars == 0){
           wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock);
       } else if (amountStars == 0 && amountClock !== 0 && amountHp !== 0) {
-            wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * mod * mod;
+            wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * (mod * mod);
       }
 
     }
