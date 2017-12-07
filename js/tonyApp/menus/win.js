@@ -18,6 +18,7 @@ var winSound;
 var amountStars = 0;
 var amountClock = 0;
 var amountHp = 0;
+var mod;
 
 var commonScore = 0;
 
@@ -42,6 +43,8 @@ window.Win_SnowBallGame =
       hp = window.SnowBallGame.getInfo().hp;
       time = window.SnowBallGame.getInfo().time;
       stars = window.SnowBallGame.getInfo().stars;
+      mod = window.SnowBallGame.getInfo().mod;
+
 
 
 
@@ -72,7 +75,7 @@ window.Win_SnowBallGame =
       calulateStarsEvent.repeat(100, stars, this.calculateStars, this);
       calulateStarsEvent.start(2000);
       //Добавлем бзыньк в конце пересчета
-      calculateSong.onStop.addOnce( function (){tempStarSong.play();}, this);
+        calculateSong.onStop.addOnce(function (){tempStarSong.play();}, this);
       //===================================
       //Считаем время
       calculateTimeEvent = game.time.create();
@@ -112,7 +115,6 @@ window.Win_SnowBallGame =
       var button_again = this.add.button( 400, 350, 'button_again', this.startPlay, this, 1, 0 ,2);
       button_again.anchor.x = 0.5;
 
-
     },
 
     startPlay: function () {
@@ -151,7 +153,6 @@ window.Win_SnowBallGame =
       }
       if (calulateStarsEvent.expired){
         calculateSong.stop();
-
       }
 
       if (!calculateTimeEvent.expired  && !clockSound.isPlaying && amountClock){
@@ -161,7 +162,6 @@ window.Win_SnowBallGame =
 
       if (calculateTimeEvent.expired){
         clockSound.stop();
-
       }
 
       if (!calculateHpEvent.expired  && !hartSound.isPlaying && amountHp){
@@ -171,7 +171,6 @@ window.Win_SnowBallGame =
 
       if (calculateHpEvent.expired){
           hartSound.stop();
-
       }
 
       wholeBarstars.text = amountStars;
@@ -184,13 +183,13 @@ window.Win_SnowBallGame =
       else if (amountClock !== 0 && amountHp == 0 && amountStars !== 0){
           wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp);
+            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * mod * mod);
       }
       // Звезды равны нулю
       if (amountClock !== 0 && amountHp == 0 && amountStars == 0){
           wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock);
       } else if (amountStars == 0 && amountClock !== 0 && amountHp !== 0) {
-            wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp;
+            wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * mod * mod;
       }
 
     }

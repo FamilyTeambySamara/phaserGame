@@ -25,7 +25,7 @@ var Menu =
       // game.load.audio('buttonSong',  'assets/audio/button.wav');
       // game.load.spritesheet('button_play', 'assets/img/button_sprite3.png', 193 , 71);
       // game.load.spritesheet('button_out', 'assets/img/button_sprite4.png', 193 , 71);
-      
+
 
     },
 
@@ -126,6 +126,7 @@ var Menu =
            Level = 1;
            //music.stop();
            // game.state.start('presentSnowBallGames');
+            changeLevel(2);
             game.state.start('SnowBallGame');
             // game.state.start('Win_SnowBallGame');
          }

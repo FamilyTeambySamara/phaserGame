@@ -87,8 +87,35 @@ var mark = 'right';//марке стрельбы
 
 var timeDilayEnemy = 2000;//перезардка выстрела  Enemys
 var timeDilayPlayer = 600;//перезардка выстрела  PLayer
+//================mod==============================
+var mod;
+//уровень 1
+var countSimple_1;
+var aliveSimple_1;
+
+var changeLevel_1;
+//уровень 2
+var countSimple_2;
+var aliveSimple_2;
+
+var countSmart_2;
+var aliveSmart_2;
+
+var changeLevel_2 ;
+
+//уровень 3
+var countSimple_3;
+var aliveSimple_3;
+
+var countSmart_3 ;
+var aliveSmart_3;
+
+var countBig_3;
+var aliveBig_3;
+
+var changeLevel_3;
 //=================Результат матча========================================
-var saveBox = {stars: 0, hp: 0, time: 0, score: 0};
+var saveBox = {};
 /////////================================================\\\\\\\\\\\\\\\\\\\\
 window.SnowBallGame =
 {
@@ -125,6 +152,8 @@ window.SnowBallGame =
     },
 
     create: function () {
+
+      //alert(saveBox.mod);
     //базовый режим и фон
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.image(0, 0, 'mainLayer');
@@ -340,7 +369,7 @@ window.SnowBallGame =
 
 
 
-      scoreTable =  game.add.text(55, 60, 'score: ' + score, { fontSize: '32px', fill: 'white' });
+      scoreTable =  game.add.text(55, 60, 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead, { fontSize: '32px', fill: 'white' });
 
       //healthTable = game.add.text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
 
@@ -471,7 +500,7 @@ window.SnowBallGame =
             if (polar.hp >= 1){
               score = score + 1;
             }
-            scoreTable.text = 'Score: ' + score;
+            scoreTable.text = 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead;
             //убиваем и взрываем пулю
             bullet.kill();
 
@@ -509,23 +538,26 @@ window.SnowBallGame =
                 // var  go = game.add.Timer;
                 // go.add(300, kill(), this);
               }
-              switch (score) {
-                case 3:
+              switch (smartPolarDead + simplePolarDead + bigPolarDead) {
+                case changeLevel_1:
                     nextLevelScore += 5;
                     enemyBulletvelocity += 60;
                     timeDilayEnemy -= 50;
                     ++Level;
                     //levelTable.text = "Time " + Math.floor(game.time.now/1000);
                     break;
-                case 8:
+                case changeLevel_2:
                     nextLevelScore += 5;
                     enemyBulletvelocity += 100;
                     timeDilayEnemy -= 80;
                     ++Level;
                     //levelTable.text = "Level" + Level;
                     break;
-                case 28:
-                    saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
+                case changeLevel_3:
+                    saveBox.score = score;
+                    saveBox.time = realTimeNow;
+                    saveBox.stars = scoreStars;
+                    saveBox.hp =  health;
                     //========Сброс настроек====
                     counterStarterTime = 0;
                     scoreStars = 0;
@@ -544,49 +576,48 @@ window.SnowBallGame =
                     //==============================
                     game.state.start('Win_SnowBallGame');
                     break;
-                case 29:
-                    saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
-                    //========Сброс настроек====
-                    counterStarterTime = 0;
-                    scoreStars = 0;
-                    simplePolarDead = 0;
-                    smartPolarDead = 0;
-                    bigPolarDead = 0;
-                    nextLevelScore = 5;
-                    health = 3;
-                    shotAim = 0;
-                    Level = 1;
-                    score = 0;
-                    timeDilayEnemy = 2000;
-                    enemyBulletvelocity = 400;
-                    refuseLive = 10;
-                    mainTrack.pause();
-                    //==============================
-                    game.state.start('Win_SnowBallGame');
-                    break;
-              case 30:
-                  saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
-                  //========Сброс настроек====
-                  counterStarterTime = 0;
-                  scoreStars = 0;
-                  simplePolarDead = 0;
-                  smartPolarDead = 0;
-                  bigPolarDead = 0;
-                  nextLevelScore = 5;
-                  health = 3;
-                  shotAim = 0;
-                  Level = 1;
-                  score = 0;
-                  timeDilayEnemy = 2000;
-                  enemyBulletvelocity = 400;
-                  refuseLive = 10;
-                  mainTrack.pause();
-                  //==============================
-                  game.state.start('Win_SnowBallGame');
-                  break;
+              //   case 29:
+              //       saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
+              //       //========Сброс настроек====
+              //       counterStarterTime = 0;
+              //       scoreStars = 0;
+              //       simplePolarDead = 0;
+              //       smartPolarDead = 0;
+              //       bigPolarDead = 0;
+              //       nextLevelScore = 5;
+              //       health = 3;
+              //       shotAim = 0;
+              //       Level = 1;
+              //       score = 0;
+              //       timeDilayEnemy = 2000;
+              //       enemyBulletvelocity = 400;
+              //       refuseLive = 10;
+              //       mainTrack.pause();
+              //       //==============================
+              //       game.state.start('Win_SnowBallGame');
+              //       break;
+              // case 30:
+              //     saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
+              //     //========Сброс настроек====
+              //     counterStarterTime = 0;
+              //     scoreStars = 0;
+              //     simplePolarDead = 0;
+              //     smartPolarDead = 0;
+              //     bigPolarDead = 0;
+              //     nextLevelScore = 5;
+              //     health = 3;
+              //     shotAim = 0;
+              //     Level = 1;
+              //     score = 0;
+              //     timeDilayEnemy = 2000;
+              //     enemyBulletvelocity = 400;
+              //     refuseLive = 10;
+              //     mainTrack.pause();
+              //     //==============================
+              //     game.state.start('Win_SnowBallGame');
+              //     break;
                   }
               }
-
      },
 
      getInfo: function (){
@@ -664,7 +695,6 @@ window.SnowBallGame =
        scoreStarsImage.animations.play('starBar');
        scoreStars += 1;
        starTable.text = scoreStars;
-
      },
 
       manipulate: function (polar) {
@@ -762,8 +792,6 @@ window.SnowBallGame =
           scoreTimerImage.animations.getAnimation('timeBar').onComplete.add(function () {scoreHartImage.animations.play('hartBar');}, this);
           scoreHartImage.animations.getAnimation('hartBar').onComplete.add(function () {scoreStarsImage.animations.play('starBar');}, this);
 
-
-
        }
 
        if (playerBet.status == 'start'){
@@ -773,8 +801,6 @@ window.SnowBallGame =
               scoreTimerImage.animations.play('timeBar');
          }
        }
-
-
        //Если нажат пробел запускаем стрельбу PLayer
         if (fireButton.isDown)
         {
@@ -882,8 +908,9 @@ window.SnowBallGame =
 //Изменение уровней====================================================
 //====Сюжет уровень 2================================================
           if(Level == 1){
-                if(simplePolarMan.countLiving() < 1){
+                if(simplePolarMan.countLiving() < aliveSimple_1 && simplePolarDead + simplePolarMan.total < countSimple_1){
                   simplePolarMen = simplePolarMan.getFirstExists(false);
+                  // alert(simplePolarMan.total);
                   if (simplePolarMen)
                   {
                     simplePolarMen.hp = 1;
@@ -900,7 +927,7 @@ window.SnowBallGame =
 //=====Управление большим врагом=
          if(Level == 2 ){
               //простые полярники
-              if(simplePolarMan.countLiving() < 1 && timeDealyPolarCreate < game.time.now && simplePolarDead < 4){
+              if(simplePolarMan.countLiving() < aliveSimple_2 && timeDealyPolarCreate < game.time.now && simplePolarDead < countSimple_2){
 
                 simplePolarMen = simplePolarMan.getFirstExists(false);
                 if (simplePolarMen)
@@ -916,7 +943,7 @@ window.SnowBallGame =
                 }
               }
               //умные полярники
-              if(smartPolarMen.countLiving() < 1 && timeDealyPolarCreate < game.time.now && smartPolarDead < 2){
+              if(smartPolarMen.countLiving() < aliveSmart_2 && timeDealyPolarCreate < game.time.now && smartPolarDead < countSmart_2){
                   smartPolarMan = smartPolarMen.getFirstExists(false);
                 if (smartPolarMan)
                 {
@@ -934,7 +961,7 @@ window.SnowBallGame =
 //====Сюжет уровень 3================================================
           if(Level == 3){
             //большие полярники
-            if(bigPolarMen.countLiving() < 1 && bigPolarDead < 1){
+            if(bigPolarMen.countLiving() < aliveBig_3 && bigPolarDead < countBig_3){
               bigPolarMan = bigPolarMen.getFirstExists(false);
               if (bigPolarMan)
               {
@@ -949,7 +976,7 @@ window.SnowBallGame =
                 this.manipulateBigPolar();
               }
               //умные полярники
-              if(smartPolarMen.countLiving() < 2 && timeDealyPolarCreate < game.time.now && smartPolarDead < 5){
+              if(smartPolarMen.countLiving() < aliveSmart_3 && timeDealyPolarCreate < game.time.now && smartPolarDead + smartPolarMen.total  < countSmart_3){
                 smartPolarMan = smartPolarMen.getFirstExists(false);
                 if (smartPolarMan)
                 {
@@ -964,7 +991,7 @@ window.SnowBallGame =
                 }
               }
               //простые полярники
-              if(simplePolarMan.countLiving() < 3 && timeDealyPolarCreate < game.time.now && simplePolarDead < 7){
+              if(simplePolarMan.countLiving() < aliveSimple_3 && timeDealyPolarCreate < game.time.now && simplePolarDead + simplePolarMan.total < countSimple_3){
                 simplePolarMen = simplePolarMan.getFirstExists(false);
                 if (simplePolarMen)
                 {
@@ -1030,6 +1057,92 @@ window.SnowBallGame =
           enemyBulletBig.animations.play('goBall');
           enemyBigBulletTime = game.time.now + 2*timeDilayEnemy;
       }
+  }
+}
+
+window.changeLevel = function (mod) {
+  switch (mod) {
+    case 3:
+      saveBox.mod = mod;
+      //уровень 1
+      countSimple_1 = 5;  //общее количество
+      aliveSimple_1 = 2;  //одновременно живых
+
+      changeLevel_1 = countSimple_1;
+      //уровень 2
+      countSimple_2 = 7;
+      aliveSimple_2 = 2;
+
+      countSmart_2 = 4;
+      aliveSmart_2 = 2;
+
+      changeLevel_2 = countSimple_2 + countSmart_2;
+      //уровень 3
+      countSimple_3 = 9;
+      aliveSimple_3 = 3;
+
+      countSmart_3 = 5;
+      aliveSmart_3 = 2;
+
+      countBig_3 = 2;
+      aliveBig_3 = 1;
+
+      changeLevel_3 = countSimple_3 + countSmart_3 + countBig_3;
+      break;
+    case 2:
+      saveBox.mod = mod;
+      //уровень 1
+      countSimple_1 = 3;  //общее количество
+      aliveSimple_1 = 1;  //одновременно живых
+
+      changeLevel_1 = countSimple_1;
+      //уровень 2
+      countSimple_2 = 4;
+      aliveSimple_2 = 1;
+
+      countSmart_2 = 2;
+      aliveSmart_2 = 1;
+
+      changeLevel_2 = countSimple_2 + countSmart_2;
+      //уровень 3
+      countSimple_3 = 7;
+      aliveSimple_3 = 3;
+
+      countSmart_3 = 5;
+      aliveSmart_3 = 2;
+
+      countBig_3 = 1;
+      aliveBig_3 = 1;
+
+      changeLevel_3 = countSimple_3 + countSmart_3 + countBig_3;
+      break;
+    case 1:
+      saveBox.mod = mod;
+    //уровень 1
+    countSimple_1 = 3;  //общее количество
+    aliveSimple_1 = 1;  //одновременно живых
+
+    changeLevel_1 = countSimple_1;
+    //уровень 2
+    countSimple_2 = 4;
+    aliveSimple_2 = 1;
+
+    countSmart_2 = 2;
+    aliveSmart_2 = 1;
+
+    changeLevel_2 = countSimple_2 + countSmart_2;
+    //уровень 3
+    countSimple_3 = 6;
+    aliveSimple_3 = 2;
+
+    countSmart_3 = 4;
+    aliveSmart_3 = 2;
+
+    countBig_3 = 0;
+    aliveBig_3 = 0;
+
+    changeLevel_3 = countSimple_3 + countSmart_3 + countBig_3;
+    break;
   }
 }
 
