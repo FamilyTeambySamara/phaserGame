@@ -83,6 +83,7 @@ var Preload = {
       // if (trigger = 'snowBallGame'){
       //       game.state.start('SnowBallGame');
       // } else if ()
-      game.state.start('Menu');
+    //  game.state.start('Menu');
+      game.state.start('snowPongGame');
  }
 }
