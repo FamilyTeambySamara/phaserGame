@@ -6,6 +6,7 @@ game.state.add('Menu', Menu);
 game.state.add('SnowBallGame', SnowBallGame);
 
 game.state.add('snowPongGame', snowPongGame);
+game.state.add('snowPongGame_2', snowPongGame_2);
 
 game.state.add('Win_SnowBallGame', Win_SnowBallGame);
 
