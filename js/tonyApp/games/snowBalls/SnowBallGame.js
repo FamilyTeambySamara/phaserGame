@@ -366,11 +366,7 @@ window.SnowBallGame =
       levelTable.anchor.x = 0.5;
       levelTable.anchor.y = 0.5;
 
-
-
-
       scoreTable =  game.add.text(55, 60, 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead, { fontSize: '32px', fill: 'white' });
-
       //healthTable = game.add.text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
 
 //=========Управление игроком========================================
