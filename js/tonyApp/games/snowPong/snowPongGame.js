@@ -1,5 +1,5 @@
 (function () {
-
+  
 var line1;
 var arrow;
 
@@ -143,8 +143,6 @@ window.snowPongGame = {
         //
         //     //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
         //   }, this);
-
-
         iceBall.sprite = game.add.sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         game.physics.arcade.enable(iceBall.sprite);
         iceBall.sprite.body.bounce.setTo(0.8, 0.8);
