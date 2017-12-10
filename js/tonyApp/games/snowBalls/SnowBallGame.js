@@ -663,7 +663,7 @@ window.SnowBallGame =
         health = health - 1;
         if (health < 1)
         {
-            saveBox = {score: score, time: realTimeNow, hp: health};
+            //saveBox = {score: score, time: realTimeNow, hp: health};
             //========Сброс настроек====
             counterStarterTime = 0;
             scoreStars = 0;
