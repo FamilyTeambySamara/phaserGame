@@ -61,6 +61,9 @@ var health = 3;
 
 var realTimeNow;
 
+
+//условие победы
+var cracksDestroy = 1;
 //================
 window.snowPongGame = {
 
@@ -412,8 +415,13 @@ window.snowPongGame = {
             countSnowSong = 0;
             counterStarterTime = 0;
             realTimeNow = 0;
-            scoreStars = 0;
-            health = 3;
+            // scoreStars = 0;
+            health -= 1;
+
+            healthTable.text = health;
+            scoreHartImage.animations.play('hartBar');
+            levelTable.text = realTimeNow;
+            // starTable.text = '0';
             riseArrow();
 
             aimsGroup.forEachDead(resetAll, this);
@@ -429,12 +437,17 @@ window.snowPongGame = {
     },
     update: function (){
 
+      //проверка победы
+      if (!aimsGroup.getFirstAlive()){
+          //goMenuWin();
+      }
+
       //Timer
       if (counterStarterTime == 0 && iceBall.status == 'start'){
          counterStarterTime++;
          starterTime = Math.floor(game.time.now/1000);
          healthTable.text = health;
-         starTable.text = '0';
+         starTable.text = scoreStars;
          //scoreHartImage.animations.play('hartBar');
          scoreTimerImage.animations.getAnimation('timeBar').onComplete.add(function () {scoreHartImage.animations.play('hartBar');}, this);
          scoreHartImage.animations.getAnimation('hartBar').onComplete.add(function () {scoreStarsImage.animations.play('starBar');}, this);
@@ -505,7 +518,7 @@ var replay = function (){
     iceBall.status = 'wait';
     counterStarterTime = 0;
     realTimeNow = 0;
-    scoreStars = 0;
+    //scoreStars = 0;
     health = 3;
 
     iceBall.sprite.kill();
@@ -612,5 +625,17 @@ var killgift = function (player, star){
   // scoreStarsImage.animations.play('starBar');
   // scoreStars += 1;
   // starTable.text = scoreStars;
+}
+
+var goMenuLoose = function () {
+
+  game.state.start('Game_over');
+
+}
+
+var goMenuWin = function () {
+
+  game.state.start('Win_SnowBallGame');
+
 }
 })()
