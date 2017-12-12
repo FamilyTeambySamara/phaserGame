@@ -43,43 +43,6 @@ var Menu =
       button.alpha = 1;
 
 
-     // button.enableBody = true;
-     //   button.physicsBodyType = Phaser.Physics.ARCADE;
-
-
-      //game.add.text(16, 16, 'загрузка: ' + load_time, { fontSize: '32px', fill: 'white' });
-
-      // var dragon = game.add.creature(450, 350, 'dragonTexture', 'dragonMesh');
-      //
-      // dragon.scale.set(25.0);
-      //
-      // dragon.play(true); //  true = loop
-
-
-      // var moon = this.add.image(350, 15, 'moon');
-      // moon.scale.setTo(0.5, 0.5);
-      // var star = game.add.sprite(565, 100, 'star');
-      // star.animations.add('star');
-      // star.play('star', 4, true, true);
-      //explode.play('kaboom', 30, false, true);
-
-      // var star = this.add.sprite(250, 80, 'star');
-      //
-      // var shine = star.animations.add('shine');
-      //
-      // star.animations.play('shine', 4, true);
-
-      // shadow = game.add.sprite(game.world.centerX, game.world.centerY, 'button');
-      // shadow.anchor.set(0.5);
-      // shadow.tint = 0.9 * 0xffc400;
-      // shadow.alpha = 1;
-
-      // sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'button');
-      // sprite.anchor.set(0.5);
-
-
-      // shadow.x = sprite.x + offset.x;
-      // shadow.y = sprite.y + offset.y;
 
       //////////////снег===================
       back_emitter = this.add.emitter(game.world.centerX, -32, 5200);

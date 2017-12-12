@@ -550,10 +550,12 @@ window.SnowBallGame =
                     //levelTable.text = "Level" + Level;
                     break;
                 case changeLevel_3:
-                    saveBox.score = score;
                     saveBox.time = realTimeNow;
-                    saveBox.stars = scoreStars;
                     saveBox.hp =  health;
+                    saveBox.stars = scoreStars;
+                    saveBox.score = score;
+                    saveBox.currentGame = 'SnowBallGame';
+                    saveStat(1);
                     //========Сброс настроек====
                     counterStarterTime = 0;
                     scoreStars = 0;
@@ -572,46 +574,7 @@ window.SnowBallGame =
                     //==============================
                     game.state.start('Win_SnowBallGame');
                     break;
-              //   case 29:
-              //       saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
-              //       //========Сброс настроек====
-              //       counterStarterTime = 0;
-              //       scoreStars = 0;
-              //       simplePolarDead = 0;
-              //       smartPolarDead = 0;
-              //       bigPolarDead = 0;
-              //       nextLevelScore = 5;
-              //       health = 3;
-              //       shotAim = 0;
-              //       Level = 1;
-              //       score = 0;
-              //       timeDilayEnemy = 2000;
-              //       enemyBulletvelocity = 400;
-              //       refuseLive = 10;
-              //       mainTrack.pause();
-              //       //==============================
-              //       game.state.start('Win_SnowBallGame');
-              //       break;
-              // case 30:
-              //     saveBox = {score: score, time: realTimeNow, stars: scoreStars, hp: health};
-              //     //========Сброс настроек====
-              //     counterStarterTime = 0;
-              //     scoreStars = 0;
-              //     simplePolarDead = 0;
-              //     smartPolarDead = 0;
-              //     bigPolarDead = 0;
-              //     nextLevelScore = 5;
-              //     health = 3;
-              //     shotAim = 0;
-              //     Level = 1;
-              //     score = 0;
-              //     timeDilayEnemy = 2000;
-              //     enemyBulletvelocity = 400;
-              //     refuseLive = 10;
-              //     mainTrack.pause();
-              //     //==============================
-              //     game.state.start('Win_SnowBallGame');
-              //     break;
+
                   }
               }
      },
@@ -663,7 +626,8 @@ window.SnowBallGame =
         health = health - 1;
         if (health < 1)
         {
-            //saveBox = {score: score, time: realTimeNow, hp: health};
+            saveBox.currentGame = 'SnowBallGame';
+            saveStat(1);
             //========Сброс настроек====
             counterStarterTime = 0;
             scoreStars = 0;
@@ -678,6 +642,7 @@ window.SnowBallGame =
             timeDilayEnemy = 2000;
             enemyBulletvelocity = 400;
             refuseLive = 10;
+
             mainTrack.pause();
             //==============================
             this.state.start('Game_over');
@@ -1062,7 +1027,7 @@ window.changeLevel = function (mod) {
 
     case 3:
       saveBox.mod = mod;
-      alert(saveBox.mod);
+      //alert(saveBox.mod);
       //уровень 1
       countSimple_1 = 5;  //общее количество
       aliveSimple_1 = 2;  //одновременно живых

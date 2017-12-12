@@ -59,12 +59,15 @@ var counterStarterTime = 0;
 var starterTime = 0;
 var health = 3;
 
-var realTimeNow;
+var realTimeNow = '-';
 
 
 //условие победы
 var cracksDestroy = 1;
 //================
+
+var saveBox = { time: 0, hp: 0, stars: 0, score: 0, mod: 1};
+
 window.snowPongGame = {
 
     preload: function () {
@@ -413,8 +416,8 @@ window.snowPongGame = {
             iceBall.isSet = true;
             iceBall.status = 'wait';
             countSnowSong = 0;
-            counterStarterTime = 0;
-            realTimeNow = 0;
+            // counterStarterTime = 0;
+            // realTimeNow = 0;
             // scoreStars = 0;
             health -= 1;
 
@@ -424,8 +427,8 @@ window.snowPongGame = {
             // starTable.text = '0';
             riseArrow();
 
-            aimsGroup.forEachDead(resetAll, this);
-            gifts.forEachDead(resetStars, this);
+            // aimsGroup.forEachDead(resetAll, this);
+            // gifts.forEachDead(resetStars, this);
 
             function resetAll(aim) {
             aim.reset(aim.x, aim.y);
@@ -436,10 +439,13 @@ window.snowPongGame = {
         }
     },
     update: function (){
-
+      levelTable.text = realTimeNow;
       //проверка победы
       if (!aimsGroup.getFirstAlive()){
-          //goMenuWin();
+          goMenuWin();
+      }
+      if (health < 1){
+          goMenuLoose();
       }
 
       //Timer
@@ -454,7 +460,7 @@ window.snowPongGame = {
 
       }
 
-      if (iceBall.status == 'start'){
+      if (iceBall.status == 'start' || counterStarterTime != 0){
         realTimeNow = Math.floor(game.time.now/1000) - starterTime;
         levelTable.text = realTimeNow;
         if (realTimeNow % 60 == 0){
@@ -484,6 +490,10 @@ window.snowPongGame = {
 
     },
 
+    getInfo: function (){
+      return saveBox;
+    },
+
 
     render: function (){
         // game.debug.geom(iceBall.line);
@@ -510,32 +520,36 @@ var killAim = function (iceBall, aim) {
 }
 
 var replay = function (){
-    iceBall.tempX = 0;
-    iceBall.tempY = 0;
-    arrow.alpha = 0;
-    countSnowSong = 0;
-    iceBall.isSet = true;
-    iceBall.status = 'wait';
-    counterStarterTime = 0;
-    realTimeNow = 0;
-    //scoreStars = 0;
-    health = 3;
 
-    iceBall.sprite.kill();
-    iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  iceBall.tempX = 0;
+  iceBall.tempY = 0;
+  iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  // iceBall.sprite.alive = true;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  countSnowSong = 0;
+  // counterStarterTime = 0;
+  // realTimeNow = 0;
+  // scoreStars = 0;
+  health -= 1;
 
-    riseArrow();
+  healthTable.text = health;
+  scoreHartImage.animations.play('hartBar');
+  levelTable.text = realTimeNow;
+  // starTable.text = '0';
+  riseArrow();
 
-    aimsGroup.forEachDead(resetAll, this);
-    gifts.forEachDead(resetStars, this);
+  aimsGroup.forEachDead(resetAll, this);
+  gifts.forEachDead(resetStars, this);
 
-    function resetAll(aim) {
-    aim.reset(aim.x, aim.y);
-    }
-    function resetStars(star){
-      star.reset(star.x, star.y);
-    }
-    //game.sound.stopAll();
+  function resetAll(aim) {
+  aim.reset(aim.x, aim.y);
+  }
+  function resetStars(star){
+    star.reset(star.x, star.y);
+  }
+
+
 }
 var countSnowSong = 0;
 var stopBall = function (iceBall, snow) {
@@ -628,6 +642,21 @@ var killgift = function (player, star){
 }
 
 var goMenuLoose = function () {
+  iceBall.tempX = 0;
+  iceBall.tempY = 0;
+  iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  // iceBall.sprite.alive = true;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  riseArrow();
+  realTimeNow = 0;
+  health = 3;
+  scoreStars = 0;
+  //countSnowSong = 0;
+  counterStarterTime = 0;
+  realTimeNow = 0;
+  saveBox.currentGame = 'snowPongGame';
+  saveStat(21);
 
   game.state.start('Game_over');
 
@@ -635,7 +664,27 @@ var goMenuLoose = function () {
 
 var goMenuWin = function () {
 
-  game.state.start('Win_SnowBallGame');
+  iceBall.tempX = 0;
+  iceBall.tempY = 0;
+  iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  // iceBall.sprite.alive = true;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  riseArrow();
 
+  saveBox.time = realTimeNow;
+  saveBox.hp = health;
+  saveBox.stars = scoreStars;
+  realTimeNow = 0;
+  health = 3;
+  scoreStars = 0;
+  //countSnowSong = 0;
+  counterStarterTime = 0;
+  realTimeNow = 0;
+  saveBox.currentGame = 'snowPongGame';
+  saveStat(21);
+  game.state.start('Win_SnowBallGame');
 }
+
+
 })()

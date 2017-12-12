@@ -6,13 +6,13 @@ var Preload = {
       // var loading_line = game.add.image(400, 250, 'loading_fon');
       // loading_line.anchor.setTo(0.5, 0.5);
 
-      var loading_fon = game.add.image(220, 290, 'loading_fon');
-      loading_fon.anchor.setTo(0, 0.5);
+    var loading_fon = game.add.image(220, 290, 'loading_fon');
+    loading_fon.anchor.setTo(0, 0.5);
 
-      loadingBar = game.add.sprite(220 , 290, 'loading_bar');
-      loadingBar.anchor.setTo(0, 0.5);
+    loadingBar = game.add.sprite(220 , 290, 'loading_bar');
+    loadingBar.anchor.setTo(0, 0.5);
 
-      game.load.setPreloadSprite(loadingBar, 0);
+    game.load.setPreloadSprite(loadingBar, 0);
 
       // var loadingText = this.game.add.bitmapText(410, 150, 'ds_digital', 'loading...', 72);
       // loadingText.anchor.setTo(0.5, 0.5);
@@ -25,7 +25,8 @@ var Preload = {
     game.load.spritesheet('button', 'assets/img/button_sprite.png', 193 , 71);
     game.load.spritesheet('arrow', 'assets/img/button_sprite1.png', 193 , 71);
     game.load.spritesheet('arrow_2', 'assets/img/button_sprite2.png', 193 , 71);
-    game.load.image('Game_over', 'assets/img/menu_over.png');
+    game.load.image('Game_win', 'assets/img/menu_over.png');
+    game.load.image('Game_over', 'assets/img/menu_over2.png');
     game.load.image('moon', 'assets/img/moon.png');
 
     //win and loos
@@ -81,9 +82,11 @@ var Preload = {
 
       //console.log('%cSTATE::PRELOAD', 'color: #fff; background: #0f0;');
       // if (trigger = 'snowBallGame'){
-      //       game.state.start('SnowBallGame');
+            // changeLevel(3);
+            // game.state.start('SnowBallGame');
       // } else if ()
     //  game.state.start('Menu');
-      game.state.start('snowPongGame');
+      // game.state.start('snowPongGame');
+      game.state.start('menu_cards');
  }
 }

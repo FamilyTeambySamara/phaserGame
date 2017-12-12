@@ -40,11 +40,11 @@ window.Win_SnowBallGame =
     },
     create: function ()
     {
-      hp = window.SnowBallGame.getInfo().hp;
-      time = window.SnowBallGame.getInfo().time;
-      stars = window.SnowBallGame.getInfo().stars;
-      mod = window.SnowBallGame.getInfo().mod;
-      alert(mod);
+      hp = getInfoCurrentGame().hp;
+      time = getInfoCurrentGame().time;
+      stars = getInfoCurrentGame().stars;
+      mod = getInfoCurrentGame().mod;
+      //alert(mod);
 
 
 
@@ -58,7 +58,7 @@ window.Win_SnowBallGame =
       happySong.play();
 
       winSound.play();
-      this.add.image(0, 0, 'Game_over');
+      this.add.image(0, 0, 'Game_win');
 
       var menuAnim = game.add.sprite(400, 100, 'menuWin');
       menuAnim.alpha = 0;
@@ -123,7 +123,17 @@ window.Win_SnowBallGame =
           amountClock = 0;
           amountHp = 0;
           commonScore = 0;
-          this.state.start('SnowBallGame');
+          this.state.start(getInfoCurrentGame().currentGame)
+          // switch (getInfoCurrentGame().currentGame) {
+          //   case 1:
+          //     this.state.start('SnowBallGame');
+          //     break;
+          //   case 21:
+          //     this.state.start('SnowBallGame');
+          //     break;
+
+
+
     },
 
     goToMenu: function ()
@@ -134,7 +144,7 @@ window.Win_SnowBallGame =
           amountClock = 0;
           amountHp = 0;
           commonScore = 0;
-          game.state.start('Menu');
+          game.state.start('menu_cards');
     },
     calculateStars: function (){
       if (stars > 0) amountStars++;
@@ -183,7 +193,7 @@ window.Win_SnowBallGame =
       else if (amountClock !== 0 && amountHp == 0 && amountStars !== 0){
           wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
-        alert(mod);
+        //alert(mod);
             wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
       }
       // Звезды равны нулю
