@@ -106,4 +106,19 @@ window.saveStat = function (currentGame){
         break;
     }
 }
+window.update = function (){
+
+  $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "checkUser.php",
+            data: "id_vk=" + id + "&name=" + name,
+            success: function(result){
+              console.log(result);
+            infoBox.user = result.user;
+            alert (infoBox.user.name);
+              // alert( "Прибыли данные: " + msg );
+            }
+        });
+}
 })();
