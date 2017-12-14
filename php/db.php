@@ -23,6 +23,7 @@ class Db
   }
 
     private $conn = null;
+    private $pass = 'r1gf2r11OPLs02929koslghH34lRtdas12321789asH7Yd4';
 
     private $config = [
         'driver' => 'mysql',
@@ -77,6 +78,11 @@ class Db
         $smtp = $this->query($sql, $params);
         $smtp->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
         return $smtp->fetch();
+    }
+
+    public function getPass()
+    {
+        return md5($this->pass);
     }
 
     private function prepareDsnString()

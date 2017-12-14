@@ -5,6 +5,7 @@ include "php/db.php";
 //В библиотеке ПДо посмотреть функции для обработки данных
 $id_vk = $_POST['id_vk'];
 $name = $_POST['name'];
+// $pass = $_POST['pass'];
 
 // $id_vk = 909001;
 // $name = 'Ivanov';
@@ -12,10 +13,9 @@ $name = $_POST['name'];
 
 
 $db = Db::getInstance();
+// if ($pass == db->getPass()){}
+
 $result = getUser ($id_vk, $db);
-
-
-
 if ($result){
     $id_user = $result['id'];
     $fullInfo = getFullInfo ($id_user, $db);
@@ -69,7 +69,10 @@ function getFullInfo ($id_user, $db) {
     $result['game_2']['g_6'] = $db->fetchOne("SELECT * FROM game_26 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_7'] = $db->fetchOne("SELECT * FROM game_27 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_8'] = $db->fetchOne("SELECT * FROM game_28 WHERE id_user = :id", [":id" => $id_user]);
-
+    if ($_SESSION['start'] == 0){
+      $result['pass'] = $db->getPass();
+      $_SESSION['start'] = 1;
+    }
     return json_encode($result);
 }
  ?>
