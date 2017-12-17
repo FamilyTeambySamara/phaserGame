@@ -52,12 +52,12 @@ window.menu_cards = {
       //==
       if (status == 'unstart' && access == 1){
         //перейти к презентации
-
-        changeState('presentSnowPongGame');
+        changeState('map');
+        // changeState('presentSnowPongGame');
           // this.state.start('presentGame_2');
       } else if ((status == 'start' || status == 'over') && access == 1){
         //перети к карте
-        changeState('snowPongGame');
+        changeState('map');
           // this.state.start('SnowBallGame');
       }else {
         alert('нет доступа к игре');

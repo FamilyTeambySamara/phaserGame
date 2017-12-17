@@ -12,6 +12,8 @@
 
   game.state.add('presentSnowBallGames', presentSnowBallGames);
 
+  game.state.add('map', map);
+
   game.state.add('Boot', Boot);
 
   game.state.add('Preload', Preload);
@@ -31,37 +33,56 @@
           var path = 'game_1';
           break;
         case 'snowPongGame':
-          var path = 'game_2.g_1'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
+          var path_2 = 'g_1';
           break;
         case 'snowPongGame_2':
           var path = 'game_2.g_2'; //путь к объекту в инфобокс
+          var path_2 = 'g_2';
           break;
         case 'snowPongGame_3':
           var path = 'game_2.g_3'; //путь к объекту в инфобокс
+          var path_2 = 'g_3';
           break;
         case 'snowPongGame_4':
           var path = 'game_2.g_4'; //путь к объекту в инфобокс
+          var path_2 = 'g_4';
           break;
         case 'snowPongGame_5':
           var path = 'game_2.g_5'; //путь к объекту в инфобокс
+          var path_2 = 'g_5';
           break;
         case 'snowPongGame_6':
           var path = 'game_2.g_6'; //путь к объекту в инфобокс
+          var path_2 = 'g_6';
           break;
         case 'snowPongGame_7':
           var path = 'game_2.g_7'; //путь к объекту в инфобокс
+          var path_2 = 'g_7';
           break;
         case 'snowPongGame_8':
           var path = 'game_2.g_8'; //путь к объекту в инфобокс
+          var path_2 = 'g_8';
           break;
       }
       if (path){
-        // alert(getInfo().game_1.access);
-        if (getInfo()[path].access){
-          game.state.start(st);
+        if(path_2){
+          if (getInfo()[path][path_2].access){
+            game.state.start(st);
+            return true;
+          }else{
+            return false;
+          }
         }
+          if (getInfo()[path].access){
+            game.state.start(st);
+            return true;
+          }else{
+            return false;
+          }
       }else {
         game.state.start(st);
+        return true;
       }
   }
   //для добавления в игру
