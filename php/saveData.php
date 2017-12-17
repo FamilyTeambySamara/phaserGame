@@ -1,12 +1,42 @@
 <?php
 include "db.php";
 
+$db = Db::getInstance();
+// $_POST['data'] =  '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+// $data = json_decode($_POST['data'], true);
+// $id_user = $_POST['data'];
+// $pass = $_POST['pass'];
+// $info = $_POST['info'];
+
 $id_user = $_POST['id'];
 $pass = $_POST['pass'];
-$info = $_POST['info'];
-$db = Db::getInstance();
 
-if($pass == db->getPass()){
+
+// $id_user = 27;
+// $pass = $db->getPass();
+// $info = [];
+ //
+ $info['table'] = $_POST['table'];
+ $info['game_next'] = $_POST['game_next'];
+ $info['currentStars'] = $_POST['currentStars'];
+ $info['currentScore'] = $_POST['currentScore'];
+ $info['status'] = $_POST['status'];
+ $info['totalStars'] = $_POST['totalStars'];
+ $info['method'] = $_POST['method'];
+
+ // info['currentStars'] = statistic.stars;
+ // info['currentScore'] = statistic.score;
+ // info['status'] = 'over';
+ // info['totalStars'] = statistic.stars + infoBox.user.totalStars;
+ // info['method'] = 'saveNewGame';
+ // info['table'] = table;
+ // info['game_next'] = game_next;
+ // var_dump($_POST['data']);
+ // echo 'iam here!';
+//  var_dump($_POST);
+// exit ();
+
+if($pass == $db->getPass() ){
     switch ($info['method']) {
       case 'saveNewGame':
         $table = $info['table'];
@@ -17,19 +47,21 @@ if($pass == db->getPass()){
         $totalStars = $info['totalStars'];
 
         //запрос к соответствующей таблице игры
-        $db->execute("UPDATE :table SET stars = :stars, score = :score, status = :status WHERE id_user = :id_user",
-        [':id_user' => $id_user, ':table' => $table, ':stars' => $stars, ':score' => $score, ':status' => $status]);
+        $db->execute("UPDATE {$table} SET stars =:stars , score =:score , status =:status WHERE id_user =:id_user " , [':id_user' => $id_user, ':stars' => $stars, ':score' => $score, ':status' => $status]);
+        // $db->execute("UPDATE game_1 SET stars =:stars WHERE id_user =:id_user " , [':id_user' => $id_user, ':stars' => $stars]);
+        // $db->execute("UPDATE game_1 SET stars = 5, score = 25 WHERE id_user = 27", []);
         //запрос к таблице users для обновления общего количества звезд
         $db->execute("UPDATE users SET totalstars = :totalstars WHERE id = :id",
-        [':id' => $id_user, ':totalStars' => $totalStars]);
+        [':id' => $id_user, ':totalstars' => $totalStars]);
         //запрос к таблице следующей игры для открытия доступа
         if ($game_next == 'end'){
           //открыть доступ к третьему эпизоду
         } else {
-            $db->execute("UPDATE :table SET access = :access WHERE id_user = :id_user", [':id_user' => $id_user,':table' => $game_next, ':access' => 1]);
+            $db->execute("UPDATE {$game_next} SET access = :access WHERE id_user = :id_user", [':id_user' => $id_user, ':access' => 1]);
         }
         //возвращаем обновленную информацию
-        echo getFullInfo ($id_user, $db);
+        $fullInfo = getFullInfo ($id_user, $db);
+        echo $fullInfo;
         break;
       case 'saveReplayGame_1':
         $stars = $info['currentStars'];
@@ -43,6 +75,9 @@ if($pass == db->getPass()){
         $db->execute("UPDATE users SET totalstars = :totalstars WHERE id = :id_user",
         [':id_user' => $id_user, ':totalstars' => $totalStars]);
 
+        // echo 'звезды'. $info['currentStars'] . 'счет' . $info['currentScore'] . 'всего звезд' . $info['totalStars'];
+        $fullInfo = getFullInfo ($id_user, $db);
+        echo $fullInfo;
         break;
       case 'saveReplayGame':
 
@@ -52,14 +87,18 @@ if($pass == db->getPass()){
         $table = $info['table'];
 
         //обновляем игровую таблицу
-        $db->execute("UPDATE :table SET stars = :stars, score = :score WHERE id_user = :id_user",
-        [':id_user' => $id_user, ':table' => $table, ':stars' => $stars, ':score' => $score]);
+        $db->execute("UPDATE {$table} SET stars = :stars, score = :score WHERE id_user = :id_user",
+        [':id_user' => $id_user, ':stars' => $stars, ':score' => $score]);
         //обновляем таблицу юзер
         $db->execute("UPDATE users SET totalstars = :totalstars WHERE id = :id_user",
         [':id_user' => $id_user, ':totalstars' => $totalStars]);
-
+        $fullInfo = getFullInfo ($id_user, $db);
+        echo $fullInfo;
         break;
     }
+}else {
+  // echo $pass. '  ' . $db->getPass();
+  echo 'пароль' . $pass . '  метод' . $_POST['method'];
 }
 
 
@@ -77,6 +116,7 @@ function getFullInfo ($id_user, $db) {
     $result['game_2']['g_7'] = $db->fetchOne("SELECT * FROM game_27 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_8'] = $db->fetchOne("SELECT * FROM game_28 WHERE id_user = :id", [":id" => $id_user]);
 
-    return json_encode($result);
 
+    return json_encode($result);
+}
 ?>

@@ -5,11 +5,14 @@ include "php/db.php";
 //В библиотеке ПДо посмотреть функции для обработки данных
 $id_vk = $_POST['id_vk'];
 $name = $_POST['name'];
-// $pass = $_POST['pass'];
+
+if ($_SESSION['start'] == 1){
+  $pass = $_POST['pass'];
+}
+
 
 // $id_vk = 909001;
 // $name = 'Ivanov';
-
 
 
 $db = Db::getInstance();
@@ -25,9 +28,6 @@ if ($result){
     $fullInfo = getFullInfo ($id_user, $db);
     echo $fullInfo;
 }
-
-
-
 
 
 function addUser ($id_vk, $name, $db) {

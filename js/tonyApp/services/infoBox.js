@@ -1,21 +1,22 @@
 (function(){
 var pass = 0;
 var appRun = false;
+var currentGameStat = {
+  time: 0,
+  hp: 0,
+  stars: 0,
+  score: 0,
+  mod: 1,
+  currentGame: 'game'
+}
 var infoBox = {
-  password: "",
-  appRun: false,
-  currentGameStat : {
-    time: 0,
-    hp: 0,
-    stars: 0,
-    score: 0,
-    mod: 1,
-    currentGame: 'game'
-  },
+  // password: "",
+  // appRun: false,
+
   user : {
       id: 78,
       name: 'newUser',
-      totalStars: 0,
+      totalstars: 0,
       //Информация по игре 1
   },
   game_1: {
@@ -71,9 +72,14 @@ var infoBox = {
   },
 
 }
-
+window.getInfo = function (){
+  return infoBox;
+}
+window.getPass = function() {
+  return pass;
+}
 window.getInfoCurrentGame = function (){
-  return infoBox.currentGameStat;
+  return currentGameStat;
 }
 window.getInfoUser = function () {
   return infoBox.user;
@@ -81,33 +87,34 @@ window.getInfoUser = function () {
 window.saveStat = function (currentGame){
     switch (currentGame) {
       case 1:
-        infoBox.currentGameStat = SnowBallGame.getInfo();
+        currentGameStat = SnowBallGame.getInfo();
         break;
       case 21:
-        infoBox.currentGameStat = snowPongGame.getInfo();
+        currentGameStat = snowPongGame.getInfo();
         break;
       case 22:
-        infoBox.currentGameStat = snowPongGame_2.getInfo();
+        currentGameStat = snowPongGame_2.getInfo();
         break;
       case 23:
-        infoBox.currentGameStat = snowPongGame_3.getInfo();
+        currentGameStat = snowPongGame_3.getInfo();
         break;
       case 24:
-        infoBox.currentGameStat = snowPongGame_4.getInfo();
+        currentGameStat = snowPongGame_4.getInfo();
         break;
       case 25:
-        infoBox.currentGameStat = snowPongGame_5.getInfo();
+        currentGameStat = snowPongGame_5.getInfo();
         break;
       case 26:
-        infoBox.currentGameStat = snowPongGame_6.getInfo();
+        currentGameStat = snowPongGame_6.getInfo();
         break;
       case 27:
-        infoBox.currentGameStat = snowPongGame_7.getInfo();
+        currentGameStat = snowPongGame_7.getInfo();
         break;
       case 28:
-        infoBox.currentGameStat = snowPongGame_8.getInfo();
+      currentGameStat = snowPongGame_8.getInfo();
         break;
     }
+    console.log(currentGameStat);
 }
 window.update = function (){
 
@@ -117,9 +124,11 @@ window.update = function (){
             url: "checkUser.php",
             data: "id_vk=" + id + "&name=" + name,
             success: function(result){
+              console.log(result);
+            pass = result.pass;
+            result.pass = "";
             infoBox = result;
             appRun = true;
-            pass = result.pass;
             alert('hello' + result.user.name);
             // alert(result);
             //запустить приложение !!!!!!!!
@@ -128,10 +137,11 @@ window.update = function (){
         });
 }
 
-window.save = function () {
-      var statistic = infoBox.currentGameStat;
+window.saveDb = function () {
+      var statistic = currentGameStat;
       switch (statistic.currentGame) {
         case 'SnowBallGame':
+          alert('начинаем');
           var game = 'game_1';
           var game_next = 'game_21';
           var table = 'game_1';
@@ -190,51 +200,57 @@ window.save = function () {
 
 function checkChange (game, game_next, statistic, table){
   //играет первый раз
-  if (infoBox.game.status == 'unstart' || infoBox.game.status == 'start'){
+  var temp = getInfo()[game].status;
+  alert(temp);
+  if (getInfo()[game].status == 'unstart' || getInfo()[game].status == 'start'){
      //ajax запрос на сохранение результатов игры
-     var info = [];
-     info['currentStars'] = statistic.stars;
-     info['currentScore'] = statistic.score;
+     var info = {};
+     info['currentStars'] = (+statistic.stars);
+     info['currentScore'] = (+statistic.score);
      info['status'] = 'over';
-     info['totalStars'] = statistic.stars + infoBox.user.totalStars;
+     info['totalStars'] = (+statistic.stars + (+infoBox.user.totalstars));
      info['method'] = 'saveNewGame';
      info['table'] = table;
      info['game_next'] = game_next;
+     alert( info['currentScore']);
      query(info);
      // queryUser(totalStars, status);
-  }else if (infoBox.game.status == 'over' && game == 'game_1'){
+  }else if (getInfo()[game].status == 'over' && game == 'game_1'){
     //добавляем звездочки к имеющимся
-    var starsCurrent = statistic.stars;
-    var scoreCurrent = statistic.score;
-    var starsAlready = infoBox.game_1.stars;
-    var scoreAlready = infoBox.game_1.score;
+    var starsCurrent = (+statistic.stars);
+    var scoreCurrent = (+statistic.score);
+    var starsAlready = (+infoBox.game_1.stars);
+    var scoreAlready = (+infoBox.game_1.score);
 
-    var info = [];
-    info['stars'] = starsCurrent + starsAlready;
-    info['totalStars'] = statistic.stars + infoBox.user.totalStars;
+    var info = {};
+    info['currentStars'] =( +starsCurrent + (+starsAlready));
+
     info['method'] = 'saveReplayGame_1';
     info['game_next'] = game_next;
+    info['table'] = table;
 
     if((scoreCurrent - scoreAlready) > 0){
-      info['score'] = scoreCurrent;
+      info['currentScore'] = scoreCurrent;
     }else {
-      info['score'] = scoreAlready;
+      info['currentScore'] = scoreAlready;
     }
+    info['totalStars'] = (+starsCurrent + (+infoBox.user.totalstars));
     //обновляем информацию в приложении
-    infoBox.user.totalstars = info['totalStars'];
-    infoBox.game.stars = info['stars'];
-    infoBox.game.score = info['score'];
+    // infoBox.user.totalstars = info['totalStars'];
+    alert(info['totalStars']);
+    // infoBox + '.' + game + '.stars' = info['stars'];
+    // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
-  }else if (infoBox.game.status == 'over'){
+  }else if (getInfo()[game].status == 'over' && game !== 'game_1'){
     //сравниваем результат игр с имеющимся и все улучшения записываем
     var starsCurrent = statistic.stars;
     var scoreCurrent = statistic.score;
 
-    var starsAlready = infoBox.game.stars;
-    var scoreAlready = infoBox.game.score;
+    var starsAlready = getInfo()[game].stars;
+    var scoreAlready = getInfo()[game].score;
 
-    var info = [];
+    var info = {};
     // info['stars'] = starsCurrent + starsAlready;
     // info['totalStars'] = statistic.stars + infoBox.user.totalStars;
     info['method'] = 'saveReplayGame';
@@ -242,42 +258,50 @@ function checkChange (game, game_next, statistic, table){
     info['game_next'] = game_next;
 
     if((scoreCurrent - scoreAlready) > 0){
-      info['score'] = scoreCurrent;
+      info['currentScore'] = scoreCurrent;
     }else {
-      info['score'] = scoreAlready;
+      info['currentScore'] = scoreAlready;
     }
 
     if((starsCurrent - starsAlready) > 0){
-      info['stars'] = starsCurrent;
-      info['totalStars'] = infoBox.user.totalStars + (starsCurrent - starsAlready);
+      info['currentStars'] = starsCurrent;
+      info['totalStars'] = +infoBox.user.totalstars + +(starsCurrent - starsAlready);
     }else {
-      info['stars'] = starsAlready;
-      info['totalStars'] = infoBox.user.totalStars;
+      info['currentStars'] = starsAlready;
+      info['totalStars'] = +infoBox.user.totalstars;
     }
 
     //обновляем информацию в приложении
-    infoBox.user.totalstars = info['totalStars'];
-    infoBox.game.stars = info['stars'];
-    infoBox.game.score = info['score'];
+    // infoBox.user.totalstars = info['totalStars'];
+  //   (infoBox + '.' + game + '.stars') = info['stars'];
+  // (infoBox + '.' + game + '.score') = info['score'];
 
     query(info);
   }
 
   function query (info) {
     var id = infoBox.user.id;
-    var pass = pass;
+    var pass = getPass();
+    var data = info;
+    data.id = id;
+    data.pass = pass;
+    alert(pass);
     $.ajax({
               type: "POST",
               // dataType: "json",
               url: "php/saveData.php",
-              data: "id=" + id + "&pass=" + pass + "info=" + info,
+              // processData: false,
+              dataType: "json",
+              data: data,
               success: function(result){
               // infoBox.user = result.user;
               // alert (infoBox.user.name);
-              if (result){
-                  infoBox = result;
-              }
-
+                alert('запрос отправлен');
+                if (result){
+                    alert('данные обновлены');
+                    infoBox = result;
+                    console.log(result);
+                }
                 // alert( "Прибыли данные: " + msg );
               }
           });
