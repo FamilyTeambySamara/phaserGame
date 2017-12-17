@@ -22,6 +22,9 @@ game.state.add('Game_over', Game_over);
 
 
 //Добавить условие на старт приложени
-game.state.start('Boot');
+function startAppJs (){
+  game.state.start('Boot');
+}
+
 
 //====================================
