@@ -16,6 +16,7 @@
   var buttonSong;
 
   var animationBegin;
+  var bellsSong;
 
   window.animBegin =
   {
@@ -49,7 +50,8 @@
         animationBegin.start();
 
         windSong = gameAdd().audio('wind');
-        buttonSong = gameAdd().audio('buttonSong');
+        // buttonSong = gameAdd().audio('buttonSong');
+        bellsSong = gameAdd().audio('bells');
 
         // mainLayout = gameAdd().image(0, 0, 'menu');
         // button = gameAdd().button(300, 150, 'button_play', this.startGame, this, 1, 0 ,2);
@@ -84,12 +86,18 @@
         // buttonAnim.onComplete.add(this.killAll, this);
         // animLayout = gameAdd().tween(mainLayout).to( {tint: 0xffffff ,alpha: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
         textStartAnim = gameAdd().tween(textStart).to( {alpha: 1}, 6000, Phaser.Easing.Linear.None, true, 1500);
+        bellsSong.play();
+        // bellsSong.volume = 0;
+
+
 
 
         textStartAnim.onComplete.add(changeWind, this);
 
         function changeWind (){
             //mainLayout.kill();
+            // bellsSong.stop();
+            bellsSong.fadeOut(2000);
             windSong.play();
             // music.stop();
             back_emitter.start(false, 14000, 20000000);
@@ -97,7 +105,11 @@
 
 
             // game.particles.remove(back_emitter);
-            back_emitter.forEachAlive(function (snow) {snow.body.velocity.x = 200;}, this);
+            back_emitter.forEachAlive(function (snow) {
+              var random = Math.floor(Math.random() * (180 + 1));
+              snow.body.velocity.x = 200 + random;
+
+            }, this);
 
             textOutAnim.onComplete.add(goPresentation, this);
 
