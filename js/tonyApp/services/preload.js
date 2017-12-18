@@ -1,5 +1,6 @@
 (function (){
   var loadingBar;
+  var loadText;
   window.Preload = {
 
     preload: function () {
@@ -11,6 +12,9 @@
 
       loadingBar = gameAdd().sprite(220 , 290, 'loading_bar');
       loadingBar.anchor.setTo(0, 0.5);
+
+      loadText = gameAdd().image(420, 220, 'load_text');
+      loadText.anchor.setTo(0.5, 0.5);
 
       gameLoad().setPreloadSprite(loadingBar, 0);
 

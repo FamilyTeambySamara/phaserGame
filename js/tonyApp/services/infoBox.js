@@ -142,55 +142,55 @@ window.saveDb = function () {
       switch (statistic.currentGame) {
         case 'SnowBallGame':
           alert('начинаем');
-          var game = 'game_1';
+          var game = getInfo().game_1;
           var game_next = 'game_21';
           var table = 'game_1';
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame':
-          var game = 'game_2.g_1'; //путь к объекту в инфобокс
+          var game =  getInfo().game_2.g_1; //путь к объекту в инфобокс
           var game_next = 'game_22'; //название таблицы следующей игры
           var table = 'game_21'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_2':
-          var game = 'game_2.g_2'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_2; //путь к объекту в инфобокс
           var game_next = 'game_23'; //название таблицы следующей игры
           var table = 'game_22'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_3':
-          var game = 'game_2.g_3'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_3; //путь к объекту в инфобокс
           var game_next = 'game_24'; //название таблицы следующей игры
           var table = 'game_23'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_4':
-          var game = 'game_2.g_4'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_4; //путь к объекту в инфобокс
           var game_next = 'game_25'; //название таблицы следующей игры
           var table = 'game_24'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_5':
-          var game = 'game_2.g_5'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_5; //путь к объекту в инфобокс
           var game_next = 'game_26'; //название таблицы следующей игры
           var table = 'game_25'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_6':
-          var game = 'game_2.g_6'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_6; //путь к объекту в инфобокс
           var game_next = 'game_27'; //название таблицы следующей игры
           var table = 'game_26'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_7':
-          var game = 'game_2.g_7'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_7; //путь к объекту в инфобокс
           var game_next = 'game_28'; //название таблицы следующей игры
           var table = 'game_27'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
         case 'snowPongGame_8':
-          var game = 'game_2.g_8'; //путь к объекту в инфобокс
+          var game = getInfo().game_2.g_8; //путь к объекту в инфобокс
           var game_next = 'end'; //название таблицы следующей игры
           var table = 'game_28'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
@@ -200,9 +200,9 @@ window.saveDb = function () {
 
 function checkChange (game, game_next, statistic, table){
   //играет первый раз
-  var temp = getInfo()[game].status;
-  alert(temp);
-  if (getInfo()[game].status == 'unstart' || getInfo()[game].status == 'start'){
+  // var gamePath = game.status;
+  alert(game.status);
+  if (game.status == 'unstart' || game.status == 'start'){
      //ajax запрос на сохранение результатов игры
      var info = {};
      info['currentStars'] = (+statistic.stars);
@@ -215,7 +215,7 @@ function checkChange (game, game_next, statistic, table){
      alert( info['currentScore']);
      query(info);
      // queryUser(totalStars, status);
-  }else if (getInfo()[game].status == 'over' && game == 'game_1'){
+  }else if (game.status == 'over' && game == 'game_1'){
     //добавляем звездочки к имеющимся
     var starsCurrent = (+statistic.stars);
     var scoreCurrent = (+statistic.score);
@@ -242,13 +242,13 @@ function checkChange (game, game_next, statistic, table){
     // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
-  }else if (getInfo()[game].status == 'over' && game !== 'game_1'){
+  }else if (game.status == 'over' && game !== 'game_1'){
     //сравниваем результат игр с имеющимся и все улучшения записываем
     var starsCurrent = statistic.stars;
     var scoreCurrent = statistic.score;
 
-    var starsAlready = getInfo()[game].stars;
-    var scoreAlready = getInfo()[game].score;
+    var starsAlready = game.stars;
+    var scoreAlready = game.score;
 
     var info = {};
     // info['stars'] = starsCurrent + starsAlready;
