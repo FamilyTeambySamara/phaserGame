@@ -71,47 +71,47 @@ var saveBox = { time: 0, hp: 0, stars: 0, score: 0, mod: 1};
 window.snowPongGame = {
 
     preload: function () {
-        game.load.spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png', 70, 30);
+        gameLoad().spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png', 70, 30);
 
-        game.load.image('fonPongGame', 'assets/img/snowPong/fon.png');
-        game.load.image('snowStuck', 'assets/img/snowPong/snowStuck.png');
-        game.load.image('iceBrick', 'assets/img/snowPong/iceBrick.png');
-        game.load.image('crack', 'assets/img/snowPong/crack.png');
-        game.load.image('stone', 'assets/img/snowPong/stone.png');
-        game.load.image('iceWall', 'assets/img/snowPong/iceWall.png');
-        game.load.image('woodStick', 'assets/img/snowPong/woodStick.png');
+        gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
+        gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
+        gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
+        gameLoad().image('crack', 'assets/img/snowPong/crack.png');
+        gameLoad().image('stone', 'assets/img/snowPong/stone.png');
+        gameLoad().image('iceWall', 'assets/img/snowPong/iceWall.png');
+        gameLoad().image('woodStick', 'assets/img/snowPong/woodStick.png');
 
-        game.load.image('smallSnow', 'assets/img/smallSnow.png');
+        gameLoad().image('smallSnow', 'assets/img/smallSnow.png');
 
-        game.load.audio('mainSound', 'assets/audio/snowPongGame/Broke_For_Free_-_05_-_Something_Elated(main_sound).mp3');
-        game.load.audio('iceCrack', 'assets/audio/snowPongGame/iceCrack_cuted.mp3');
-        game.load.audio('rollingBall', 'assets/audio/snowPongGame/MarbleRollonWood_cuted.mp3');
-        game.load.audio('indicator', 'assets/audio/snowPongGame/Rezinovyi_shar_trut_skrepit_cuted.mp3');
-        game.load.audio('snow_poof', 'assets/audio/snowPongGame/Snow_cuted.mp3');
-        game.load.audio('stoun_hit', 'assets/audio/snowPongGame/StounSong_cuted.mp3');
-        game.load.audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.mp3');
-        game.load.audio('iceWall', 'assets/audio/snowPongGame/iceWall_cuted.mp3');
+        gameLoad().audio('mainSound', 'assets/audio/snowPongGame/Broke_For_Free_-_05_-_Something_Elated(main_sound).mp3');
+        gameLoad().audio('iceCrack', 'assets/audio/snowPongGame/iceCrack_cuted.mp3');
+        gameLoad().audio('rollingBall', 'assets/audio/snowPongGame/MarbleRollonWood_cuted.mp3');
+        gameLoad().audio('indicator', 'assets/audio/snowPongGame/Rezinovyi_shar_trut_skrepit_cuted.mp3');
+        gameLoad().audio('snow_poof', 'assets/audio/snowPongGame/Snow_cuted.mp3');
+        gameLoad().audio('stoun_hit', 'assets/audio/snowPongGame/StounSong_cuted.mp3');
+        gameLoad().audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.mp3');
+        gameLoad().audio('iceWall', 'assets/audio/snowPongGame/iceWall_cuted.mp3');
 
-       // game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
+       // gameLoad().spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
     },
     create: function (){
       // button = this.add.button(300, 150, 'button_play', this.startGame, this, 1, 0 ,2);
-        game.add.image(0, 0, 'fonPongGame');
-        // game.add.image(0, 0, 'iceWall');
-        game.add.button(600, 250, 'button_play', replay, this, 1, 0 ,2);
+        gameAdd().image(0, 0, 'fonPongGame');
+        // gameAdd().image(0, 0, 'iceWall');
+        gameAdd().button(600, 250, 'button_play', replay, this, 1, 0 ,2);
         //game.physics.startSystem(Phaser.Physics.ARCADE);
-        // snow = game.add.sprite(700, 150, 'smallSnow');
+        // snow = gameAdd().sprite(700, 150, 'smallSnow');
         // game.physics.arcade.enable(snow);
         // //snow.physicsBodyType = Phaser.Physics.ARCADE;
-        snow_poof = game.add.audio('snow_poof');
-        indicator = game.add.audio('indicator');
-        mainSound = game.add.audio('snowBallGame_mainTrack');
-        iceCrack = game.add.audio('iceCrack');
-        rollingBall = game.add.audio('rollingBall');
-        wood_hit =game.add.audio('wood_hit');
-        stoun_hit= game.add.audio('stoun_hit');
-        iceWall_hit = game.add.audio('iceWall');
-        starSong = game.add.audio('starSong');
+        snow_poof = gameAdd().audio('snow_poof');
+        indicator = gameAdd().audio('indicator');
+        mainSound = gameAdd().audio('snowBallGame_mainTrack');
+        iceCrack = gameAdd().audio('iceCrack');
+        rollingBall = gameAdd().audio('rollingBall');
+        wood_hit =gameAdd().audio('wood_hit');
+        stoun_hit= gameAdd().audio('stoun_hit');
+        iceWall_hit = gameAdd().audio('iceWall');
+        starSong = gameAdd().audio('starSong');
 
         mainSound.volume = 0.5;
         if (!mainSound.isPlaying)
@@ -122,7 +122,7 @@ window.snowPongGame = {
         // //snow.enableBody = true;
         // snow.body.immovable = true;
 //Группа подарков=======================================
-        gifts = game.add.group();
+        gifts = gameAdd().group();
         gifts.enableBody = true;
         //gifts.physicsBodyType = Phaser.Physics.ARCADE;
         gifts.createMultiple(8, 'star');
@@ -139,7 +139,7 @@ window.snowPongGame = {
 
           //===========================
 //Группы препятствий и прочих штук на карте==================
-        entityGroup = game.add.group();
+        entityGroup = gameAdd().group();
         entityGroup.enableBody = true;
         entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
@@ -161,7 +161,7 @@ window.snowPongGame = {
         iceWall.body.immovable = true;
         iceWall.type = 'iceWall';
 //=============Группа снежных препятствий==================================
-        snowGroup = game.add.group();
+        snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
         var snow_1 = snowGroup.create(120, 460, 'snowStuck');
@@ -169,7 +169,7 @@ window.snowPongGame = {
 
 
 //Группа целей====================================================
-        aimsGroup = game.add.group();
+        aimsGroup = gameAdd().group();
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
@@ -180,7 +180,7 @@ window.snowPongGame = {
         //aim_1.tint = 0xFF0000;
 //===============================================================
 
-        explosions = game.add.group();
+        explosions = gameAdd().group();
         explosions.createMultiple(30, 'kaboom');
         // explosions.setAll('anchor.x', 0.5);
         // explosions.setAll('anchor.y', 0.5);
@@ -200,8 +200,8 @@ window.snowPongGame = {
         //
         //     //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
         //   }, this);
-        iceBall.sprite = game.add.sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
-        game.physics.arcade.enable(iceBall.sprite);
+        iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
+        gamePhysics().arcade.enable(iceBall.sprite);
         iceBall.sprite.body.bounce.setTo(0.8, 0.8);
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
@@ -228,10 +228,10 @@ window.snowPongGame = {
         iceBall.status = 'wait';
 
 
-        textDebag = game.add.text(220, 200, '', { fontSize: '32px', fill: 'red' , font: 'mainFont'});
+        textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red' , font: 'mainFont'});
         //iceBall.line = new Phaser.Line(100,15,500,400);
         //индикатор броска
-        arrow = game.add.sprite(iceBall.startX, iceBall.startY, 'arrow_indicator');
+        arrow = gameAdd().sprite(iceBall.startX, iceBall.startY, 'arrow_indicator');
         arrow.anchor.y = 0.5;
         arrow.anchor.x = 1;
         arrow.animations.add('arrow_indicator');
@@ -249,42 +249,42 @@ window.snowPongGame = {
         iceBall.minY = iceBall.sprite.y - iceBall.sprite.height/2;
         iceBall.maxY = iceBall.sprite.y + iceBall.sprite.height/2;
 
-        iceBall.manipulator = game.input.mousePointer,
-        game.physics.enable(iceBall.sprite, Phaser.Physics.ARCADE);
+        iceBall.manipulator = gameInput().mousePointer,
+        gamePhysics().enable(iceBall.sprite, Phaser.Physics.ARCADE);
         // game.physics.arcade.enable(iceBall.sprite);
 
 
 
         //Табло================================================
-        game.add.image(0, 0, 'underLyaer');
+        gameAdd().image(0, 0, 'underLyaer');
 
-        scoreStarsImage = game.add.sprite (20 , 20, 'starBar');
+        scoreStarsImage = gameAdd().sprite (20 , 20, 'starBar');
         scoreStarsImage.scale.setTo(1, 1);
         scoreStarsImage.anchor.x = 0.5;
         scoreStarsImage.anchor.y = 0.5;
         scoreStarsImage.alpha = 1;
         scoreStarsImage.animations.add('starBar');
-        starTable = game.add.text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
+        starTable = gameAdd().text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
         starTable.anchor.x = 0.5;
         starTable.anchor.y = 0.5;
         //Сердце
-        scoreHartImage = game.add.sprite (97 , 20, 'HartBar');
+        scoreHartImage = gameAdd().sprite (97 , 20, 'HartBar');
         scoreHartImage.scale.setTo(1, 1);
         scoreHartImage.anchor.x = 0.5;
         scoreHartImage.anchor.y = 0.5;
         scoreHartImage.alpha = 1;
         scoreHartImage.animations.add('hartBar');
-        healthTable = game.add.text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
+        healthTable = gameAdd().text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
         healthTable.anchor.x = 0.5;
         healthTable.anchor.y = 0.5;
         //часы
-        scoreTimerImage =  game.add.sprite (178 , 20, 'timeBar');
+        scoreTimerImage =  gameAdd().sprite (178 , 20, 'timeBar');
         scoreTimerImage.scale.setTo(1, 1);
         scoreTimerImage.anchor.x = 0.5;
         scoreTimerImage.anchor.y = 0.5;
         scoreTimerImage.alpha = 1;
         scoreTimerImage.animations.add('timeBar');
-        levelTable = game.add.text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
+        levelTable = gameAdd().text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
         levelTable.anchor.x = 0.5;
         levelTable.anchor.y = 0.5;
 
@@ -451,7 +451,7 @@ window.snowPongGame = {
       //Timer
       if (counterStarterTime == 0 && iceBall.status == 'start'){
          counterStarterTime++;
-         starterTime = Math.floor(game.time.now/1000);
+         starterTime = Math.floor(gameTime().now/1000);
          healthTable.text = health;
          starTable.text = scoreStars;
          //scoreHartImage.animations.play('hartBar');
@@ -461,7 +461,7 @@ window.snowPongGame = {
       }
 
       if (iceBall.status == 'start' || counterStarterTime != 0){
-        realTimeNow = Math.floor(game.time.now/1000) - starterTime;
+        realTimeNow = Math.floor(gameTime().now/1000) - starterTime;
         levelTable.text = realTimeNow;
         if (realTimeNow % 60 == 0){
              scoreTimerImage.animations.play('timeBar');
@@ -478,11 +478,11 @@ window.snowPongGame = {
 
         this.checkShoot();
 
-        game.physics.arcade.collide(entityGroup, iceBall.sprite, playSong);
-        game.physics.arcade.collide(aimsGroup, iceBall.sprite, killAim);
+        gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);
+        gamePhysics().arcade.collide(aimsGroup, iceBall.sprite, killAim);
 
-        checkover = game.physics.arcade.overlap(snowGroup, iceBall.sprite,  stopBall, null, this);
-        game.physics.arcade.overlap(gifts, iceBall.sprite,  killgift, null, this);``
+        checkover = gamePhysics().arcade.overlap(snowGroup, iceBall.sprite,  stopBall, null, this);
+        gamePhysics().arcade.overlap(gifts, iceBall.sprite,  killgift, null, this);``
 
         this.resetBall();
 
@@ -568,9 +568,9 @@ var stopBall = function (iceBall, snow) {
     // iceBall.body.velocity.y = Math.floor(iceBall.body.velocity.y / 1.03);
 
     if(countSnowSong == 0){
-      // game.add.tween(iceBall.body.velocity).to({x: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
+      // gameAdd().tween(iceBall.body.velocity).to({x: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
       //
-      // game.add.tween(iceBall.body.velocity).to({y: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
+      // gameAdd().tween(iceBall.body.velocity).to({y: 0}, 4000, Phaser.Easing.Exponential.Out, true, 0);
       snow_poof.play();
       var explosion = explosions.getFirstExists(false);
       explosion.reset(iceBall.x, iceBall.y);
@@ -658,7 +658,7 @@ var goMenuLoose = function () {
   saveBox.currentGame = 'snowPongGame';
   saveStat(21);
 
-  game.state.start('Game_over');
+  changeState('Game_over');
 
 }
 
@@ -675,6 +675,11 @@ var goMenuWin = function () {
   saveBox.time = realTimeNow;
   saveBox.hp = health;
   saveBox.stars = scoreStars;
+  if (scoreStars){
+      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+  }else {
+      saveBox.score = Math.floor(1000/realTimeNow) * health;
+  }
   realTimeNow = 0;
   health = 3;
   scoreStars = 0;
@@ -683,7 +688,7 @@ var goMenuWin = function () {
   realTimeNow = 0;
   saveBox.currentGame = 'snowPongGame';
   saveStat(21);
-  game.state.start('Win_SnowBallGame');
+  changeState('Win_SnowBallGame');
 }
 
 

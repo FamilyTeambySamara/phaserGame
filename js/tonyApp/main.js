@@ -37,31 +37,31 @@
           var path_2 = 'g_1';
           break;
         case 'snowPongGame_2':
-          var path = 'game_2.g_2'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_2';
           break;
         case 'snowPongGame_3':
-          var path = 'game_2.g_3'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_3';
           break;
         case 'snowPongGame_4':
-          var path = 'game_2.g_4'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_4';
           break;
         case 'snowPongGame_5':
-          var path = 'game_2.g_5'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_5';
           break;
         case 'snowPongGame_6':
-          var path = 'game_2.g_6'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_6';
           break;
         case 'snowPongGame_7':
-          var path = 'game_2.g_7'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_7';
           break;
         case 'snowPongGame_8':
-          var path = 'game_2.g_8'; //путь к объекту в инфобокс
+          var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_8';
           break;
       }
@@ -108,6 +108,9 @@
   }
   window.gameHeight = function () {
     return game.height;
+  }
+  window.gameWorld = function (){
+    return game.world;
   }
 }())
 

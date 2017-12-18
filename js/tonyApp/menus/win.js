@@ -40,7 +40,7 @@ window.Win_SnowBallGame =
     },
     create: function ()
     {
-    
+
       saveDb();
 
       hp = getInfoCurrentGame().hp;
