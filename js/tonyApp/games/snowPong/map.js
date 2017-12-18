@@ -1,5 +1,7 @@
 (function(){
   var  b_1, b_2, b_3, b_4, b_5, b_6, b_7, b_8, b_9, b_10;
+  var b_music_1;
+  var b_music_2;
   var buttonSong;
   window.map = {
     preload: function (){
@@ -74,8 +76,32 @@
         //интерфейс и управление
 
         gameAdd().button(15, 15, 'arrow_2', this.goBack, this, 0, 1 ,2);
+        //управление музыкой==========================
+        b_music_1 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this,  0, 2 ,1);
+        b_music_1.anchor.setTo(0.5, 0.5);
 
+        b_music_2 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this, 3, 5 ,4);
+        b_music_2.anchor.setTo(0.5, 0.5);
 
+        if(!gameSound().mute){
+            b_music_2.kill();
+        }else{
+            b_music_1.kill();
+        }
+        //=============================================================
+
+    },
+    turnMusic: function (){
+      // gameSound().mute = true;
+      if(!gameSound().mute){
+        gameSound().mute = true;
+        b_music_1.kill();
+        b_music_2.reset(742, 40);
+      }else {
+        gameSound().mute = false;
+        b_music_2.kill();
+        b_music_1.reset(742, 40);
+      }
     },
     goBack: function (){
         buttonSong.play();

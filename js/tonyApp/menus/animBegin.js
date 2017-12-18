@@ -22,14 +22,6 @@
   {
       preload: function ()
       {
-        // game.load.image('dragonTexture', 'assets/img/character.png');
-        // game.load.json('dragonMesh', 'assets/img/character.json');
-        //game.load.spritesheet('star', 'assets/img/stars.png', 60, 60);
-        // game.load.audio('wind',  'assets/audio/wind.wav');
-        // game.load.audio('buttonSong',  'assets/audio/button.wav');
-        // game.load.spritesheet('button_play', 'assets/img/button_sprite3.png', 193 , 71);
-        // game.load.spritesheet('button_out', 'assets/img/button_sprite4.png', 193 , 71);
-
 
       },
 

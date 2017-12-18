@@ -22,6 +22,12 @@
   var b2_ruls;
   var b3_ruls;
   var back_emitter;
+
+  var b_info;
+  var b_music_1;
+  var b_music_2;
+  var infoStars;
+  var likeVk;
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
@@ -31,6 +37,11 @@ window.menu_cards = {
         gameLoad().image('card_2', 'assets/img/menuCards/Card2_2.png');
         gameLoad().image('card_2_2', 'assets/img/menuCards/Card2_1.png');
         gameLoad().image('card_3', 'assets/img/menuCards/Card3_2.png');
+
+        gameLoad().spritesheet('b_info', 'assets/img/menuCards/seeInfo.png', 50 , 50);
+        gameLoad().spritesheet('b_music', 'assets/img/menuCards/offSound.png', 50 , 50);
+        gameLoad().spritesheet('infoStars', 'assets/img/menuCards/seeStarts.png', 50 , 50);
+        gameLoad().spritesheet('likeVk', 'assets/img/menuCards/doRepost.png', 50 , 50);
 
         gameLoad().spritesheet('button_history', 'assets/img/menuCards/HistoryCard.png', 70 , 20);
         gameLoad().spritesheet('button_play_cards', 'assets/img/menuCards/PlayCard.png', 150 , 80);
@@ -131,8 +142,45 @@ window.menu_cards = {
       b3_ruls.anchor.setTo(0.5, 0.5);
       b3_ruls.nGame = 3;
 
+      b_info = gameAdd().button(692, 40, 'b_info', this.showInfoGame, this,  1, 2 , 0);
+      b_info.anchor.setTo(0.5, 0.5);
+      likeVk = gameAdd().button(58, 40, 'likeVk', this.doLike, this,  0, 2, 1);
+      likeVk.anchor.setTo(0.5, 0.5);
+      infoStars = gameAdd().sprite(108, 40, 'infoStars');
+      infoStars.anchor.setTo(0.5, 0.5);
 
+      //управление музыкой==========================
+      b_music_1 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this,  0, 2 ,1);
+      b_music_1.anchor.setTo(0.5, 0.5);
 
+      b_music_2 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this, 3, 5 ,4);
+      b_music_2.anchor.setTo(0.5, 0.5);
+
+      if(!gameSound().mute){
+          b_music_2.kill();
+      }else{
+          b_music_1.kill();
+      }
+      //=============================================================
+
+    },
+    showInfoGame: function (){
+        alert('Правила игры');
+    },
+    turnMusic: function (){
+      // gameSound().mute = true;
+      if(!gameSound().mute){
+        gameSound().mute = true;
+        b_music_1.kill();
+        b_music_2.reset(742, 40);
+      }else {
+        gameSound().mute = false;
+        b_music_2.kill();
+        b_music_1.reset(742, 40);
+      }
+    },
+    doLike: function (){
+      alert('лайкнуть игру');
     },
     showRuls: function (b){
       alert('правилы для игры: ' + b.nGame);
