@@ -3,6 +3,8 @@
   window.Boot = {
         preload: function (){
             gameLoad().audio('cristmas', ['assets/audio/menu.mp3', 'assets/audio/menu.ogg']);
+            gameLoad().audio('bells', ['assets/audio/bells.mp3']);
+
             gameLoad().image('loading_bar', 'assets/img/preloader/loader3.png');
             gameLoad().image('loading_fon', 'assets/img/preloader/loadingLights.png');
             gameLoad().spritesheet('load_text', 'assets/img/preloader/load.png', 193, 71);
