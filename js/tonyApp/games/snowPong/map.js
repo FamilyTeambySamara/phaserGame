@@ -75,7 +75,7 @@
 
         gameAdd().button(15, 15, 'arrow_2', this.goBack, this, 0, 1 ,2);
 
-    
+
     },
     goBack: function (){
         buttonSong.play();
@@ -87,6 +87,8 @@
     },
     startGame: function(but){
         // changeState('snowPongGame');
+        gameSound().stopAll();
+        musicPlay = false;
         buttonSong.play();
         alert(but.gameName);
         if (!changeState(but.gameName)){

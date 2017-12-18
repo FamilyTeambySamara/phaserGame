@@ -22,6 +22,7 @@
   var b2_ruls;
   var b3_ruls;
   var back_emitter;
+  window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
         gameLoad().image('cardsFon', 'assets/img/menuCards/menuCardsFon.png');
@@ -42,7 +43,10 @@ window.menu_cards = {
     create: function (){
       //музыка
       music = gameAdd().audio('cristmas');
-      music.loopFull();
+      if(!musicPlay){
+          music.loopFull();
+          musicPlay = true;
+      }
       buttonSong = gameAdd().audio('buttonSong');
       //============================
       // фон
@@ -156,6 +160,7 @@ window.menu_cards = {
     {
       buttonSong.volume = 0.6;
       buttonSong.play();
+      musicPlay = false;
 
       var status = getInfo().game_1.status;
       var access = getInfo().game_1.access;

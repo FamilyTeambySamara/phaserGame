@@ -1,6 +1,6 @@
 (function(){
   var game = new Phaser.Game(800, 500, Phaser.AUTO, '');
-  game.state.add('Menu', Menu);
+  game.state.add('animBegin', animBegin);
   game.state.add('menu_cards', menu_cards);
   // game.state.add('Menu_over', Game_over);
   game.state.add('SnowBallGame', SnowBallGame);

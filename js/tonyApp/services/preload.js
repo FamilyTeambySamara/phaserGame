@@ -91,7 +91,17 @@
         // } else if ()
       //  game.state.start('Menu');
         // game.state.start('snowPongGame');
-        changeState('menu_cards');
+
+        //
+        // if (getInfo().game_1.status == 'unstart'){
+        //   changeState('animBegin');
+        // }else {
+        //   changeState('menu_cards');
+        // }
+
+        changeState('animBegin');
+
+        // changeState('menu_cards');
    }
   }
 }())
