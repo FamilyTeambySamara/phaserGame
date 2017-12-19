@@ -12,6 +12,8 @@
 
   game.state.add('presentSnowBallGames', presentSnowBallGames);
 
+  game.state.add('presentSnowPong', presentSnowPong);
+
   game.state.add('map', map);
 
   game.state.add('Boot', Boot);

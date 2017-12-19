@@ -21,25 +21,21 @@
   var buttonSong;
 
 
-  window.presentSnowBallGames = {
+  window.presentSnowPong = {
 
       preload: function (){
-          gameLoad().image('slide_1', 'assets/img/presentGameSnowBall/slide_1.png');
-          gameLoad().image('slide_2', 'assets/img/presentGameSnowBall/slide_2.png');
-          gameLoad().image('slide_3', 'assets/img/presentGameSnowBall/slide_3.png');
-          gameLoad().image('slide_4', 'assets/img/presentGameSnowBall/slide_4.png');
-          gameLoad().image('slide_5', 'assets/img/presentGameSnowBall/slide_5.png');
-          gameLoad().image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
-          gameLoad().image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
+          gameLoad().image('slide_1', 'assets/img/presentGameSnowPong/1.png');
+          gameLoad().image('slide_2', 'assets/img/presentGameSnowPong/2.png');
+          gameLoad().image('slide_3', 'assets/img/presentGameSnowPong/3.png');
+          // gameLoad().image('slide_4', 'assets/img/presentGameSnowBall/slide_4.png');
+          // gameLoad().image('slide_5', 'assets/img/presentGameSnowBall/slide_5.png');
+          // gameLoad().image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
+          // gameLoad().image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
 
           gameLoad().audio('mainTheme',  'assets/audio/Cellophane_Sam_-_05_-_Desire(present_start).mp3');
           gameLoad().audio('crash',  'assets/audio/Carsh.mp3');
           gameLoad().audio('silent',  'assets/audio/Nctrnm_-_01_-_Concern(action).mp3');
           gameLoad().audio('action',  'assets/audio/Golden_Duck_Orchestra_-_02_-_Alien.mp3');
-
-
-
-
       },
 
       create: function () {
@@ -75,14 +71,14 @@
 
       update: function () {
 
-        if (button_next.alpha ==  0 && index + 1 !== 7 ){
+        if (button_next.alpha ==  0 && index + 1 !== 3 ){
                gameAdd().tween(button_next).to( { alpha: 1 }, 8000, Phaser.Easing.Exponential.Out, true, 0);
         }
       },
 
       goNext: function (){
             buttonSong.play();
-            if(index + 1 == 6){
+            if(index + 1 == 2){
                 button_game.reset(400, 390);
                 var anim_start = gameAdd().tween(button_game).to({ width: 0.9*button_game.width, height: 0.9*button_game.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
                 // gameAdd().tween(button_game).to({ x: 500 }, 1000, Phaser.Easing.Linear.None, true,0,0, true)
@@ -94,7 +90,7 @@
             }
             var slide = slides.getChildAt(index);
             ++index;
-            if (index + 1 == 6){
+            if (index + 1 == 2){
                 silent.stop();
                 action.play();
             }
@@ -167,10 +163,11 @@
         something.kill();
       },
       goGame: function (){
-          action.stop();
+          // action.stop();
+          gameSound().stopAll();
           index = 0;
-          changeLevel(1);
-          changeState('SnowBallGame');
+          // changeLevel(1);
+          changeState('snowPongGame');
       }
 
 
