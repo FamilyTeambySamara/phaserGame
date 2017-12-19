@@ -117,44 +117,21 @@ var changeLevel_3;
 //=================Результат матча========================================
 var saveBox = {};
 /////////================================================\\\\\\\\\\\\\\\\\\\\
+
+//кнопки управления
+var replayGame;
+var exitGame;
+var doReplayGame;
+var doExitGame;
+window.snowBallMainTrack = false;
 window.SnowBallGame =
 {
     preload: function () {
-        // game.load.audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
-        // game.load.audio('clap', 'assets/audio/clap_2.mp3');
-        // game.load.audio('hitPinguin', 'assets/audio/hitPinguin.wav');
-        // game.load.audio('starSong', 'assets/audio/bell.mp3');
-        //
-        // //
-        // game.load.spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
-        // game.load.spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
-        // game.load.spritesheet('bigPolarMan', 'assets/img/Poo.png', 143.75, 115);
-        // game.load.spritesheet('bet', 'assets/img/Pingvin.png', 50, 78);
-        //
-        // // game.load.spritesheet('throwSimpleMan', 'assets/img/throwSimpleMan.jpg', 60, 79);
-        //
-        // game.load.image('ball', 'assets/img/ball.png');
-        // game.load.image('mainLayer', 'assets/img/snowBall_mainLayer.png');
-        // game.load.image('bigSnow', 'assets/img/bigSnow.png');
-        // game.load.image('smallSnow', 'assets/img/smallSnow.png');
-        // game.load.image('midleSnow', 'assets/img/midleSnow.png');
-        // game.load.image('refuse', 'assets/img/refuse.png');
-        // game.load.image('underLyaer', 'assets/img/endFonMenu.png');
-        //
-        // game.load.spritesheet('HartBar', 'assets/img/heartmenu.png', 40, 40);
-        // game.load.spritesheet('star', 'assets/img/stars.png', 49, 50);
-        // game.load.spritesheet('kaboom', 'assets/img/explode.png', 128, 128);
-        // game.load.spritesheet('bigSnowBaall', 'assets/img/bigSnowBaall.png', 110, 110);
-        // game.load.spritesheet('starBar', 'assets/img/startmenu.png', 40, 40);
-        // game.load.spritesheet('timeBar', 'assets/img/clockmenu.png', 40, 40);
-
 
     },
 
     create: function () {
 
-      //alert(saveBox.mod);
-    //базовый режим и фон
     gamePhysics().startSystem(Phaser.Physics.ARCADE);
     gameAdd().image(0, 0, 'mainLayer');
     //====================MAINPLAYEEEEEEER===
@@ -185,7 +162,11 @@ window.SnowBallGame =
     //=======================================
     mainTrack = gameAdd().audio('snowBallGame_mainTrack');
     mainTrack.volume = 0.5;
-    mainTrack.play();
+    if(!snowBallMainTrack){
+      mainTrack.loopFull();
+      snowBallMainTrack = true;
+    }
+
 //=============Снег на фоне игры===================================
       // back_emitter = gameAdd().emitter(game.world.centerX, -32, 600);
       // back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
@@ -369,6 +350,14 @@ window.SnowBallGame =
       scoreTable =  gameAdd().text(55, 60, 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead, { fontSize: '32px', fill: 'white' });
       //healthTable = gameAdd().text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
 
+
+      //кнопки управления============
+      replayGame = gameAdd().button(742, 40, 'replay_game', doReplayGame, this, 1, 2 ,0);
+      replayGame.anchor.setTo(0.5, 0.5);
+      exitGame = gameAdd().button(690, 40, 'exit_game', doExitGame, this, 1, 2 ,0);
+      exitGame.anchor.setTo(0.5, 0.5);
+
+      //=================================
 //=========Управление игроком========================================
        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
        cursors = gameInput().keyboard.createCursorKeys();
@@ -574,7 +563,9 @@ window.SnowBallGame =
                     timeDilayEnemy = 2000;
                     enemyBulletvelocity = 400;
                     refuseLive = 10;
-                    mainTrack.pause();
+                    snowBallMainTrack = false;
+                    // mainTrack.pause();
+                    gameSound().stopAll();
                     //==============================
                     changeState('Win_SnowBallGame');
                     break;
@@ -647,9 +638,11 @@ window.SnowBallGame =
             enemyBulletvelocity = 400;
             refuseLive = 10;
 
-            mainTrack.pause();
+            // mainTrack.pause();
+            gameSound().stopAll();
+            snowBallMainTrack = false;
             //==============================
-            this.state.start('Game_over');
+            changeState('Game_over');
         }
         healthTable.text = health;
      },
@@ -1114,6 +1107,53 @@ window.changeLevel = function (mod) {
     break;
   }
 }
+
+doReplayGame = function (){
+  saveBox.currentGame = 'SnowBallGame';
+  saveStat(1);
+  //========Сброс настроек====
+  counterStarterTime = 0;
+  scoreStars = 0;
+  simplePolarDead = 0;
+  smartPolarDead = 0;
+  bigPolarDead = 0;
+  nextLevelScore = 5;
+  health = 3;
+  shotAim = 0;
+  Level = 1;
+  score = 0;
+  timeDilayEnemy = 2000;
+  enemyBulletvelocity = 400;
+  refuseLive = 10;
+  // mainTrack.pause();
+  //==============================
+  changeState('SnowBallGame');
+}
+
+doExitGame = function (){
+  saveBox.currentGame = 'SnowBallGame';
+  saveStat(1);
+  //========Сброс настроек====
+  counterStarterTime = 0;
+  scoreStars = 0;
+  simplePolarDead = 0;
+  smartPolarDead = 0;
+  bigPolarDead = 0;
+  nextLevelScore = 5;
+  health = 3;
+  shotAim = 0;
+  Level = 1;
+  score = 0;
+  timeDilayEnemy = 2000;
+  enemyBulletvelocity = 400;
+  refuseLive = 10;
+  // mainTrack.pause();
+  snowBallMainTrack = false
+  gameSound().stopAll();
+  //==============================
+  changeState('menu_cards');
+}
+
 
 
 

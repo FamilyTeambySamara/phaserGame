@@ -79,7 +79,10 @@
 
       gameLoad().spritesheet('button_again', 'assets/img/button_sprite5.png', 193 , 71);
         //============
+      gameLoad().spritesheet('exit_game', 'assets/img/menuCards/exitGame.png', 50 , 50);
+      gameLoad().spritesheet('replay_game', 'assets/img/menuCards/RepeatGame.png', 50 , 50);
 
+        //значки для игре//=============
       },
 
       create: function() {
@@ -93,13 +96,13 @@
         // game.state.start('snowPongGame');
 
         //
-        // if (getInfo().game_1.status == 'unstart'){
-        //   changeState('animBegin');
-        // }else {
-        //   changeState('menu_cards');
-        // }
+        if (getInfo().game_1.status == 'unstart'){
+          changeState('animBegin');
+        }else {
+          changeState('menu_cards');
+        }
 
-        changeState('animBegin');
+        // changeState('animBegin');
 
         // changeState('menu_cards');
    }
