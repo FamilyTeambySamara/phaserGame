@@ -82,7 +82,31 @@
       gameLoad().spritesheet('exit_game', 'assets/img/menuCards/exitGame.png', 50 , 50);
       gameLoad().spritesheet('replay_game', 'assets/img/menuCards/RepeatGame.png', 50 , 50);
 
+      gameLoad().spritesheet('exit_game_new', 'assets/img/menuCards/main/exitGame.png', 40 , 40);
+      gameLoad().spritesheet('replay_game_new', 'assets/img/menuCards/main/RepeatGame.png', 40 , 40);
+      gameLoad().spritesheet('turnSound_new', 'assets/img/menuCards/main/offSound.png', 40 , 40);
+      gameLoad().image('underLyaerInGame', 'assets/img/menuCards/main/endFonMenu2.png');
+
         //значки для игре//=============
+      //menu_cards
+      gameLoad().image('cardsFon', 'assets/img/menuCards/menuCardsFon.png');
+      gameLoad().image('card_1', 'assets/img/menuCards/Card1_2.png');
+      gameLoad().image('card_1_2', 'assets/img/menuCards/Card1_1.png');
+      gameLoad().image('card_2', 'assets/img/menuCards/Card2_2.png');
+      gameLoad().image('card_2_2', 'assets/img/menuCards/Card2_1.png');
+      gameLoad().image('card_3', 'assets/img/menuCards/Card3_2.png');
+
+      gameLoad().spritesheet('b_info', 'assets/img/menuCards/seeInfo.png', 50 , 50);
+      gameLoad().spritesheet('b_music', 'assets/img/menuCards/offSound.png', 50 , 50);
+      gameLoad().spritesheet('infoStars', 'assets/img/menuCards/seeStarts2.png', 100 , 50);
+      gameLoad().spritesheet('likeVk', 'assets/img/menuCards/doRepost.png', 50 , 50);
+
+      gameLoad().spritesheet('button_history', 'assets/img/menuCards/HistoryCard.png', 70 , 20);
+      gameLoad().spritesheet('button_play_cards', 'assets/img/menuCards/PlayCard.png', 150 , 80);
+
+      gameLoad().spritesheet('button_post_1', 'assets/img/menuCards/giveCard.png', 50 , 50);
+      gameLoad().spritesheet('button_reit_1', 'assets/img/menuCards/seeTop.png', 50 , 50);
+      gameLoad().spritesheet('button_ruls_1', 'assets/img/menuCards/seeRegulation.png', 50 , 50);
       },
 
       create: function() {

@@ -123,6 +123,10 @@ var replayGame;
 var exitGame;
 var doReplayGame;
 var doExitGame;
+
+var b_music_1;
+var b_music_2;
+var layerUnderMenu;
 window.snowBallMainTrack = false;
 window.SnowBallGame =
 {
@@ -352,18 +356,46 @@ window.SnowBallGame =
 
 
       //кнопки управления============
-      replayGame = gameAdd().button(742, 40, 'replay_game', doReplayGame, this, 1, 2 ,0);
-      replayGame.anchor.setTo(0.5, 0.5);
-      exitGame = gameAdd().button(690, 40, 'exit_game', doExitGame, this, 1, 2 ,0);
-      exitGame.anchor.setTo(0.5, 0.5);
+      layerUnderMenu = gameAdd().image(800, 0, 'underLyaerInGame');
+      layerUnderMenu.anchor.x = 1;
 
+      //управление музыкой==========================
+      b_music_1 = gameAdd().button(layerUnderMenu.left + 2, layerUnderMenu.centerY, 'turnSound_new', this.turnMusic, this,  0, 2 ,1);
+      b_music_1.anchor.setTo(0, 0.5);
+
+      b_music_2 = gameAdd().button(layerUnderMenu.left + 2, layerUnderMenu.centerY, 'turnSound_new', this.turnMusic, this, 3, 5 ,4);
+      b_music_2.anchor.setTo(0, 0.5);
+
+      replayGame = gameAdd().button(b_music_1.right - 2, layerUnderMenu.centerY, 'replay_game_new', doReplayGame, this, 1, 2 ,0);
+      replayGame.anchor.setTo(0, 0.5);
+      exitGame = gameAdd().button(replayGame.right + 1, layerUnderMenu.centerY, 'exit_game_new', doExitGame, this, 1, 2 ,0);
+      exitGame.anchor.setTo(0, 0.5);
+
+      if(!gameSound().mute){
+          b_music_2.kill();
+      }else{
+          b_music_1.kill();
+      }
       //=================================
+
 //=========Управление игроком========================================
        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
        cursors = gameInput().keyboard.createCursorKeys();
        // plyaerMouse = gameInput().x;
        //gameInput().onDown.add(this.releaseBall, this);
 //===================================================================
+    },
+    turnMusic: function (){
+      // gameSound().mute = true;
+      if(!gameSound().mute){
+        gameSound().mute = true;
+        b_music_1.kill();
+        b_music_2.reset(layerUnderMenu.left + 2, layerUnderMenu.centerY);
+      }else {
+        gameSound().mute = false;
+        b_music_2.kill();
+        b_music_1.reset(layerUnderMenu.left + 2, layerUnderMenu.centerY);
+      }
     },
     //Стрельба PLayer
      fireBullet: function () {

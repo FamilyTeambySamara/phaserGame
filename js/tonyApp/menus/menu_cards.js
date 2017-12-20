@@ -23,6 +23,10 @@
   var b3_ruls;
   var back_emitter;
 
+  var butGroup_1;
+  var butGroup_2;
+  var butGroup_3;
+
   var b_info;
   var b_music_1;
   var b_music_2;
@@ -31,24 +35,24 @@
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
-        gameLoad().image('cardsFon', 'assets/img/menuCards/menuCardsFon.png');
-        gameLoad().image('card_1', 'assets/img/menuCards/Card1_2.png');
-        gameLoad().image('card_1_2', 'assets/img/menuCards/Card1_1.png');
-        gameLoad().image('card_2', 'assets/img/menuCards/Card2_2.png');
-        gameLoad().image('card_2_2', 'assets/img/menuCards/Card2_1.png');
-        gameLoad().image('card_3', 'assets/img/menuCards/Card3_2.png');
-
-        gameLoad().spritesheet('b_info', 'assets/img/menuCards/seeInfo.png', 50 , 50);
-        gameLoad().spritesheet('b_music', 'assets/img/menuCards/offSound.png', 50 , 50);
-        gameLoad().spritesheet('infoStars', 'assets/img/menuCards/seeStarts.png', 50 , 50);
-        gameLoad().spritesheet('likeVk', 'assets/img/menuCards/doRepost.png', 50 , 50);
-
-        gameLoad().spritesheet('button_history', 'assets/img/menuCards/HistoryCard.png', 70 , 20);
-        gameLoad().spritesheet('button_play_cards', 'assets/img/menuCards/PlayCard.png', 150 , 80);
-
-        gameLoad().spritesheet('button_post_1', 'assets/img/menuCards/giveCard.png', 50 , 50);
-        gameLoad().spritesheet('button_reit_1', 'assets/img/menuCards/seeTop.png', 50 , 50);
-        gameLoad().spritesheet('button_ruls_1', 'assets/img/menuCards/seeRegulation.png', 50 , 50);
+        // gameLoad().image('cardsFon', 'assets/img/menuCards/menuCardsFon.png');
+        // gameLoad().image('card_1', 'assets/img/menuCards/Card1_2.png');
+        // gameLoad().image('card_1_2', 'assets/img/menuCards/Card1_1.png');
+        // gameLoad().image('card_2', 'assets/img/menuCards/Card2_2.png');
+        // gameLoad().image('card_2_2', 'assets/img/menuCards/Card2_1.png');
+        // gameLoad().image('card_3', 'assets/img/menuCards/Card3_2.png');
+        //
+        // gameLoad().spritesheet('b_info', 'assets/img/menuCards/seeInfo.png', 50 , 50);
+        // gameLoad().spritesheet('b_music', 'assets/img/menuCards/offSound.png', 50 , 50);
+        // gameLoad().spritesheet('infoStars', 'assets/img/menuCards/seeStarts.png', 50 , 50);
+        // gameLoad().spritesheet('likeVk', 'assets/img/menuCards/doRepost.png', 50 , 50);
+        //
+        // gameLoad().spritesheet('button_history', 'assets/img/menuCards/HistoryCard.png', 70 , 20);
+        // gameLoad().spritesheet('button_play_cards', 'assets/img/menuCards/PlayCard.png', 150 , 80);
+        //
+        // gameLoad().spritesheet('button_post_1', 'assets/img/menuCards/giveCard.png', 50 , 50);
+        // gameLoad().spritesheet('button_reit_1', 'assets/img/menuCards/seeTop.png', 50 , 50);
+        // gameLoad().spritesheet('button_ruls_1', 'assets/img/menuCards/seeRegulation.png', 50 , 50);
     },
 
     create: function (){
@@ -78,83 +82,107 @@ window.menu_cards = {
       //======================================
       //карточки
       if (getInfo().game_1.status == 'over'){
-        card_1 = gameAdd().image(145, 240, 'card_1_2');
+        card_1 = gameAdd().image(145, -150, 'card_1_2');
       }else {
-        card_1 = gameAdd().image(145, 240, 'card_1');
+        card_1 = gameAdd().image(145, -150, 'card_1');
       }
       card_1.anchor.setTo(0.5, 0.5);
       if (getInfo().game_2.g_1.status == 'over'){
-          card_2 = gameAdd().image(400, 240, 'card_2_2');
+          card_2 = gameAdd().image(400, 650, 'card_2_2');
       }else {
-          card_2 = gameAdd().image(400, 240, 'card_2');
+          card_2 = gameAdd().image(400, 650, 'card_2');
       }
       card_2.anchor.setTo(0.5, 0.5);
-      card_3 = gameAdd().image(655, 240, 'card_3');
+      card_3 = gameAdd().image(655, -150, 'card_3');
       card_3.anchor.setTo(0.5, 0.5);
       //================================
 
       // Кнопки запуска игры
+      butGroup_1 = gameAdd().group();
+      butGroup_2 = gameAdd().group();
+      butGroup_3 = gameAdd().group();
+
       buttonPlay_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 3, 1 ,2);
       buttonPlay_1.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(buttonPlay_1);
       buttonPlay_2 = gameAdd().button(400, 364, 'button_play_cards', this.startGame_2, this, 3, 1 ,2);
       buttonPlay_2.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(buttonPlay_2);
       buttonPlay_3 = gameAdd().button(655, 364, 'button_play_cards', this.startGame_3, this, 3, 1 ,2);
       buttonPlay_3.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(buttonPlay_3);
       //============================
       b1_history = gameAdd().button(143, 319,'button_history', this.startPresent, this, 0, 2, 1);
       b1_history.present = 1;
       b1_history.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(b1_history);
       b2_history = gameAdd().button(400, 319,'button_history', this.startPresent, this, 0, 2, 1);
-      b1_history.present = 2;
+      b2_history.present = 2;
       b2_history.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(b2_history);
       b3_history = gameAdd().button(655, 319,'button_history', this.startPresent, this, 0, 2, 1);
-      b1_history.present = 3;
+      b3_history.present = 3;
       b3_history.anchor.setTo(0.5, 0.5);
+      butGroup_1.add(b3_history);
 
       //кнопки интерфейс
       b1_post = gameAdd().button(80, 130,'button_post_1', this.postPicture, this, 0, 2, 1);
       b1_post.anchor.setTo(0.5, 0.5);
       b1_post.post = 1;
+      butGroup_2.add(b1_post);
       b2_post = gameAdd().button(335, 130,'button_post_1', this.postPicture, this, 0, 2, 1);
       b2_post.anchor.setTo(0.5, 0.5);
       b2_post.post = 2;
+      butGroup_2.add(b2_post);
       b3_post = gameAdd().button(590, 130,'button_post_1', this.postPicture, this, 0, 2, 1);
       b3_post.anchor.setTo(0.5, 0.5);
       b3_post.post = 3;
+      butGroup_2.add(b3_post);
 
       b1_reit = gameAdd().button(80, 180,'button_reit_1', this.showReit, this, 0, 2, 1);
       b1_reit.anchor.setTo(0.5, 0.5);
       b1_reit.nGame = 1;
+      butGroup_2.add(b1_reit);
       b2_reit = gameAdd().button(335, 180,'button_reit_1', this.showReit, this, 0, 2, 1);
       b2_reit.anchor.setTo(0.5, 0.5);
       b2_reit.nGame = 2;
+      butGroup_2.add(b2_reit);
       b3_reit = gameAdd().button(590, 180,'button_reit_1', this.showReit, this, 0, 2, 1);
       b3_reit.anchor.setTo(0.5, 0.5);
       b3_reit.nGame = 3;
+      butGroup_2.add(b3_reit);
 
       b1_ruls = gameAdd().button(80, 230,'button_ruls_1', this.showRuls, this, 0, 2, 1);
       b1_ruls.anchor.setTo(0.5, 0.5);
       b1_ruls.nGame = 1;
+      butGroup_2.add(b1_ruls);
       b2_ruls = gameAdd().button(335, 230,'button_ruls_1', this.showRuls, this, 0, 2, 1);
       b2_ruls.anchor.setTo(0.5, 0.5);
       b2_ruls.nGame = 2;
+      butGroup_2.add(b2_ruls);
       b3_ruls = gameAdd().button(590, 230,'button_ruls_1', this.showRuls, this, 0, 2, 1);
       b3_ruls.anchor.setTo(0.5, 0.5);
       b3_ruls.nGame = 3;
+      butGroup_2.add(b3_ruls);
 
       b_info = gameAdd().button(692, 40, 'b_info', this.showInfoGame, this,  1, 2 , 0);
       b_info.anchor.setTo(0.5, 0.5);
+      butGroup_3.add(b_info);
       likeVk = gameAdd().button(58, 40, 'likeVk', this.doLike, this,  0, 2, 1);
       likeVk.anchor.setTo(0.5, 0.5);
-      infoStars = gameAdd().sprite(108, 40, 'infoStars');
+      butGroup_3.add(likeVk);
+      infoStars = gameAdd().sprite(140, 40, 'infoStars', 2);
       infoStars.anchor.setTo(0.5, 0.5);
+      butGroup_3.add(infoStars);
 
       //управление музыкой==========================
       b_music_1 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this,  0, 2 ,1);
       b_music_1.anchor.setTo(0.5, 0.5);
+      butGroup_3.add(b_music_1);
 
       b_music_2 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this, 3, 5 ,4);
       b_music_2.anchor.setTo(0.5, 0.5);
+      butGroup_3.add(b_music_2);
 
       if(!gameSound().mute){
           b_music_2.kill();
@@ -162,7 +190,37 @@ window.menu_cards = {
           b_music_1.kill();
       }
       //=============================================================
+      butGroup_3.forEachAlive(function (but){
+        but.alpha = 0;
+      }, this)
+      butGroup_2.forEachAlive(function (but){
+        but.alpha = 0;
+      }, this)
+      butGroup_1.forEachAlive(function (but){
+        but.alpha = 0;
+      }, this)
+      //анимация=================
+      card_1_anim = gameAdd().tween(card_1).to( {y: 240}, 2000, Phaser.Easing.Exponential.Out, true, 0);
+      card_2_anim = gameAdd().tween(card_2).to( {y: 240}, 2000, Phaser.Easing.Exponential.Out, true, 0);
+      card_3_anim = gameAdd().tween(card_3).to( {y: 240}, 2000, Phaser.Easing.Exponential.Out, true, 0);
+      // 145, 240
+      butStart = gameTime().create();
+      butStart.add(1000, function (){
+        butGroup_3.forEachAlive(function (but){
+          gameAdd().tween(but).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0);
+        }, this)
+        butGroup_2.forEachAlive(function (but){
+          gameAdd().tween(but).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 250);
+        }, this)
+        butGroup_1.forEachAlive(function (but){
+          gameAdd().tween(but).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 350);
+        }, this)
+      }, this);
+      butStart.start();
+      // card_1_anim.onComplete.add(changeWind, this);
+      // bellsSong.volume = 0;
 
+      //=====================
     },
     showInfoGame: function (){
         alert('Правила игры');
@@ -194,11 +252,22 @@ window.menu_cards = {
     startPresent: function (b){
         switch (b.present) {
           case 1:
-            changeState('presentSnowBallGame');
+            buttonSong.play();
+            musicPlay = false;
+            gameSound().stopAll();
+            changeState('presentSnowBallGames');
             break;
           case 2:
             // changeState('presentSnowPongGame');
-            alert('в разаработке');
+            buttonSong.play();
+            musicPlay = false;
+            gameSound().stopAll();
+            changeState('presentSnowPong');
+            break;
+          case 3:
+            buttonSong.play();
+            alert('в разработке');
+            break;
 
 
         }
@@ -234,8 +303,8 @@ window.menu_cards = {
       //==
       if (status == 'unstart' && access == 1){
         //перейти к презентации
-        // changeState('presentSnowPongGame');
-        changeState('map');
+        changeState('presentSnowBallGames');
+        // changeState('map');
 
           // this.state.start('presentGame_2');
       } else if ((status == 'start' || status == 'over') && access == 1){

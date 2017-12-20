@@ -61,6 +61,15 @@ var health = 3;
 
 var realTimeNow = '-';
 
+//кнопки управления
+var replayGame;
+var exitGame;
+var doReplayGame;
+var doExitGame;
+
+var b_music_1;
+var b_music_2;
+var layerUnderMenu;
 
 //условие победы
 var cracksDestroy = 1;
@@ -289,7 +298,40 @@ window.snowPongGame = {
         levelTable.anchor.y = 0.5;
 
         //=================================================
+        //кнопки управления============
+        layerUnderMenu = gameAdd().image(800, 0, 'underLyaerInGame');
+        layerUnderMenu.anchor.x = 1;
 
+        //управление музыкой==========================
+        b_music_1 = gameAdd().button(layerUnderMenu.left + 2, layerUnderMenu.centerY, 'turnSound_new', this.turnMusic, this,  0, 2 ,1);
+        b_music_1.anchor.setTo(0, 0.5);
+
+        b_music_2 = gameAdd().button(layerUnderMenu.left + 2, layerUnderMenu.centerY, 'turnSound_new', this.turnMusic, this, 3, 5 ,4);
+        b_music_2.anchor.setTo(0, 0.5);
+
+        replayGame = gameAdd().button(b_music_1.right - 2, layerUnderMenu.centerY, 'replay_game_new', replay, this, 1, 2 ,0);
+        replayGame.anchor.setTo(0, 0.5);
+        exitGame = gameAdd().button(replayGame.right + 1, layerUnderMenu.centerY, 'exit_game_new', doExitGame, this, 1, 2 ,0);
+        exitGame.anchor.setTo(0, 0.5);
+
+        if(!gameSound().mute){
+            b_music_2.kill();
+        }else{
+            b_music_1.kill();
+        }
+        //=================================
+    },
+    turnMusic: function (){
+      // gameSound().mute = true;
+      if(!gameSound().mute){
+        gameSound().mute = true;
+        b_music_1.kill();
+        b_music_2.reset(layerUnderMenu.left + 2, layerUnderMenu.centerY);
+      }else {
+        gameSound().mute = false;
+        b_music_2.kill();
+        b_music_1.reset(layerUnderMenu.left + 2, layerUnderMenu.centerY);
+      }
     },
     indication: function (vectorX, vectorY) {
         var arrowScale;
@@ -525,17 +567,24 @@ var replay = function (){
   iceBall.tempY = 0;
   iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
   // iceBall.sprite.alive = true;
-  iceBall.isSet = true;
-  iceBall.status = 'wait';
-  countSnowSong = 0;
   // counterStarterTime = 0;
   // realTimeNow = 0;
   // scoreStars = 0;
-  health -= 1;
+  // health -= 1;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  countSnowSong = 0;
+  health = 3;
+  scoreStars = 0;
+  //countSnowSong = 0;
+  counterStarterTime = 0;
+  realTimeNow = 0;
+  rollingBall.stop();
 
   healthTable.text = health;
   scoreHartImage.animations.play('hartBar');
   levelTable.text = realTimeNow;
+  starTable.text = scoreStars;
   // starTable.text = '0';
   riseArrow();
 
@@ -642,6 +691,7 @@ var killgift = function (player, star){
 }
 
 var goMenuLoose = function () {
+  gameSound().stopAll();
   iceBall.tempX = 0;
   iceBall.tempY = 0;
   iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
@@ -663,7 +713,7 @@ var goMenuLoose = function () {
 }
 
 var goMenuWin = function () {
-
+  gameSound().stopAll();
   iceBall.tempX = 0;
   iceBall.tempY = 0;
   iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
@@ -691,5 +741,45 @@ var goMenuWin = function () {
   changeState('Win_SnowBallGame');
 }
 
+doReplayGame = function (){
+  iceBall.tempX = 0;
+  iceBall.tempY = 0;
+  iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  // iceBall.sprite.alive = true;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  countSnowSong = 0;
+  riseArrow();
+  health = 3;
+  scoreStars = 0;
+  //countSnowSong = 0;
+  counterStarterTime = 0;
+  realTimeNow = 0;
+  rollingBall.stop();
+  saveBox.currentGame = 'snowPongGame';
+  saveStat(21);
+  changeState('snowPongGame');
+}
+
+doExitGame = function (){
+  gameSound().stopAll();
+  iceBall.tempX = 0;
+  iceBall.tempY = 0;
+  iceBall.sprite.reset(iceBall.recentX, iceBall.recentY);
+  // iceBall.sprite.alive = true;
+  iceBall.isSet = true;
+  iceBall.status = 'wait';
+  riseArrow();
+  realTimeNow = 0;
+  health = 3;
+  scoreStars = 0;
+  //countSnowSong = 0;
+  counterStarterTime = 0;
+  realTimeNow = 0;
+  saveBox.currentGame = 'snowPongGame';
+  saveStat(21);
+
+  changeState('map');
+}
 
 })()
