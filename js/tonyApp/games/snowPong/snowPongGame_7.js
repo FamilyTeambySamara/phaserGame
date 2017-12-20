@@ -77,7 +77,7 @@ var cracksDestroy = 1;
 
 var saveBox = { time: 0, hp: 0, stars: 0, score: 0, mod: 1};
 
-window.snowPongGame_2 = {
+window.snowPongGame_7 = {
 
     preload: function () {
         gameLoad().spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png', 70, 30);
@@ -143,12 +143,8 @@ window.snowPongGame_2 = {
           }, this);
 
         var gift_1 = gifts.getFirstExists(false);
-        gift_1.reset(320, 275);
+        gift_1.reset(270, 210);
         gift_1.animations.play('play', 12,  true ,true);
-        var gift_2 = gifts.getFirstExists(false);
-        gift_2.reset(680, 215);
-        gift_2.animations.play('play', 12,  true ,true);
-
 
           //===========================
 //Группы препятствий и прочих штук на карте==================
@@ -156,33 +152,16 @@ window.snowPongGame_2 = {
         entityGroup.enableBody = true;
         entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        // var entity_1 = entityGroup.create(30, 200, 'woodStick');
-        // entity_1.body.immovable = true;
-        // entity_1.anchor.setTo(0.5, 0.5);
-        // entity_1.type = 'wood';
+        var entity_1 = entityGroup.create(30, 200, 'woodStick');
+        entity_1.body.immovable = true;
+        entity_1.anchor.setTo(0.5, 0.5);
+        entity_1.type = 'wood';
         // entity_1.angle = 90;
         // entity_1.scale.setTo(0.1, 0.1);
-        var entity_stoun_1 = entityGroup.create(215, 250, 'stone');
-        entity_stoun_1.body.immovable = true;
-        entity_stoun_1.anchor.setTo(0.5, 0.5);
-        entity_stoun_1.type = 'stone';
-        var entity_stoun_2 = entityGroup.create(320, 350, 'stone');
-        entity_stoun_2.body.immovable = true;
-        entity_stoun_2.anchor.setTo(0.5, 0.5);
-        entity_stoun_2.type = 'stone';
-        entity_stoun_2.scale.y = 0.5;
-        var entity_stoun_3 = entityGroup.create(470, 230, 'stone');
-        entity_stoun_3.body.immovable = true;
-        entity_stoun_3.anchor.setTo(0.5, 0.5);
-        entity_stoun_3.type = 'stone';
-        var entity_stoun_4 = entityGroup.create(780, 250, 'stone');
-        entity_stoun_4.body.immovable = true;
-        entity_stoun_4.anchor.setTo(0.5, 0.5);
-        entity_stoun_4.type = 'stone';
-        var entity_stoun_5 = entityGroup.create(680, 310, 'stone');
-        entity_stoun_5.body.immovable = true;
-        entity_stoun_5.anchor.setTo(0.5, 0.5);
-        entity_stoun_5.type = 'stone';
+        var entity_2 = entityGroup.create(350, 220, 'stone');
+        entity_2.body.immovable = true;
+        entity_2.anchor.setTo(0.5, 0.5);
+        entity_2.type = 'stone';
         // // entity_2.angle = 90;
         // var entity_3 = entityGroup.create(120, 460, 'snowStuck');
         // entity_3.body.immovable = true;
@@ -194,8 +173,8 @@ window.snowPongGame_2 = {
         snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
-        // var snow_1 = snowGroup.create(120, 460, 'snowStuck');
-        // snow_1.anchor.setTo(0.5, 0.5);
+        var snow_1 = snowGroup.create(120, 460, 'snowStuck');
+        snow_1.anchor.setTo(0.5, 0.5);
 
 
 //Группа целей====================================================
@@ -203,7 +182,7 @@ window.snowPongGame_2 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(700, 7, 'crack');
+        var aim_1 = aimsGroup.create(300, 7, 'crack');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -726,8 +705,8 @@ var goMenuLoose = function () {
   //countSnowSong = 0;
   counterStarterTime = 0;
   realTimeNow = 0;
-  saveBox.currentGame = 'snowPongGame_2';
-  saveStat(22);
+  saveBox.currentGame = 'snowPongGame_7';
+  saveStat(27);
 
   changeState('Game_over');
 
@@ -757,8 +736,8 @@ var goMenuWin = function () {
   //countSnowSong = 0;
   counterStarterTime = 0;
   realTimeNow = 0;
-  saveBox.currentGame = 'snowPongGame_2';
-  saveStat(22);
+  saveBox.currentGame = 'snowPongGame_7';
+  saveStat(27);
   changeState('Win_SnowBallGame');
 }
 
@@ -777,9 +756,9 @@ doReplayGame = function (){
   counterStarterTime = 0;
   realTimeNow = 0;
   rollingBall.stop();
-  saveBox.currentGame = 'snowPongGame_2';
-  saveStat(21);
-  changeState('snowPongGame_2');
+  saveBox.currentGame = 'snowPongGame_7';
+  saveStat(27);
+  changeState('snowPongGame_7');
 }
 
 doExitGame = function (){
@@ -797,8 +776,8 @@ doExitGame = function (){
   //countSnowSong = 0;
   counterStarterTime = 0;
   realTimeNow = 0;
-  saveBox.currentGame = 'snowPongGame_2';
-  saveStat(21);
+  saveBox.currentGame = 'snowPongGame_7';
+  saveStat(27);
 
   changeState('map');
 }

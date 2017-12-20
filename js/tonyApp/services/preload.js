@@ -53,7 +53,9 @@
       gameLoad().audio('clap', 'assets/audio/clap_2.mp3');
       gameLoad().audio('hitPinguin', 'assets/audio/hitPinguin.wav');
       gameLoad().audio('starSong', 'assets/audio/bell.mp3');
-
+      //button
+      gameLoad().audio('pushSmall', 'assets/audio/button/NFF-clog-up.wav');
+      gameLoad().audio('message', 'assets/audio/button/NFF-slowdown.wav');
         //
       gameLoad().spritesheet('simplePolarMan', 'assets/img/Morty.png', 96, 76);
       gameLoad().spritesheet('smartPolarMan', 'assets/img/Morty2.png', 96, 76);
@@ -123,7 +125,8 @@
         if (getInfo().game_1.status == 'unstart'){
           changeState('animBegin');
         }else {
-          changeState('menu_cards');
+          // changeState('menu_cards');
+          changeState('snowPongGame_2');
         }
 
         // changeState('animBegin');

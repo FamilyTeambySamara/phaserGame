@@ -45,6 +45,8 @@ function addUser ($id_vk, $name, $db) {
       $db->execute("INSERT INTO game_26(id_user) VALUES(:id_user)", [':id_user' => $id_user]);
       $db->execute("INSERT INTO game_27(id_user) VALUES(:id_user)", [':id_user' => $id_user]);
       $db->execute("INSERT INTO game_28(id_user) VALUES(:id_user)", [':id_user' => $id_user]);
+      $db->execute("INSERT INTO game_29(id_user) VALUES(:id_user)", [':id_user' => $id_user]);
+      $db->execute("INSERT INTO game_210(id_user) VALUES(:id_user)", [':id_user' => $id_user]);
       return $id_user;
 }
 
@@ -69,6 +71,9 @@ function getFullInfo ($id_user, $db) {
     $result['game_2']['g_6'] = $db->fetchOne("SELECT * FROM game_26 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_7'] = $db->fetchOne("SELECT * FROM game_27 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_8'] = $db->fetchOne("SELECT * FROM game_28 WHERE id_user = :id", [":id" => $id_user]);
+    $result['game_2']['g_9'] = $db->fetchOne("SELECT * FROM game_29 WHERE id_user = :id", [":id" => $id_user]);
+    $result['game_2']['g_10'] = $db->fetchOne("SELECT * FROM game_210 WHERE id_user = :id", [":id" => $id_user]);
+
     if ($_SESSION['start'] == 0){
       $result['pass'] = $db->getPass();
       $_SESSION['start'] = 1;
