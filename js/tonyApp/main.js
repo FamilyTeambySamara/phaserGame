@@ -7,6 +7,14 @@
 
   game.state.add('snowPongGame', snowPongGame);
   game.state.add('snowPongGame_2', snowPongGame_2);
+  game.state.add('snowPongGame_3', snowPongGame_3);
+  game.state.add('snowPongGame_4', snowPongGame_4);
+  game.state.add('snowPongGame_5', snowPongGame_5);
+  game.state.add('snowPongGame_6', snowPongGame_6);
+  game.state.add('snowPongGame_7', snowPongGame_7);
+  game.state.add('snowPongGame_8', snowPongGame_8);
+  game.state.add('snowPongGame_9', snowPongGame_9);
+  game.state.add('snowPongGame_10', snowPongGame_10);
 
   game.state.add('Win_SnowBallGame', Win_SnowBallGame);
 
@@ -66,10 +74,18 @@
           var path = 'game_2'; //путь к объекту в инфобокс
           var path_2 = 'g_8';
           break;
+        case 'snowPongGame_9':
+          var path = 'game_2'; //путь к объекту в инфобокс
+          var path_2 = 'g_9';
+          break;
+        case 'snowPongGame_10':
+          var path = 'game_2'; //путь к объекту в инфобокс
+          var path_2 = 'g_10';
+          break;
       }
       if (path){
         if(path_2){
-          if (getInfo()[path][path_2].access){
+          if (getInfo()[path][path_2].access == 1){
             game.state.start(st);
             return true;
           }else{

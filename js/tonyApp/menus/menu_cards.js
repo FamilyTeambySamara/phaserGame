@@ -21,6 +21,9 @@
   var b1_ruls;
   var b2_ruls;
   var b3_ruls;
+  var rulsText_1;
+  var rulsText_2;
+  var rulsText_3;
   var back_emitter;
 
   var butGroup_1;
@@ -63,6 +66,7 @@ window.menu_cards = {
           musicPlay = true;
       }
       buttonSong = gameAdd().audio('buttonSong');
+      buttonSong.volume = 0.6;
       //============================
       // фон
       gameAdd().image(0, 0, 'cardsFon');
@@ -152,6 +156,7 @@ window.menu_cards = {
       b3_reit.nGame = 3;
       butGroup_2.add(b3_reit);
 
+      //правила игры
       b1_ruls = gameAdd().button(80, 230,'button_ruls_1', this.showRuls, this, 0, 2, 1);
       b1_ruls.anchor.setTo(0.5, 0.5);
       b1_ruls.nGame = 1;
@@ -165,6 +170,13 @@ window.menu_cards = {
       b3_ruls.nGame = 3;
       butGroup_2.add(b3_ruls);
 
+      rulsText_1 = gameAdd().sprite(80, 230, 'button_ruls_1');
+      rulsText_1.alpha = 0;
+      rulsText_1.scale.setTo(0.1, 0.1);
+      rulsText_1.anchor.setTo(0.5, 0.5);
+
+      //===============================================
+
       b_info = gameAdd().button(692, 40, 'b_info', this.showInfoGame, this,  1, 2 , 0);
       b_info.anchor.setTo(0.5, 0.5);
       butGroup_3.add(b_info);
@@ -172,9 +184,14 @@ window.menu_cards = {
       likeVk.anchor.setTo(0.5, 0.5);
       butGroup_3.add(likeVk);
       infoStars = gameAdd().sprite(140, 40, 'infoStars', 2);
+      infoStars.name = 'infoStars';
       infoStars.anchor.setTo(0.5, 0.5);
       butGroup_3.add(infoStars);
 
+      totalStarScore = gameAdd().text(infoStars.centerX - 3, infoStars.centerY, getInfo().user.totalstars, { fontSize: '22px', fill: '#7C4111', font: 'mainFont' });
+      totalStarScore.anchor.setTo(0, 0.5);
+      totalStarScore.name = 'infoStars';
+      butGroup_3.add(totalStarScore);
       //управление музыкой==========================
       b_music_1 = gameAdd().button(742, 40, 'b_music', this.turnMusic, this,  0, 2 ,1);
       b_music_1.anchor.setTo(0.5, 0.5);
@@ -191,12 +208,23 @@ window.menu_cards = {
       }
       //=============================================================
       butGroup_3.forEachAlive(function (but){
+        if (but.name !== 'infoStars'){
+          var sound = gameAdd().audio('pushSmall');
+          sound.volume = 0.1;
+          but.setSounds(sound, 0, buttonSong);
+        }
         but.alpha = 0;
       }, this)
       butGroup_2.forEachAlive(function (but){
         but.alpha = 0;
+        var sound = gameAdd().audio('pushSmall');
+        sound.volume = 0.1;
+        but.setSounds(sound, 0, buttonSong);
       }, this)
       butGroup_1.forEachAlive(function (but){
+        var sound = gameAdd().audio('pushSmall');
+        sound.volume = 0.1;
+        but.setSounds(sound, 0, buttonSong);
         but.alpha = 0;
       }, this)
       //анимация=================
@@ -223,6 +251,7 @@ window.menu_cards = {
       //=====================
     },
     showInfoGame: function (){
+
         alert('Правила игры');
     },
     turnMusic: function (){
@@ -241,7 +270,19 @@ window.menu_cards = {
       alert('лайкнуть игру');
     },
     showRuls: function (b){
-      alert('правилы для игры: ' + b.nGame);
+      // alert('правилы для игры: ' + b.nGame);
+      if (b.nGame == 1){
+        if(rulsText_1.alpha == 0){
+          rulsText_1.alpha = 1;
+          gameAdd().tween(rulsText_1.scale).to( { x: 5, y: 5 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(rulsText_1).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+        }else{
+          gameAdd().tween(rulsText_1.scale).to( { x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(rulsText_1).to( { x: b.centerX, y: b.centerY }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(rulsText_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+        }
+
+      }
     },
     showReit: function (b) {
       alert('рейтинг для игры: ' + b.nGame);
@@ -252,20 +293,20 @@ window.menu_cards = {
     startPresent: function (b){
         switch (b.present) {
           case 1:
-            buttonSong.play();
             musicPlay = false;
             gameSound().stopAll();
             changeState('presentSnowBallGames');
             break;
           case 2:
-            // changeState('presentSnowPongGame');
-            buttonSong.play();
-            musicPlay = false;
-            gameSound().stopAll();
-            changeState('presentSnowPong');
+            if(getInfo().game_2.g_1.access == 1){
+              musicPlay = false;
+              gameSound().stopAll();
+              changeState('presentSnowPong');
+            }else{
+              alert('not access!');
+            }
             break;
           case 3:
-            buttonSong.play();
             alert('в разработке');
             break;
 
@@ -275,8 +316,7 @@ window.menu_cards = {
 
     startGame_1: function ()
     {
-      buttonSong.volume = 0.6;
-      buttonSong.play();
+
       musicPlay = false;
 
       var status = getInfo().game_1.status;
@@ -303,7 +343,8 @@ window.menu_cards = {
       //==
       if (status == 'unstart' && access == 1){
         //перейти к презентации
-        changeState('presentSnowBallGames');
+        gameSound().stopAll();
+        changeState('presentSnowPong');
         // changeState('map');
 
           // this.state.start('presentGame_2');
@@ -315,8 +356,8 @@ window.menu_cards = {
         alert('нет доступа к игре');
       }
       //this.animationTransition();
-      buttonSong.volume = 0.6;
-      buttonSong.play();
+
+      // buttonSong.play();
       //обращени к менеджеру
       // gameSound().stopAll();
 

@@ -113,6 +113,12 @@ window.saveStat = function (currentGame){
       case 28:
       currentGameStat = snowPongGame_8.getInfo();
         break;
+      case 29:
+      currentGameStat = snowPongGame_9.getInfo();
+        break;
+      case 210:
+      currentGameStat = snowPongGame_10.getInfo();
+        break;
     }
     console.log(currentGameStat);
 }
@@ -191,8 +197,20 @@ window.saveDb = function () {
           break;
         case 'snowPongGame_8':
           var game = getInfo().game_2.g_8; //путь к объекту в инфобокс
-          var game_next = 'end'; //название таблицы следующей игры
+          var game_next = 'game_29'; //название таблицы следующей игры
           var table = 'game_28'; //имя таблицы игры
+          checkChange(game, game_next, statistic, table);
+          break;
+        case 'snowPongGame_9':
+          var game = getInfo().game_2.g_9; //путь к объекту в инфобокс
+          var game_next = 'game_210'; //название таблицы следующей игры
+          var table = 'game_29'; //имя таблицы игры
+          checkChange(game, game_next, statistic, table);
+          break;
+        case 'snowPongGame_10':
+          var game = getInfo().game_2.g_10; //путь к объекту в инфобокс
+          var game_next = 'end'; //название таблицы следующей игры
+          var table = 'game_210'; //имя таблицы игры
           checkChange(game, game_next, statistic, table);
           break;
       }
@@ -215,8 +233,9 @@ function checkChange (game, game_next, statistic, table){
      alert( info['currentScore']);
      query(info);
      // queryUser(totalStars, status);
-  }else if (game.status == 'over' && game == 'game_1'){
+  }else if (game.status == 'over' && statistic.currentGame == 'SnowBallGame'){
     //добавляем звездочки к имеющимся
+    alert(' game_1 перезапись звезд');
     var starsCurrent = (+statistic.stars);
     var scoreCurrent = (+statistic.score);
     var starsAlready = (+infoBox.game_1.stars);
@@ -242,7 +261,8 @@ function checkChange (game, game_next, statistic, table){
     // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
-  }else if (game.status == 'over' && game !== 'game_1'){
+  }else if (game.status == 'over' && statistic.currentGame !== 'SnowBallGame'){
+    alert(' я не там!');
     //сравниваем результат игр с имеющимся и все улучшения записываем
     var starsCurrent = statistic.stars;
     var scoreCurrent = statistic.score;

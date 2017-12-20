@@ -64,14 +64,16 @@
         b_8.but = gameAdd().button(545, 300, 'b_8', this.startGame, this, overState(b_8), outState(b_8));
         b_8.but.gameName = 'snowPongGame_8';
         b_8.but.anchor.setTo(0.5, 0.5);
-        b_9 = gameAdd().button(646, 266, 'b_9', this.startGame, this, 1, 0, 2, 3);
+        b_9 = {};
         b_9.path = "g_9";
-        b_9.gameName = 'snowPongGame_9';
-        b_9.anchor.setTo(0.5, 0.5);
-        b_10 = gameAdd().button(650, 173, 'b_10', this.startGame, this, 1, 0, 2, 3);
+        b_9.but = gameAdd().button(646, 266, 'b_9', this.startGame, this, overState(b_8), outState(b_8));
+        b_9.but.gameName = 'snowPongGame_9';
+        b_9.but.anchor.setTo(0.5, 0.5);
+        b_10 = {};
         b_10.path = "g_10";
-        b_10.gameName = 'snowPongGame_10';
-        b_10.anchor.setTo(0.5, 0.5);
+        b_10.but = gameAdd().button(650, 173, 'b_10', this.startGame, this, overState(b_8), outState(b_8));
+        b_10.but.gameName = 'snowPongGame_10';
+        b_10.but.anchor.setTo(0.5, 0.5);
 
         //интерфейс и управление
 
@@ -113,11 +115,14 @@
     },
     startGame: function(but){
         // changeState('snowPongGame');
-        gameSound().stopAll();
+
         musicPlay = false;
         buttonSong.play();
         alert(but.gameName);
-        if (!changeState(but.gameName)){
+        if (changeState(but.gameName)){
+          gameSound().stopAll();
+
+        }else{
           alert('уровень еще не открыт');
         }
 

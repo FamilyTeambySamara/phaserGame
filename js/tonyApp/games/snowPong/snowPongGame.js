@@ -107,7 +107,7 @@ window.snowPongGame = {
       // button = this.add.button(300, 150, 'button_play', this.startGame, this, 1, 0 ,2);
         gameAdd().image(0, 0, 'fonPongGame');
         // gameAdd().image(0, 0, 'iceWall');
-        gameAdd().button(600, 250, 'button_play', replay, this, 1, 0 ,2);
+        // gameAdd().button(600, 250, 'button_play', replay, this, 1, 0 ,2);
         //game.physics.startSystem(Phaser.Physics.ARCADE);
         // snow = gameAdd().sprite(700, 150, 'smallSnow');
         // game.physics.arcade.enable(snow);

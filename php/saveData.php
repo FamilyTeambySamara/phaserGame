@@ -115,6 +115,8 @@ function getFullInfo ($id_user, $db) {
     $result['game_2']['g_6'] = $db->fetchOne("SELECT * FROM game_26 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_7'] = $db->fetchOne("SELECT * FROM game_27 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_8'] = $db->fetchOne("SELECT * FROM game_28 WHERE id_user = :id", [":id" => $id_user]);
+    $result['game_2']['g_9'] = $db->fetchOne("SELECT * FROM game_29 WHERE id_user = :id", [":id" => $id_user]);
+    $result['game_2']['g_10'] = $db->fetchOne("SELECT * FROM game_210 WHERE id_user = :id", [":id" => $id_user]);
 
 
     return json_encode($result);
