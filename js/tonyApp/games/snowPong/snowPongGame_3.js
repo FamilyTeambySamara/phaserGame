@@ -173,11 +173,14 @@ window.snowPongGame_3 = {
 
         entity_4 = entityGroup.create(510, 200, 'stoneMiddle');
         entity_4.body.immovable = true;
+        entity_4.type = 'stone';
 
         entity_5 = entityGroup.create(280, 130, 'stoneSmall');
         entity_5.body.immovable = true;
-        entity_5 = entityGroup.create(210, 150, 'stoneSmall');
-        entity_5.body.immovable = true;
+        entity_5.type = 'stone';
+        entity_6 = entityGroup.create(210, 150, 'stoneSmall');
+        entity_6.body.immovable = true;
+        entity_6.type = 'stone';
 
         // rotateButton = gameAdd().button(entity_1.centerX, entity_1.centerY, 'ball', rotateWood);
         // rotateButton.master = entity_1;
@@ -190,18 +193,21 @@ window.snowPongGame_3 = {
         entity_1.inputEnabled = true;
         entity_1.input.enableDrag(true);
         entity_1.body.immovable = true;
+        entity_1.type = 'wood';
         gameAdd().tween(entity_1).to({ width: 0.95*entity_1.width, height: 0.95*entity_1.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
 
         entity_2 = entityGroup.create(400, 200, 'woodBox');
         entity_2.inputEnabled = true;
         entity_2.input.enableDrag(true);
         entity_2.body.immovable = true;
+        entity_2.type = 'wood';
         gameAdd().tween(entity_2).to({ width: 0.95*entity_2.width, height: 0.95*entity_2.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
 
         entity_3 = entityGroup.create(100, 100, 'woodBox');
         entity_3.inputEnabled = true;
         entity_3.input.enableDrag(true);
         entity_3.body.immovable = true;
+        entity_3.type = 'wood';
         gameAdd().tween(entity_3).to({ width: 0.95*entity_3.width, height: 0.95*entity_3.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
 
 
@@ -243,6 +249,7 @@ window.snowPongGame_3 = {
         // iceBall.sprite.body.mass = 50;
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
+        iceBall.sprite.volume = 0;
         iceBall.sprite.scale.setTo(0.5, 0.5);
         iceBall.sprite.animations.add('bigSnowBaall');
         iceBall.sprite.outOfBoundsKill = true;
