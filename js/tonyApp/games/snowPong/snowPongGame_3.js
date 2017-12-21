@@ -85,6 +85,7 @@ window.snowPongGame_3 = {
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
+        gameLoad().image('snowStuckQuadro', 'assets/img/snowPong/snowStuck2.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
         gameLoad().image('crack', 'assets/img/snowPong/crack.png');
         gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
@@ -148,63 +149,60 @@ window.snowPongGame_3 = {
           }, this);
 
         var gift_1 = gifts.getFirstExists(false);
-        gift_1.reset(270, 210);
+        gift_1.reset(750, 80);
         gift_1.animations.play('play', 12,  true ,true);
+        var gift_2 = gifts.getFirstExists(false);
+        gift_2.reset(550, 175);
+        gift_2.animations.play('play', 12,  true ,true);
 
           //===========================
-//Группы препятствий и прочих штук на карте==================
-        entityGroup = gameAdd().group();
-        entityGroup.enableBody = true;
-        entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
-
-        entity_1 = entityGroup.create(250, 200, 'stoneSmall');
-        entity_1.inputEnabled = true;
-        entity_1.input.enableDrag(true);
-        entity_1.body.immovable = true;
-
-        entity_2 = entityGroup.create(400, 200, 'stoneSmall');
-        entity_2.inputEnabled = true;
-        entity_2.input.enableDrag(true);
-        entity_2.body.immovable = true;
-
-
-        entity_3 = entityGroup.create(100, 100, 'stoneSmall');
-        entity_3.inputEnabled = true;
-        entity_3.input.enableDrag(true);
-        entity_3.body.immovable = true;
-
-        // // entity_1.body.immovable = true;
-        // entity_1.anchor.setTo(0.5, 0.5);
-        // entity_1.type = 'wood';
-        // entity_1 = gameAdd().sprite(250, 200,  'woodStick');
-
-        // game.physics.arcade.enable([disk, ball1, ball2]);
-
-        // entity_1.body.immovable = true;
-
-        rotateButton = gameAdd().button(entity_1.centerX, entity_1.centerY, 'ball', rotateWood);
-        rotateButton.master = entity_1;
-        // entity_1.angle = 90;
-        // entity_1.scale.setTo(0.1, 0.1);
-        // var entity_2 = entityGroup.create(350, 220, 'stone');
-        // entity_2.body.immovable = true;
-        // entity_2.anchor.setTo(0.5, 0.5);
-        // entity_2.type = 'stone';
-        // // entity_2.angle = 90;
-        // var entity_3 = entityGroup.create(120, 460, 'snowStuck');
-        // entity_3.body.immovable = true;
-        // entity_3.anchor.setTo(0.5, 0.5);
-        var iceWall = entityGroup.create(0, 0, 'iceWall');
-        iceWall.body.immovable = true;
-        iceWall.type = 'iceWall';
 //=============Группа снежных препятствий==================================
         snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
 
-        var snow_1 = snowGroup.create(120, 460, 'snowStuck');
+        var snow_1 = snowGroup.create(175, 299, 'snowStuckQuadro');
         snow_1.snow = 'snow';
         snow_1.anchor.setTo(0.5, 0.5);
+
+
+//Группы препятствий и прочих штук на карте==================
+        entityGroup = gameAdd().group();
+        entityGroup.enableBody = true;
+        entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
+
+        entity_4 = entityGroup.create(510, 200, 'stoneMiddle');
+        entity_4.body.immovable = true;
+
+        entity_5 = entityGroup.create(280, 130, 'stoneSmall');
+        entity_5.body.immovable = true;
+        entity_5 = entityGroup.create(210, 150, 'stoneSmall');
+        entity_5.body.immovable = true;
+
+        // rotateButton = gameAdd().button(entity_1.centerX, entity_1.centerY, 'ball', rotateWood);
+        // rotateButton.master = entity_1;
+
+        var iceWall = entityGroup.create(0, 0, 'iceWall');
+        iceWall.body.immovable = true;
+        iceWall.type = 'iceWall';
+
+        entity_1 = entityGroup.create(250, 230, 'woodBox');
+        entity_1.inputEnabled = true;
+        entity_1.input.enableDrag(true);
+        entity_1.body.immovable = true;
+        gameAdd().tween(entity_1).to({ width: 0.95*entity_1.width, height: 0.95*entity_1.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
+
+        entity_2 = entityGroup.create(400, 200, 'woodBox');
+        entity_2.inputEnabled = true;
+        entity_2.input.enableDrag(true);
+        entity_2.body.immovable = true;
+        gameAdd().tween(entity_2).to({ width: 0.95*entity_2.width, height: 0.95*entity_2.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
+
+        entity_3 = entityGroup.create(100, 100, 'woodBox');
+        entity_3.inputEnabled = true;
+        entity_3.input.enableDrag(true);
+        entity_3.body.immovable = true;
+        gameAdd().tween(entity_3).to({ width: 0.95*entity_3.width, height: 0.95*entity_3.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
 
 
 //Группа целей====================================================

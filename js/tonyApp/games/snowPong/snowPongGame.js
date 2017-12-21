@@ -162,7 +162,7 @@ window.snowPongGame = {
         entity_1.type = 'stone';
         // entity_1.angle = 90;
         // entity_1.scale.setTo(0.1, 0.1);
-        var entity_2 = entityGroup.create(350, 220, 'stone');
+        var entity_2 = entityGroup.create(350, 220, 'stoneBig');
         entity_2.body.immovable = true;
         entity_2.anchor.setTo(0.5, 0.5);
         entity_2.type = 'stone';

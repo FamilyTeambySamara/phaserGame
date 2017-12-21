@@ -179,7 +179,7 @@ window.snowPongGame_2 = {
         entity_stoun_2.input.enableDrag(true);
         gameAdd().tween(entity_stoun_2).to({ width: 0.95*entity_stoun_2.width, height: 0.95*entity_stoun_2.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
         entity_stoun_2.anchor.setTo(0.5, 0.5);
-        entity_stoun_2.type = 'stone';
+        entity_stoun_2.type = 'wood';
         // entity_stoun_2.scale.y = 0.5;
         var entity_stoun_3 = entityGroup.create(470, 230, 'stoneBig');
         entity_stoun_3.body.immovable = true;
@@ -189,7 +189,7 @@ window.snowPongGame_2 = {
         entity_stoun_4.body.immovable = true;
         entity_stoun_4.anchor.setTo(0.5, 0.5);
         entity_stoun_4.type = 'stone';
-        var entity_stoun_5 = entityGroup.create(680, 310, 'stoneBig');
+        var entity_stoun_5 = entityGroup.create(670, 310, 'stoneMiddle');
         entity_stoun_5.body.immovable = true;
         entity_stoun_5.anchor.setTo(0.5, 0.5);
         entity_stoun_5.type = 'stone';
@@ -243,9 +243,11 @@ window.snowPongGame_2 = {
         iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         gamePhysics().arcade.enable(iceBall.sprite);
         iceBall.sprite.body.bounce.setTo(0.8, 0.8);
+        iceBall.sprite.type = 'wood';
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
         iceBall.sprite.scale.setTo(0.5, 0.5);
+        iceBall.sprite.volume = 0;
         iceBall.sprite.animations.add('bigSnowBaall');
         iceBall.sprite.outOfBoundsKill = true;
         iceBall.sprite.checkWorldBounds = true;
