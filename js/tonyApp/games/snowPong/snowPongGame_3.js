@@ -60,6 +60,7 @@ var starterTime = 0;
 var health = 3;
 
 var realTimeNow = '-';
+var entity_1;
 
 //кнопки управления
 var replayGame;
@@ -86,7 +87,11 @@ window.snowPongGame_3 = {
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
         gameLoad().image('crack', 'assets/img/snowPong/crack.png');
-        gameLoad().image('stone', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
+        gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
+        gameLoad().image('woodBox', 'assets/img/snowPong/woodBox.png');
+
         gameLoad().image('iceWall', 'assets/img/snowPong/iceWall.png');
         gameLoad().image('woodStick', 'assets/img/snowPong/woodStick.png');
 
@@ -152,16 +157,39 @@ window.snowPongGame_3 = {
         entityGroup.enableBody = true;
         entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var entity_1 = entityGroup.create(30, 200, 'woodStick');
+        entity_1 = entityGroup.create(250, 200, 'stoneSmall');
+        entity_1.inputEnabled = true;
+        entity_1.input.enableDrag(true);
         entity_1.body.immovable = true;
-        entity_1.anchor.setTo(0.5, 0.5);
-        entity_1.type = 'wood';
+
+        entity_2 = entityGroup.create(400, 200, 'stoneSmall');
+        entity_2.inputEnabled = true;
+        entity_2.input.enableDrag(true);
+        entity_2.body.immovable = true;
+
+
+        entity_3 = entityGroup.create(100, 100, 'stoneSmall');
+        entity_3.inputEnabled = true;
+        entity_3.input.enableDrag(true);
+        entity_3.body.immovable = true;
+
+        // // entity_1.body.immovable = true;
+        // entity_1.anchor.setTo(0.5, 0.5);
+        // entity_1.type = 'wood';
+        // entity_1 = gameAdd().sprite(250, 200,  'woodStick');
+
+        // game.physics.arcade.enable([disk, ball1, ball2]);
+
+        // entity_1.body.immovable = true;
+
+        rotateButton = gameAdd().button(entity_1.centerX, entity_1.centerY, 'ball', rotateWood);
+        rotateButton.master = entity_1;
         // entity_1.angle = 90;
         // entity_1.scale.setTo(0.1, 0.1);
-        var entity_2 = entityGroup.create(350, 220, 'stone');
-        entity_2.body.immovable = true;
-        entity_2.anchor.setTo(0.5, 0.5);
-        entity_2.type = 'stone';
+        // var entity_2 = entityGroup.create(350, 220, 'stone');
+        // entity_2.body.immovable = true;
+        // entity_2.anchor.setTo(0.5, 0.5);
+        // entity_2.type = 'stone';
         // // entity_2.angle = 90;
         // var entity_3 = entityGroup.create(120, 460, 'snowStuck');
         // entity_3.body.immovable = true;
@@ -173,7 +201,9 @@ window.snowPongGame_3 = {
         snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
+
         var snow_1 = snowGroup.create(120, 460, 'snowStuck');
+        snow_1.snow = 'snow';
         snow_1.anchor.setTo(0.5, 0.5);
 
 
@@ -211,13 +241,15 @@ window.snowPongGame_3 = {
         //   }, this);
         iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         gamePhysics().arcade.enable(iceBall.sprite);
-        iceBall.sprite.body.bounce.setTo(0.8, 0.8);
+        iceBall.sprite.body.bounce.set(0.9);
+        // iceBall.sprite.body.mass = 50;
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
         iceBall.sprite.scale.setTo(0.5, 0.5);
         iceBall.sprite.animations.add('bigSnowBaall');
         iceBall.sprite.outOfBoundsKill = true;
         iceBall.sprite.checkWorldBounds = true;
+        // iceBall.sprite.body.setCircle(50);
         iceBall.sprite.tempYmax  = 200;
         iceBall.sprite.tempYmin = -200;
         iceBall.sprite.tempXmax  = 200;
@@ -235,6 +267,15 @@ window.snowPongGame_3 = {
         iceBall.recentY = iceBall.startY;
 
         iceBall.status = 'wait';
+
+        gamePhysics().arcade.enable([entity_1, iceBall.sprite]);
+        // entity_1.body.velocity.x = 80;
+        // iceBall.sprite.facing = 500;
+        entity_1.body.mass = 50;
+        entity_2.body.mass = 50;
+        entity_3.body.mass = 50;
+        // entity_4.body.mass = 500;
+
 
 
         textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red' , font: 'mainFont'});
@@ -473,6 +514,10 @@ window.snowPongGame_3 = {
         }
     },
     update: function (){
+
+      //textDebag
+      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
+      //=========
       levelTable.text = realTimeNow;
       //проверка победы
       if (!aimsGroup.getFirstAlive()){
@@ -512,15 +557,17 @@ window.snowPongGame_3 = {
 
         this.checkShoot();
 
+        gamePhysics().arcade.collide(entityGroup, entityGroup);
         gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);
         gamePhysics().arcade.collide(aimsGroup, iceBall.sprite, killAim);
+        // gamePhysics().arcade.collide(entity_1, iceBall.sprite);
 
-        checkover = gamePhysics().arcade.overlap(snowGroup, iceBall.sprite,  stopBall, null, this);
+        checkover = gamePhysics().arcade.overlap(snowGroup, iceBall.sprite,  friction, null, this);
         gamePhysics().arcade.overlap(gifts, iceBall.sprite,  killgift, null, this);``
 
         this.resetBall();
 
-        textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
+        entityGroup.forEachAlive(frictionAll, this );
 
     },
 
@@ -528,11 +575,6 @@ window.snowPongGame_3 = {
       return saveBox;
     },
 
-
-    render: function (){
-        // game.debug.geom(iceBall.line);
-        // game.debug.lineInfo(iceBall.line, 32, 32);
-    }
 
 }
 
@@ -593,7 +635,7 @@ var replay = function (){
 
 }
 var countSnowSong = 0;
-var stopBall = function (iceBall, snow) {
+var friction = function (iceBall, snow) {
     if (iceBall.body.velocity.x > 0){
         iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x - 1);
     } else if (iceBall.body.velocity.x < 0){
@@ -659,6 +701,8 @@ var riseArrow = function () {
       iceBall.sprite.arrow_2.reset(iceBall.sprite.x, iceBall.sprite.y);
 }
 var playSong = function (ball, entity) {
+
+    // iceBall.sprite.body.bounce.set(10);
   if (entity.type == 'wood'){
         wood_hit.volume = iceBall.sprite.volume;
         wood_hit.play();
@@ -772,6 +816,32 @@ doExitGame = function (){
   saveStat(23);
 
   changeState('map');
+}
+
+function rotateWood (b) {
+  // b.master.body.angularVelocity = 8;
+  // entity_1.angle = 0;
+  entity_1.x = 600;
+  entity_1.y = 20;
+  // entity_1.angle += 10;
+  b.master.body.rotate = 5;
+
+  // moveTo(duration, distance, direction)
+  // b.master.update();
+  // b.master.updateCrop();
+}
+
+ function frictionAll (iceBall) {
+    if (iceBall.body.velocity.x > 0){
+        iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x - 1);
+    } else if (iceBall.body.velocity.x < 0){
+      iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x + 1);;
+    }
+    if (iceBall.body.velocity.y > 0){
+        iceBall.body.velocity.y = Math.floor(iceBall.body.velocity.y - 1);;
+    } else if (iceBall.body.velocity.y < 0){
+       iceBall.body.velocity.y = Math.floor(iceBall.body.velocity.y + 1);;
+    }
 }
 
 })()

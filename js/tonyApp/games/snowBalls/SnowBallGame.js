@@ -143,6 +143,10 @@ window.SnowBallGame =
     playerBet.anchor.setTo(0.5, 0.5);
     playerBet.status = 'whait';
     gamePhysics().arcade.enable(playerBet);
+    playerBet.body.setSize(30, 58, 10, 10);
+    // playerBet.body.overlapY = 150;
+    // playerBet.body.overlapX  = -150;
+
         // playerBet.animations.add('throw',[0, 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
     playerBet.animations.add('throw',[ 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
     playerBet.animations.add('right',[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], 25, true);
@@ -297,6 +301,7 @@ window.SnowBallGame =
       ref_2.hp = 10;
       ref_2.anchor.x = 0.5;
       ref_2.anchor.y = 0.5;
+      // ref_2.body.setCircle(175/2,);
       var ref_3 = refuse.create(510, 10, 'midleSnow');
       ref_3.body.immovable = true;
       ref_3.hp = 5;

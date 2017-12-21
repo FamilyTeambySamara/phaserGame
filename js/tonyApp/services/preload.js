@@ -126,7 +126,7 @@
           changeState('animBegin');
         }else {
           // changeState('menu_cards');
-          changeState('snowPongGame_2');
+          changeState('snowPongGame_3');
         }
 
         // changeState('animBegin');

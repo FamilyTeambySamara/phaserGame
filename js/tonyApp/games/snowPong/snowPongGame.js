@@ -86,7 +86,11 @@ window.snowPongGame = {
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
         gameLoad().image('crack', 'assets/img/snowPong/crack.png');
-        gameLoad().image('stone', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
+        gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
+        gameLoad().image('woodBox', 'assets/img/snowPong/woodBox.png');
+
         gameLoad().image('iceWall', 'assets/img/snowPong/iceWall.png');
         gameLoad().image('woodStick', 'assets/img/snowPong/woodStick.png');
 
@@ -152,10 +156,10 @@ window.snowPongGame = {
         entityGroup.enableBody = true;
         entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var entity_1 = entityGroup.create(30, 200, 'woodStick');
+        var entity_1 = entityGroup.create(30, 200, 'stoneMiddle');
         entity_1.body.immovable = true;
         entity_1.anchor.setTo(0.5, 0.5);
-        entity_1.type = 'wood';
+        entity_1.type = 'stone';
         // entity_1.angle = 90;
         // entity_1.scale.setTo(0.1, 0.1);
         var entity_2 = entityGroup.create(350, 220, 'stone');
@@ -216,6 +220,7 @@ window.snowPongGame = {
         iceBall.sprite.anchor.y = 0.5;
         iceBall.sprite.scale.setTo(0.5, 0.5);
         iceBall.sprite.animations.add('bigSnowBaall');
+        iceBall.sprite.body.setCircle(50);
         iceBall.sprite.outOfBoundsKill = true;
         iceBall.sprite.checkWorldBounds = true;
         iceBall.sprite.tempYmax  = 200;
