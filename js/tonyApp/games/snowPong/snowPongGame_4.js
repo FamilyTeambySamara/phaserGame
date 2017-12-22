@@ -478,7 +478,7 @@ window.snowPongGame_4 = {
 
 
         if ((pressMouse && iceBall.isSet) || begin){
-            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin){
+            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin && iceBall.status == 'wait'){
                 begin =  true;
                 killArrow();
                 //записываем значения
@@ -590,9 +590,9 @@ window.snowPongGame_4 = {
         }
         checkRollingBall();
 
-        this.checkManipulator();
-
         this.checkShoot();
+        
+        this.checkManipulator();
 
         gamePhysics().arcade.collide(entityGroup, entityGroup);
         gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);

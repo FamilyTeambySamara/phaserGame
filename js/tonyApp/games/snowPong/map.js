@@ -66,12 +66,12 @@
         b_8.but.anchor.setTo(0.5, 0.5);
         b_9 = {};
         b_9.path = "g_9";
-        b_9.but = gameAdd().button(646, 266, 'b_9', this.startGame, this, overState(b_8), outState(b_8));
+        b_9.but = gameAdd().button(646, 266, 'b_9', this.startGame, this, overState(b_9), outState(b_9));
         b_9.but.gameName = 'snowPongGame_9';
         b_9.but.anchor.setTo(0.5, 0.5);
         b_10 = {};
         b_10.path = "g_10";
-        b_10.but = gameAdd().button(650, 173, 'b_10', this.startGame, this, overState(b_8), outState(b_8));
+        b_10.but = gameAdd().button(650, 173, 'b_10', this.startGame, this, overState(b_10), outState(b_10));
         b_10.but.gameName = 'snowPongGame_10';
         b_10.but.anchor.setTo(0.5, 0.5);
 
