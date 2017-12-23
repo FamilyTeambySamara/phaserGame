@@ -35,27 +35,14 @@
   var b_music_2;
   var infoStars;
   var likeVk;
+
+  var bChangeLevel_1;
+  var bChangeLevel_2;
+  var bChangeLevel_3;
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
-        // gameLoad().image('cardsFon', 'assets/img/menuCards/menuCardsFon.png');
-        // gameLoad().image('card_1', 'assets/img/menuCards/Card1_2.png');
-        // gameLoad().image('card_1_2', 'assets/img/menuCards/Card1_1.png');
-        // gameLoad().image('card_2', 'assets/img/menuCards/Card2_2.png');
-        // gameLoad().image('card_2_2', 'assets/img/menuCards/Card2_1.png');
-        // gameLoad().image('card_3', 'assets/img/menuCards/Card3_2.png');
-        //
-        // gameLoad().spritesheet('b_info', 'assets/img/menuCards/seeInfo.png', 50 , 50);
-        // gameLoad().spritesheet('b_music', 'assets/img/menuCards/offSound.png', 50 , 50);
-        // gameLoad().spritesheet('infoStars', 'assets/img/menuCards/seeStarts.png', 50 , 50);
-        // gameLoad().spritesheet('likeVk', 'assets/img/menuCards/doRepost.png', 50 , 50);
-        //
-        // gameLoad().spritesheet('button_history', 'assets/img/menuCards/HistoryCard.png', 70 , 20);
-        // gameLoad().spritesheet('button_play_cards', 'assets/img/menuCards/PlayCard.png', 150 , 80);
-        //
-        // gameLoad().spritesheet('button_post_1', 'assets/img/menuCards/giveCard.png', 50 , 50);
-        // gameLoad().spritesheet('button_reit_1', 'assets/img/menuCards/seeTop.png', 50 , 50);
-        // gameLoad().spritesheet('button_ruls_1', 'assets/img/menuCards/seeRegulation.png', 50 , 50);
+
     },
 
     create: function (){
@@ -106,9 +93,23 @@ window.menu_cards = {
       butGroup_2 = gameAdd().group();
       butGroup_3 = gameAdd().group();
 
-      buttonPlay_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 3, 1 ,2);
+      buttonPlay_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1_anim, this, 3, 1 ,2);
       buttonPlay_1.anchor.setTo(0.5, 0.5);
       butGroup_1.add(buttonPlay_1);
+        bChangeLevel_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_1.anchor.setTo(0.5, 0.5);
+        bChangeLevel_1.alpha = 0;
+        bChangeLevel_1.level = 1;
+        bChangeLevel_2 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_2.anchor.setTo(0.5, 0.5);
+        bChangeLevel_2.level = 2;
+        bChangeLevel_3 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_3.anchor.setTo(0.5, 0.5);
+        bChangeLevel_3.level = 3;
+        bChangeLevel_1.kill();
+        bChangeLevel_2.kill();
+        bChangeLevel_3.kill();
+
       buttonPlay_2 = gameAdd().button(400, 364, 'button_play_cards', this.startGame_2, this, 3, 1 ,2);
       buttonPlay_2.anchor.setTo(0.5, 0.5);
       butGroup_1.add(buttonPlay_2);
@@ -250,6 +251,49 @@ window.menu_cards = {
 
       //=====================
     },
+    startGame_1_anim: function (){
+        if (bChangeLevel_1.alpha !== 1){
+          bChangeLevel_1.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
+          bChangeLevel_1.scale.set(0.1);
+          bChangeLevel_1.alpha = 0.8;
+          bChangeLevel_2.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
+          bChangeLevel_2.scale.set(0.1);
+          bChangeLevel_2.alpha = 0.8;
+          bChangeLevel_3.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
+          bChangeLevel_3.scale.set(0.1);
+          bChangeLevel_3.alpha = 0.8;
+
+          gameAdd().tween(bChangeLevel_1.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_1).to( { x: gameWorld().centerX, y: gameWorld().centerY - 200 }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_1).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+          gameAdd().tween(bChangeLevel_2.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_2).to( { x: gameWorld().centerX, y: gameWorld().centerY -100}, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_2).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+
+          gameAdd().tween(bChangeLevel_3.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_3).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_3).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+        }else {
+          gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_1).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+
+          gameAdd().tween(bChangeLevel_2.scale).to( {  x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_2).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_2).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+
+          gameAdd().tween(bChangeLevel_3.scale).to( { x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_3).to( {x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
+          var anim = gameAdd().tween(bChangeLevel_3).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+          anim.onComplete.addOnce(function (){
+            bChangeLevel_1.kill();
+            bChangeLevel_2.kill();
+            bChangeLevel_3.kill();
+          })
+        }
+
+    },
     showInfoGame: function (){
 
         alert('Правила игры');
@@ -314,14 +358,14 @@ window.menu_cards = {
         }
     },
 
-    startGame_1: function ()
+    startGame_1: function (b)
     {
 
       musicPlay = false;
 
       var status = getInfo().game_1.status;
       var access = getInfo().game_1.access;
-      changeLevel(1);
+      changeLevel(b.level);
       if (status == 'unstart' && access){
           changeState('presentSnowBallGames');
       } else if ((status == 'start' || status == 'over') && access){
