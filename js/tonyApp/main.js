@@ -86,8 +86,78 @@
       if (path){
         if(path_2){
           if (getInfo()[path][path_2].access == 1){
-            game.state.start(st);
-            return true;
+            switch (path_2) {
+              case 'g_1':
+                if(getInfo().user.totalstars > 1){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_2':
+                if(getInfo().user.totalstars > 4){
+                  game.state.start(st);
+                }else {
+                return false;
+                }
+                break;
+              case 'g_3':
+                if(getInfo().user.totalstars > 7){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_4':
+                if(getInfo().user.totalstars > 10){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_5':
+                if(getInfo().user.totalstars > 14){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_6':
+                if(getInfo().user.totalstars > 17){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_7':
+                if(getInfo().user.totalstars > 20){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_8':
+                if(getInfo().user.totalstars > 23){
+                  game.state.start(st);
+                }else {
+                return false;
+                }
+                break;
+              case 'g_9':
+                if(getInfo().user.totalstars > 26){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+              case 'g_10':
+                if(getInfo().user.totalstars > 29){
+                  game.state.start(st);
+                }else {
+                  return false;
+                }
+                break;
+            }
           }else{
             return false;
           }

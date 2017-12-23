@@ -203,16 +203,7 @@ window.snowPongGame = {
           invader.anchor.y =  0.5;
           invader.animations.add('kaboom');
         }, this);
-        // bigPolarMen.createMultiple(30, 'bigPolarMan');
-        // bigPolarMen.setAll('anchor.x', 0.5);
-        // bigPolarMen.setAll('anchor.y', 0.5);
-        // bigPolarMen.forEach(
-        //   function (invader){
-        //     invader.animations.add('go',  [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 12, true);
-        //     animBigPolar = invader.animations.add('throw',  [12, 13, 14], 3, false);
-        //
-        //     //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
-        //   }, this);
+
         iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         gamePhysics().arcade.enable(iceBall.sprite);
         iceBall.sprite.body.bounce.setTo(0.8, 0.8);
@@ -346,19 +337,7 @@ window.snowPongGame = {
 
         arrow.animations.play('arrow' , 5 , true);
         vectorSum = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
-        angleVector_AxisX = Math.asin(-vectorY / vectorSum) * (180/Math.PI);
-        arcsin = angleVector_AxisX;
-        if (vectorX > 0){
-          if (angleVector_AxisX > 0){
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          } else {
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          }
-        }
-        // else if (vectorX < 0){
-        //
-        //     angleVector_AxisX = angleVector_AxisX;
-        // }
+
         arrowScale = vectorSum / (2 * iceBall.sprite.height);
 
         if (Math.abs(arrowScale - prevScale) > 0.5 && !indicator.isPlaying){
@@ -367,20 +346,19 @@ window.snowPongGame = {
               indicator.restart();
               //indicator.play(false);
         }
-        // else if (!indicator.isPlaying){
-        //     // indicator.onPlay.addOnce(function (){ })
-        //     //game.time.create().add(1000, function (){ indicator.paused = true;}, this);
-        //     indicator.stop();
-        // }
-        // tempParametr = arrowScale - prevScale;
+
 
         prevScale = arrowScale;
 
+        testAngle = gamePhysics().arcade.angleToPointer(iceBall.sprite);
 
-
-        arrow.angle = angleVector_AxisX;
+        arrow.angle = testAngle * (180/Math.PI);
         arrow.scale.x = arrowScale;
         arrow.scale.y = arrowScale;
+
+
+        iceBall.shootX = -vectorSum * Math.cos(testAngle);
+        iceBall.shootY = -vectorSum * Math.sin(testAngle);
 
     },
     shoot: function (x, y){
@@ -416,14 +394,10 @@ window.snowPongGame = {
 
 
         if ((pressMouse && iceBall.isSet) || begin){
-            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin){
+            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin && iceBall.status == 'wait'){
                 begin =  true;
                 killArrow();
                 //записываем значения
-                // iceBall.sprite.tempYmax  = 200;
-                // iceBall.sprite.tempYmin = -200;
-                // iceBall.sprite.tempXmax  = 200;
-                // iceBall.sprite.tempXmin = -200;
 
                 iceBall.tempX = -iceBall.velocityRatio * 3 * (mouseX - iceBall.sprite.x);
                 iceBall.tempY = -iceBall.velocityRatio * 3 * (mouseY - iceBall.sprite.y);
@@ -448,8 +422,8 @@ window.snowPongGame = {
     },
     checkShoot: function () {
         var pressMouse = iceBall.manipulator.isDown;
-        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0)){
-            this.shoot(iceBall.tempX, iceBall.tempY);
+        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0) && iceBall.status == 'wait'){
+            this.shoot(iceBall.shootX, iceBall.shootY);
         }
     },
     resetBall: function () {
@@ -521,9 +495,10 @@ window.snowPongGame = {
         }
         checkRollingBall();
 
+        this.checkShoot();
         this.checkManipulator();
 
-        this.checkShoot();
+
 
         gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);
         gamePhysics().arcade.collide(aimsGroup, iceBall.sprite, killAim);
@@ -532,8 +507,8 @@ window.snowPongGame = {
         gamePhysics().arcade.overlap(gifts, iceBall.sprite,  killgift, null, this);``
 
         this.resetBall();
-
-        textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
+        //отладка
+        // textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
 
     },
 
@@ -731,9 +706,9 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
   }else {
-      saveBox.score = Math.floor(1000/realTimeNow) * health;
+      saveBox.score = Math.floor(120/realTimeNow) * health;
   }
   realTimeNow = 0;
   health = 3;

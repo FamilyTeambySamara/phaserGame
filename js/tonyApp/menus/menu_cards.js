@@ -91,7 +91,7 @@ window.menu_cards = {
         card_1 = gameAdd().image(145, -150, 'card_1');
       }
       card_1.anchor.setTo(0.5, 0.5);
-      if (getInfo().game_2.g_1.status == 'over'){
+      if (getInfo().game_2.g_10.status == 'over'){
           card_2 = gameAdd().image(400, 650, 'card_2_2');
       }else {
           card_2 = gameAdd().image(400, 650, 'card_2');

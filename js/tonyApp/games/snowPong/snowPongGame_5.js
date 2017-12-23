@@ -625,7 +625,7 @@ window.snowPongGame_5 = {
         checkRollingBall();
 
         this.checkShoot();
-        
+
         this.checkManipulator();
 
 
@@ -848,9 +848,9 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
   }else {
-      saveBox.score = Math.floor(1000/realTimeNow) * health;
+      saveBox.score = Math.floor(120/realTimeNow) * health;
   }
   realTimeNow = 0;
   health = 3;

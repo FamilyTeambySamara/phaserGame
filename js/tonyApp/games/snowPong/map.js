@@ -116,12 +116,12 @@
     startGame: function(but){
         // changeState('snowPongGame');
 
-        musicPlay = false;
+
         buttonSong.play();
         alert(but.gameName);
         if (changeState(but.gameName)){
+          musicPlay = false;
           gameSound().stopAll();
-
         }else{
           alert('уровень еще не открыт');
         }

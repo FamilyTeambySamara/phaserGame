@@ -198,16 +198,36 @@ window.Win_SnowBallGame =
           wholeScore.text = 'Итоговый счет: ' + amountStars;
       }
       else if (amountClock !== 0 && amountHp == 0 && amountStars !== 0){
-          wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
+          if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
+            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
+          }else{
+            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(120/amountClock));
+          }
+
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
         //alert(mod);
+        if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
             wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
+        }else{
+            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(120/amountClock) * amountHp * (mod * mod));
+        }
+
       }
       // Звезды равны нулю
       if (amountClock !== 0 && amountHp == 0 && amountStars == 0){
+        if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
           wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock);
+        }else{
+          wholeScore.text = 'Итоговый счет: ' +  Math.floor(120/amountClock);
+        }
+
       } else if (amountStars == 0 && amountClock !== 0 && amountHp !== 0) {
-            wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * (mod * mod);
+              if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
+                wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * (mod * mod);
+              }else{
+                wholeScore.text = 'Итоговый счет: ' +  Math.floor(120/amountClock) * amountHp * (mod * mod);
+              }
+
       }
 
     }

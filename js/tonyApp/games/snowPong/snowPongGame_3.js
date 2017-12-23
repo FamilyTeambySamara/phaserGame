@@ -387,15 +387,6 @@ window.snowPongGame_3 = {
 
         arrow.animations.play('arrow' , 5 , true);
         vectorSum = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
-        angleVector_AxisX = Math.asin(-vectorY / vectorSum) * (180/Math.PI);
-        arcsin = angleVector_AxisX;
-        if (vectorX > 0){
-          if (angleVector_AxisX > 0){
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          } else {
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          }
-        }
 
         arrowScale = vectorSum / (2 * iceBall.sprite.height);
 
@@ -409,11 +400,15 @@ window.snowPongGame_3 = {
 
         prevScale = arrowScale;
 
+        testAngle = gamePhysics().arcade.angleToPointer(iceBall.sprite);
 
-
-        arrow.angle = angleVector_AxisX;
+        arrow.angle = testAngle * (180/Math.PI);
         arrow.scale.x = arrowScale;
         arrow.scale.y = arrowScale;
+
+
+        iceBall.shootX = -vectorSum * Math.cos(testAngle);
+        iceBall.shootY = -vectorSum * Math.sin(testAngle);
 
     },
     shoot: function (x, y){
@@ -449,14 +444,10 @@ window.snowPongGame_3 = {
 
 
         if ((pressMouse && iceBall.isSet) || begin){
-            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin){
+            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin && iceBall.status == 'wait'){
                 begin =  true;
                 killArrow();
                 //записываем значения
-                // iceBall.sprite.tempYmax  = 200;
-                // iceBall.sprite.tempYmin = -200;
-                // iceBall.sprite.tempXmax  = 200;
-                // iceBall.sprite.tempXmin = -200;
 
                 iceBall.tempX = -iceBall.velocityRatio * 3 * (mouseX - iceBall.sprite.x);
                 iceBall.tempY = -iceBall.velocityRatio * 3 * (mouseY - iceBall.sprite.y);
@@ -481,8 +472,8 @@ window.snowPongGame_3 = {
     },
     checkShoot: function () {
         var pressMouse = iceBall.manipulator.isDown;
-        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0)){
-            this.shoot(iceBall.tempX, iceBall.tempY);
+        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0) && iceBall.status == 'wait'){
+            this.shoot(iceBall.shootX, iceBall.shootY);
         }
     },
     resetBall: function () {
@@ -557,10 +548,10 @@ window.snowPongGame_3 = {
             countSnowSong = 0;
         }
         checkRollingBall();
-
+        this.checkShoot();
         this.checkManipulator();
 
-        this.checkShoot();
+
 
         gamePhysics().arcade.collide(entityGroup, entityGroup);
         gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);
@@ -767,9 +758,9 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
   }else {
-      saveBox.score = Math.floor(1000/realTimeNow) * health;
+      saveBox.score = Math.floor(120/realTimeNow) * health;
   }
   realTimeNow = 0;
   health = 3;

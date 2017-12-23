@@ -125,8 +125,8 @@
         if (getInfo().game_1.status == 'unstart'){
           changeState('animBegin');
         }else {
-          // changeState('menu_cards');
-          changeState('snowPongGame_8');
+          changeState('menu_cards');
+          // changeState('snowPongGame_10');
         }
 
         // changeState('animBegin');

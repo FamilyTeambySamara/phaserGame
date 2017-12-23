@@ -160,10 +160,10 @@ window.snowPongGame_9 = {
           }, this);
 
         var gift_1 = gifts.getFirstExists(false);
-        gift_1.reset(440, 350);
+        gift_1.reset(270, 70 );
         gift_1.animations.play('play', 12,  true ,true);
         var gift_2 = gifts.getFirstExists(false);
-        gift_2.reset(640,440);
+        gift_2.reset(610,130);
         gift_2.animations.play('play', 12,  true ,true);
         // var gift_3 = gifts.getFirstExists(false);
         // gift_3.reset(720,130);
@@ -173,18 +173,18 @@ window.snowPongGame_9 = {
 //==============Группа ледных блоков
         iceBricks = gameAdd().group();
         iceBricks.enableBody = true;
-        iceBrick_1 = iceBricks.create(350, 310, 'iceBrick_v');
+        iceBrick_1 = iceBricks.create(385, 120, 'iceBrick');
         iceBrick_1.body.bounce.set(0.5);
 //===============================
 //=============Группа снежных препятствий==================================
         snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
-        var snow_2 = snowGroup.create(50 , 50, 'snowStuck');
-        snow_2.snow = 'snow';
-        snow_2.angle = -90;
-        snow_2.scale.setTo(-1, -1);
-        snow_2.anchor.setTo(0.5, 0.5);
+        // var snow_2 = snowGroup.create(50 , 50, 'snowStuck');
+        // snow_2.snow = 'snow';
+        // snow_2.angle = -90;
+        // snow_2.scale.setTo(-1, -1);
+        // snow_2.anchor.setTo(0.5, 0.5);
 
         //==============
 //Группа дырочек
@@ -192,11 +192,11 @@ window.snowPongGame_9 = {
         holesGroup.enableBody = true;
         holesGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var entity_hole = holesGroup.create(200, 345, 'hole');
-        // entity_hole.scale.set(1.5);
-        entity_hole.body.immovable = true;
-        entity_hole.body.setCircle(entity_hole.width/2);
-        entity_hole.type = 'hole';
+        // var entity_hole = holesGroup.create(200, 345, 'hole');
+        // // entity_hole.scale.set(1.5);
+        // entity_hole.body.immovable = true;
+        // entity_hole.body.setCircle(entity_hole.width/2);
+        // entity_hole.type = 'hole';
 //=========
 
 //Группы препятствий и прочих штук на карте==================
@@ -219,13 +219,13 @@ window.snowPongGame_9 = {
         // entity_7.body.immovable = true;
         // entity_7.type = 'stone';
 
-        entity_8 = entityGroup.create(430, 220, 'stoneSmall');
+        entity_8 = entityGroup.create(300, 440, 'stoneSmall');
         entity_8.body.immovable = true;
         entity_8.type = 'stone';
 
-        // var entity_7 = entityGroup.create(25, 35, 'stoneMiddle');
-        // entity_7.body.immovable = true;
-        // entity_7.type = 'stone';
+        var entity_7 = entityGroup.create(300, 0, 'stoneMiddle');
+        entity_7.body.immovable = true;
+        entity_7.type = 'stone';
 
         // rotateButton = gameAdd().button(entity_1.centerX, entity_1.centerY, 'ball', rotateWood);
         // rotateButton.master = entity_1;
@@ -234,7 +234,7 @@ window.snowPongGame_9 = {
         // iceWall.body.immovable = true;
         // iceWall.type = 'iceWall';
 
-        entity_1 = entityGroup.create(370, 150, 'woodBox');
+        entity_1 = entityGroup.create(370, 290, 'woodBox');
         entity_1.inputEnabled = true;
         entity_1.input.enableDrag(true);
         entity_1.body.immovable = true;
@@ -263,7 +263,7 @@ window.snowPongGame_9 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(470, 450, 'crack');
+        var aim_1 = aimsGroup.create(450, 15, 'crack');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -692,7 +692,7 @@ var replay = function (){
   aimsGroup.forEachDead(resetAll, this);
   gifts.forEachDead(resetStars, this);
 
-  iceBrick_1.reset(350, 310);
+  iceBrick_1.reset(385, 120);
 
 
 
@@ -834,9 +834,9 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
   }else {
-      saveBox.score = Math.floor(1000/realTimeNow) * health;
+      saveBox.score = Math.floor(120/realTimeNow) * health;
   }
   realTimeNow = 0;
   health = 3;

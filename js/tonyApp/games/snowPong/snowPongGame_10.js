@@ -9,8 +9,14 @@ var vectorSum;
 var arcsin;
 
 var entityGroup;
+var holesGroup;
 var snowGroup;
 var snounGroup;
+var iceBricks;
+
+var iceBrick_1;
+var iceBrick_2;
+var iceBrick_3;
 
 var explosions;
 var explosion;
@@ -60,6 +66,7 @@ var starterTime = 0;
 var health = 3;
 
 var realTimeNow = '-';
+var entity_1;
 
 //кнопки управления
 var replayGame;
@@ -71,6 +78,9 @@ var b_music_1;
 var b_music_2;
 var layerUnderMenu;
 
+var testAngle;
+
+var entity_5;
 //условие победы
 var cracksDestroy = 1;
 //================
@@ -84,9 +94,16 @@ window.snowPongGame_10 = {
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
+        gameLoad().image('snowStuckQuadro', 'assets/img/snowPong/snowStuck2.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
         gameLoad().image('crack', 'assets/img/snowPong/crack.png');
-        gameLoad().image('stone', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
+        gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
+        gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
+        gameLoad().image('woodBox', 'assets/img/snowPong/woodBox.png');
+        gameLoad().image('hole', 'assets/img/snowPong/hole.png');
+        gameLoad().image('iceBrick_v', 'assets/img/snowPong/iceBrick_v.png');
+
         gameLoad().image('iceWall', 'assets/img/snowPong/iceWall.png');
         gameLoad().image('woodStick', 'assets/img/snowPong/woodStick.png');
 
@@ -143,38 +160,84 @@ window.snowPongGame_10 = {
           }, this);
 
         var gift_1 = gifts.getFirstExists(false);
-        gift_1.reset(270, 210);
+        gift_1.reset(430, 65 );
         gift_1.animations.play('play', 12,  true ,true);
+        var gift_2 = gifts.getFirstExists(false);
+        gift_2.reset(430 ,400);
+        gift_2.animations.play('play', 12,  true ,true);
+        // var gift_3 = gifts.getFirstExists(false);
+        // gift_3.reset(720,130);
+        // gift_3.animations.play('play', 12,  true ,true);
 
           //===========================
+//==============Группа ледных блоков
+        iceBricks = gameAdd().group();
+        iceBricks.enableBody = true;
+        iceBrick_1 = iceBricks.create(385, 125, 'iceBrick');
+        iceBrick_1.body.bounce.set(0.5);
+        iceBrick_2 = iceBricks.create(385,310, 'iceBrick');
+        iceBrick_2.body.bounce.set(0.5);
+//===============================
+//=============Группа снежных препятствий==================================
+        snowGroup = gameAdd().group();
+        snowGroup.enableBody = true;
+
+        var snow_2 = snowGroup.create(120 , 160, 'snowStuck');
+        snow_2.snow = 'snow';
+        // snow_2.angle = -90;
+        snow_2.scale.setTo(1, -1);
+        snow_2.anchor.setTo(0.5, 0.5);
+
+        //==============
+//Группа дырочек
+        holesGroup = gameAdd().group();
+        holesGroup.enableBody = true;
+        holesGroup.physicsBodyType = Phaser.Physics.ARCADE;
+
+        var entity_hole = holesGroup.create(650, 95, 'hole');
+        // entity_hole.scale.set(1.5);
+        entity_hole.body.immovable = true;
+        entity_hole.body.setCircle(entity_hole.width/2);
+        entity_hole.type = 'hole';
+        entity_hole.anchor.set(0.5);
+        entity_hole.scale.set(2);
+        var entity_hole_2 = holesGroup.create(650, 380, 'hole');
+        // entity_hole.scale.set(1.5);
+        entity_hole_2.body.immovable = true;
+        entity_hole_2.body.setCircle(entity_hole.width/2);
+        entity_hole_2.type = 'hole';
+        entity_hole_2.anchor.set(0.5);
+        entity_hole_2.scale.set(2);
+//=========
+
 //Группы препятствий и прочих штук на карте==================
         entityGroup = gameAdd().group();
         entityGroup.enableBody = true;
         entityGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var entity_1 = entityGroup.create(30, 200, 'woodStick');
-        entity_1.body.immovable = true;
-        entity_1.anchor.setTo(0.5, 0.5);
-        entity_1.type = 'wood';
-        // entity_1.angle = 90;
-        // entity_1.scale.setTo(0.1, 0.1);
-        var entity_2 = entityGroup.create(350, 220, 'stone');
-        entity_2.body.immovable = true;
-        entity_2.anchor.setTo(0.5, 0.5);
-        entity_2.type = 'stone';
-        // // entity_2.angle = 90;
-        // var entity_3 = entityGroup.create(120, 460, 'snowStuck');
-        // entity_3.body.immovable = true;
-        // entity_3.anchor.setTo(0.5, 0.5);
-        var iceWall = entityGroup.create(0, 0, 'iceWall');
-        iceWall.body.immovable = true;
-        iceWall.type = 'iceWall';
-//=============Группа снежных препятствий==================================
-        snowGroup = gameAdd().group();
-        snowGroup.enableBody = true;
 
-        var snow_1 = snowGroup.create(120, 460, 'snowStuck');
-        snow_1.anchor.setTo(0.5, 0.5);
+        entity_1 = entityGroup.create(190, 360, 'woodBox');
+        entity_1.inputEnabled = true;
+        entity_1.input.enableDrag(true);
+        entity_1.body.immovable = true;
+        entity_1.type = 'wood';
+        gameAdd().tween(entity_1).to({ width: 0.95*entity_1.width, height: 0.95*entity_1.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
+
+        entity_2 = entityGroup.create(entity_1.right, entity_1.centerY, 'woodBox');
+        entity_2.anchor.setTo(0, 0.5);
+        entity_2.inputEnabled = true;
+        entity_2.input.enableDrag(true);
+        entity_2.body.immovable = true;
+        entity_2.type = 'wood';
+        gameAdd().tween(entity_2).to({ width: 0.95*entity_2.width, height: 0.95*entity_2.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
+
+        // entity_3 = entityGroup.create(entity_2.right, entity_1.centerY, 'woodBox');
+        // entity_3.anchor.setTo(0, 0.5);
+        // entity_3.inputEnabled = true;
+        // entity_3.input.enableDrag(true);
+        // entity_3.body.immovable = true;
+        // entity_3.type = 'wood';
+        // gameAdd().tween(entity_3).to({ width: 0.95*entity_3.width, height: 0.95*entity_3.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
 
 
 //Группа целей====================================================
@@ -182,7 +245,7 @@ window.snowPongGame_10 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(300, 7, 'crack');
+        var aim_1 = aimsGroup.create(780, 220, 'crack');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -211,30 +274,44 @@ window.snowPongGame_10 = {
         //   }, this);
         iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         gamePhysics().arcade.enable(iceBall.sprite);
-        iceBall.sprite.body.bounce.setTo(0.8, 0.8);
+        iceBall.sprite.body.bounce.set(0.8);
+        // iceBall.sprite.body.mass = 50;
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
         iceBall.sprite.scale.setTo(0.5, 0.5);
+        iceBall.sprite.volume = 0;
         iceBall.sprite.animations.add('bigSnowBaall');
         iceBall.sprite.outOfBoundsKill = true;
         iceBall.sprite.checkWorldBounds = true;
+        // iceBall.sprite.body.setCircle(50);
         iceBall.sprite.tempYmax  = 200;
         iceBall.sprite.tempYmin = -200;
         iceBall.sprite.tempXmax  = 200;
         iceBall.sprite.tempXmin = -200;
         iceBall.sprite.vectorVelocitiMax = Math.sqrt(iceBall.velocityRatio*iceBall.velocityRatio*(iceBall.sprite.tempXmax*iceBall.sprite.tempXmax + iceBall.sprite.tempYmax*iceBall.sprite.tempYmax));
 
-        iceBall.sprite.arrow_1 = this.add.button(iceBall.sprite.x + 80, iceBall.sprite.y, 'arrow',goRight, this, 1, 2 ,0);
+        iceBall.sprite.arrow_1 = this.add.button(iceBall.sprite.centerX, iceBall.sprite.y + 80, 'arrow',goRight, this, 1, 2 ,0);
         iceBall.sprite.arrow_1.anchor.setTo(0.5, 0.5);
         iceBall.sprite.arrow_1.scale.setTo(0.7, 0.7);
-        iceBall.sprite.arrow_2 = this.add.button(iceBall.sprite.x - 80, iceBall.sprite.y, 'arrow_2', goLeft, this, 1, 2 ,0);
+        iceBall.sprite.arrow_1.angle = 90;
+        iceBall.sprite.arrow_2 = this.add.button(iceBall.sprite.centerX, iceBall.sprite.y - 80, 'arrow_2', goLeft, this, 1, 2 ,0);
         iceBall.sprite.arrow_2.anchor.setTo(0.5, 0.5);
         iceBall.sprite.arrow_2.scale.setTo(0.7, 0.7);
+        iceBall.sprite.arrow_2.angle = 90;
 
         iceBall.recentX = iceBall.startX;
         iceBall.recentY = iceBall.startY;
 
         iceBall.status = 'wait';
+
+        gamePhysics().arcade.enable([entity_1, iceBall.sprite]);
+        // entity_1.body.velocity.x = 80;
+        // iceBall.sprite.facing = 500;
+        // entity_1.body.mass = 50;
+        // entity_2.body.mass = 50;
+        // entity_3.body.mass = 50;
+        // entity_4.body.mass = 500;
+
 
 
         textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red' , font: 'mainFont'});
@@ -341,19 +418,7 @@ window.snowPongGame_10 = {
 
         arrow.animations.play('arrow' , 5 , true);
         vectorSum = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
-        angleVector_AxisX = Math.asin(-vectorY / vectorSum) * (180/Math.PI);
-        arcsin = angleVector_AxisX;
-        if (vectorX > 0){
-          if (angleVector_AxisX > 0){
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          } else {
-              angleVector_AxisX = 180 - angleVector_AxisX;
-          }
-        }
-        // else if (vectorX < 0){
-        //
-        //     angleVector_AxisX = angleVector_AxisX;
-        // }
+
         arrowScale = vectorSum / (2 * iceBall.sprite.height);
 
         if (Math.abs(arrowScale - prevScale) > 0.5 && !indicator.isPlaying){
@@ -362,20 +427,19 @@ window.snowPongGame_10 = {
               indicator.restart();
               //indicator.play(false);
         }
-        // else if (!indicator.isPlaying){
-        //     // indicator.onPlay.addOnce(function (){ })
-        //     //game.time.create().add(1000, function (){ indicator.paused = true;}, this);
-        //     indicator.stop();
-        // }
-        // tempParametr = arrowScale - prevScale;
+
 
         prevScale = arrowScale;
 
+        testAngle = gamePhysics().arcade.angleToPointer(iceBall.sprite);
 
-
-        arrow.angle = angleVector_AxisX;
+        arrow.angle = testAngle * (180/Math.PI);
         arrow.scale.x = arrowScale;
         arrow.scale.y = arrowScale;
+
+
+        iceBall.shootX = -vectorSum * Math.cos(testAngle);
+        iceBall.shootY = -vectorSum * Math.sin(testAngle);
 
     },
     shoot: function (x, y){
@@ -405,20 +469,16 @@ window.snowPongGame_10 = {
         iceBall.maxY = iceBall.sprite.y + iceBall.sprite.height/2;
 
         if (iceBall.sprite.arrow_1){
-          iceBall.sprite.arrow_1.x = iceBall.sprite.x + 85;
-          iceBall.sprite.arrow_2.x = iceBall.sprite.x - 70;
+          iceBall.sprite.arrow_1.y = iceBall.sprite.y + 85;
+          iceBall.sprite.arrow_2.y = iceBall.sprite.y - 70;
         }
 
 
         if ((pressMouse && iceBall.isSet) || begin){
-            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin){
+            if (((mouseY > iceBall.minY && mouseY < iceBall.maxY) && (mouseX > iceBall.minX && mouseX < iceBall.maxX )) || begin && iceBall.status == 'wait'){
                 begin =  true;
                 killArrow();
                 //записываем значения
-                // iceBall.sprite.tempYmax  = 200;
-                // iceBall.sprite.tempYmin = -200;
-                // iceBall.sprite.tempXmax  = 200;
-                // iceBall.sprite.tempXmin = -200;
 
                 iceBall.tempX = -iceBall.velocityRatio * 3 * (mouseX - iceBall.sprite.x);
                 iceBall.tempY = -iceBall.velocityRatio * 3 * (mouseY - iceBall.sprite.y);
@@ -443,13 +503,13 @@ window.snowPongGame_10 = {
     },
     checkShoot: function () {
         var pressMouse = iceBall.manipulator.isDown;
-        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0)){
-            this.shoot(iceBall.tempX, iceBall.tempY);
+        if (!pressMouse && iceBall.isSet && (iceBall.tempX !== 0 || iceBall.tempY !== 0) && iceBall.status == 'wait'){
+            this.shoot(iceBall.shootX, iceBall.shootY);
         }
     },
     resetBall: function () {
 
-        if (!iceBall.sprite.alive || (iceBall.sprite.body.velocity.x == 0 && iceBall.sprite.body.velocity.y == 0 && countSnowSong !== 0)){
+        if (!iceBall.sprite.alive || (iceBall.sprite.body.velocity.x == 0 && iceBall.sprite.body.velocity.y == 0 && iceBall.status == 'start')){
             // alert( iceBall.sprite.alive);
             iceBall.tempX = 0;
             iceBall.tempY = 0;
@@ -481,6 +541,13 @@ window.snowPongGame_10 = {
         }
     },
     update: function (){
+      // ограничение на передвижение
+      if (iceBall.sprite.y < 320  && iceBall.status == 'wait'){
+        iceBall.sprite.y = 320 ;
+      }
+      //textDebag
+      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
+      //=========
       levelTable.text = realTimeNow;
       //проверка победы
       if (!aimsGroup.getFirstAlive()){
@@ -516,19 +583,31 @@ window.snowPongGame_10 = {
         }
         checkRollingBall();
 
-        this.checkManipulator();
-
         this.checkShoot();
 
+        this.checkManipulator();
+
+
+
+        gamePhysics().arcade.collide(entityGroup, entityGroup);
         gamePhysics().arcade.collide(entityGroup, iceBall.sprite, playSong);
         gamePhysics().arcade.collide(aimsGroup, iceBall.sprite, killAim);
 
-        checkover = gamePhysics().arcade.overlap(snowGroup, iceBall.sprite,  stopBall, null, this);
+        gamePhysics().arcade.collide(iceBricks, iceBall.sprite);
+        gamePhysics().arcade.collide(iceBricks, entityGroup);
+        gamePhysics().arcade.collide(iceBricks, iceBricks);
+
+
+        gamePhysics().arcade.overlap(holesGroup, iceBall.sprite,  doReplayGame, null, this);
+
+        // gamePhysics().arcade.collide(entity_1, iceBall.sprite);
+
+        checkover = gamePhysics().arcade.overlap(snowGroup, iceBall.sprite,  friction, null, this);
         gamePhysics().arcade.overlap(gifts, iceBall.sprite,  killgift, null, this);``
 
         this.resetBall();
 
-        textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
+        iceBricks.forEachAlive(frictionAll, this );
 
     },
 
@@ -537,16 +616,11 @@ window.snowPongGame_10 = {
     },
 
 
-    render: function (){
-        // game.debug.geom(iceBall.line);
-        // game.debug.lineInfo(iceBall.line, 32, 32);
-    }
-
 }
 
 var iceBall = {
-  startX : 400,
-  startY : 420,
+  startX : 95,
+  startY : 250,
 
   velocityRatio : 2,
 
@@ -591,6 +665,12 @@ var replay = function (){
   aimsGroup.forEachDead(resetAll, this);
   gifts.forEachDead(resetStars, this);
 
+  iceBrick_1.reset(385, 125);
+  iceBrick_2.reset(385,310);
+
+
+
+
   function resetAll(aim) {
   aim.reset(aim.x, aim.y);
   }
@@ -601,7 +681,7 @@ var replay = function (){
 
 }
 var countSnowSong = 0;
-var stopBall = function (iceBall, snow) {
+var friction = function (iceBall, snow) {
     if (iceBall.body.velocity.x > 0){
         iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x - 1);
     } else if (iceBall.body.velocity.x < 0){
@@ -650,11 +730,11 @@ var checkRollingBall = function () {
 }
 
 var goLeft = function (){
-  iceBall.sprite.x -= 20;
+  iceBall.sprite.y -= 20;
 }
 
 var goRight = function (){
-  iceBall.sprite.x += +20;
+  iceBall.sprite.y += +20;
 }
 
 var killArrow = function () {
@@ -667,6 +747,8 @@ var riseArrow = function () {
       iceBall.sprite.arrow_2.reset(iceBall.sprite.x, iceBall.sprite.y);
 }
 var playSong = function (ball, entity) {
+
+    // iceBall.sprite.body.bounce.set(10);
   if (entity.type == 'wood'){
         wood_hit.volume = iceBall.sprite.volume;
         wood_hit.play();
@@ -726,9 +808,9 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(1000/realTimeNow) * health;
+      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
   }else {
-      saveBox.score = Math.floor(1000/realTimeNow) * health;
+      saveBox.score = Math.floor(120/realTimeNow) * health;
   }
   realTimeNow = 0;
   health = 3;
@@ -749,16 +831,26 @@ doReplayGame = function (){
   iceBall.isSet = true;
   iceBall.status = 'wait';
   countSnowSong = 0;
+  // counterStarterTime = 0;
+  // realTimeNow = 0;
+  // scoreStars = 0;
+  health -= 1;
+
+  healthTable.text = health;
+  scoreHartImage.animations.play('hartBar');
+  levelTable.text = realTimeNow;
+  // starTable.text = '0';
   riseArrow();
-  health = 3;
-  scoreStars = 0;
-  //countSnowSong = 0;
-  counterStarterTime = 0;
-  realTimeNow = 0;
-  rollingBall.stop();
-  saveBox.currentGame = 'snowPongGame_10';
-  saveStat(210);
-  changeState('snowPongGame_10');
+
+  // aimsGroup.forEachDead(resetAll, this);
+  // gifts.forEachDead(resetStars, this);
+
+  function resetAll(aim) {
+  aim.reset(aim.x, aim.y);
+  }
+  function resetStars(star){
+    star.reset(star.x, star.y);
+  }
 }
 
 doExitGame = function (){
@@ -780,6 +872,32 @@ doExitGame = function (){
   saveStat(210);
 
   changeState('map');
+}
+
+function rotateWood (b) {
+  // b.master.body.angularVelocity = 8;
+  // entity_1.angle = 0;
+  entity_1.x = 600;
+  entity_1.y = 20;
+  // entity_1.angle += 10;
+  b.master.body.rotate = 5;
+
+  // moveTo(duration, distance, direction)
+  // b.master.update();
+  // b.master.updateCrop();
+}
+
+ function frictionAll (brick) {
+    if (brick.body.velocity.x > 0){
+        brick.body.velocity.x = Math.floor(brick.body.velocity.x - 1);
+    } else if (brick.body.velocity.x < 0){
+      brick.body.velocity.x = Math.floor(brick.body.velocity.x + 1);;
+    }
+    if (brick.body.velocity.y > 0){
+        brick.body.velocity.y = Math.floor(brick.body.velocity.y - 1);;
+    } else if (brick.body.velocity.y < 0){
+       brick.body.velocity.y = Math.floor(brick.body.velocity.y + 1);;
+    }
 }
 
 })()
