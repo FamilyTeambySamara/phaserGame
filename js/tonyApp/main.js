@@ -90,6 +90,7 @@
               case 'g_1':
                 if(getInfo().user.totalstars > 1){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -97,6 +98,7 @@
               case 'g_2':
                 if(getInfo().user.totalstars > 4){
                   game.state.start(st);
+                  return true;
                 }else {
                 return false;
                 }
@@ -104,6 +106,7 @@
               case 'g_3':
                 if(getInfo().user.totalstars > 7){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -111,6 +114,7 @@
               case 'g_4':
                 if(getInfo().user.totalstars > 10){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -118,6 +122,7 @@
               case 'g_5':
                 if(getInfo().user.totalstars > 14){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -125,6 +130,7 @@
               case 'g_6':
                 if(getInfo().user.totalstars > 17){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -132,6 +138,7 @@
               case 'g_7':
                 if(getInfo().user.totalstars > 20){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -139,6 +146,7 @@
               case 'g_8':
                 if(getInfo().user.totalstars > 23){
                   game.state.start(st);
+                  return true;
                 }else {
                 return false;
                 }
@@ -146,6 +154,7 @@
               case 'g_9':
                 if(getInfo().user.totalstars > 26){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
@@ -153,6 +162,7 @@
               case 'g_10':
                 if(getInfo().user.totalstars > 29){
                   game.state.start(st);
+                  return true;
                 }else {
                   return false;
                 }
