@@ -118,7 +118,7 @@
 
 
         buttonSong.play();
-        alert(but.gameName);
+        // alert(but.gameName);
         if (changeState(but.gameName)){
           musicPlay = false;
           gameSound().stopAll();
