@@ -124,6 +124,8 @@ var exitGame;
 var doReplayGame;
 var doExitGame;
 
+var wholeStars;
+
 var b_music_1;
 var b_music_2;
 var layerUnderMenu;
@@ -133,24 +135,10 @@ window.SnowBallGame =
     preload: function () {
 
     },
-
     create: function () {
 
     gamePhysics().startSystem(Phaser.Physics.ARCADE);
     gameAdd().image(0, 0, 'mainLayer');
-    //====================MAINPLAYEEEEEEER===
-    playerBet = gameAdd().sprite(35, 230, 'bet');
-    playerBet.anchor.setTo(0.5, 0.5);
-    playerBet.status = 'whait';
-    gamePhysics().arcade.enable(playerBet);
-    playerBet.body.setSize(30, 58, 10, 10);
-    // playerBet.body.overlapY = 150;
-    // playerBet.body.overlapX  = -150;
-
-        // playerBet.animations.add('throw',[0, 1, 2, 3, 4, 5, 6, 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
-    playerBet.animations.add('throw',[ 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
-    playerBet.animations.add('right',[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], 25, true);
-    playerBet.animations.add('hit',[42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], 25);
 
     //====================Добавлем музыку и звуки====================
     //звуки бросков
@@ -175,17 +163,6 @@ window.SnowBallGame =
       snowBallMainTrack = true;
     }
 
-//=============Снег на фоне игры===================================
-      // back_emitter = gameAdd().emitter(game.world.centerX, -32, 600);
-      // back_emitter.makeParticles('snow_small', [0, 1, 2, 3, 4, 5]);
-      // back_emitter.maxParticleScale = 0.2;
-      // back_emitter.minParticleScale = 0.1;
-      // back_emitter.setYSpeed(20, 100);
-      // back_emitter.gravity = 0;
-      // back_emitter.width = game.world.width * 1.5;
-      // back_emitter.minRotation = 0;
-      // back_emitter.maxRotation = 40;
-      // back_emitter.start(false, 14000, 20);
 //=======Пули игрока============================
       bullets = gameAdd().group();
       bullets.enableBody = true;
@@ -227,7 +204,6 @@ window.SnowBallGame =
           invader.animations.add('go', [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 30, true);
           invader.animations.add('goBack', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], 30, true);
           invader.animations.add('shoot',  [26, 27, 28, 0], 10, false);
-          //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
         }, this);
 //================BigPolarMen=============================
         bigPolarMen = gameAdd().group();
@@ -240,8 +216,6 @@ window.SnowBallGame =
           function (invader){
             invader.animations.add('go',  [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], 12, true);
             animBigPolar = invader.animations.add('throw',  [12, 13, 14], 3, false);
-
-            //invader.animations.add('right', [0, 1, 2, 4, 5, 6, 7, 8, 9], 10, true);
           }, this);
 //===============SmartPolarMen==============================
         smartPolarMen = gameAdd().group();
@@ -260,9 +234,6 @@ window.SnowBallGame =
 //=============Группа взрывов==========================
       explosions = gameAdd().group();
       explosions.createMultiple(30, 'kaboom');
-      // explosions.setAll('anchor.x', 0.5);
-      // explosions.setAll('anchor.y', 0.5);
-      // explosions.animations.add('kaboom');
       explosions.forEach( function (invader){
         invader.anchor.x =  0.5;
         invader.anchor.y =  0.5;
@@ -280,12 +251,6 @@ window.SnowBallGame =
           function (invader){
             invader.animations.add('play');
           }, this);
-        // var new_star = gifts.getFirstExists(false);
-        // new_star.reset(110, 250);
-        // new_star.animations.play('play', true);
-        // new_star = gifts.getFirstExists(false);
-        // new_star.reset(390, 240);
-        // new_star.animations.play('play', 4, true ,true);
       //хижина
       refuse = gameAdd().group()
       refuse.physicsBodyType = Phaser.Physics.ARCADE;
@@ -322,6 +287,15 @@ window.SnowBallGame =
       ref_6.hp = 2;
       ref_6.anchor.x = 0.5;
       ref_6.anchor.y = 0.5;
+      //player
+      playerBet = gameAdd().sprite(35, 230, 'bet');
+      playerBet.anchor.setTo(0.5, 0.5);
+      playerBet.status = 'whait';
+      gamePhysics().arcade.enable(playerBet);
+      playerBet.body.setSize(30, 58, 10, 10);
+      playerBet.animations.add('throw',[ 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
+      playerBet.animations.add('right',[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], 25, true);
+      playerBet.animations.add('hit',[42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], 25);
 //==================Табло=======================
       //Подложка
       gameAdd().image(0, 0, 'underLyaer');
@@ -625,9 +599,13 @@ window.SnowBallGame =
 
         if (refuse.hp < 1){
             refuse.kill();
-            var star = gifts.getFirstExists(false);
-            star.reset(refuse.x, refuse.y);
-            star.animations.play('play', 12, true, true);
+            if (wholeStars > 0){
+              wholeStars--;
+              var star = gifts.getFirstExists(false);
+              star.reset(refuse.x, refuse.y);
+              star.animations.play('play', 12, true, true);
+            }
+
         }
         clap.play();
         bullet.kill();
@@ -1057,6 +1035,7 @@ window.SnowBallGame =
 }
 
 window.changeLevel = function (mod) {
+  wholeStars = 2*(+mod);
   switch (mod) {
 
     case 3:
