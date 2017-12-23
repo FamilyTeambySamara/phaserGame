@@ -94,9 +94,11 @@ window.snowPongGame_5 = {
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
-        gameLoad().image('snowStuckQuadro', 'assets/img/snowPong/snowStuck2.png');
+        gameLoad().image('snowStuck3', 'assets/img/snowPong/snowStuck3.png');
+        gameLoad().image('snowStuck2', 'assets/img/snowPong/snowStuck2.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
         gameLoad().image('crack', 'assets/img/snowPong/crack.png');
+        gameLoad().image('crack2', 'assets/img/snowPong/crack2.png');
         gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
         gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
         gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
@@ -189,10 +191,16 @@ window.snowPongGame_5 = {
         snowGroup.enableBody = true;
 
 
-        // var snow_1 = snowGroup.create(25, 280, 'snowStuckQuadro');
-        // snow_1.snow = 'snow';
-        // snow_1.anchor.setTo(0.5, 0.5);
-        var snow_2 = snowGroup.create(530 , 100, 'snowStuck');
+        var snow_1 = snowGroup.create(750, 500, 'snowStuck');
+        snow_1.snow = 'snow';
+        snow_1.anchor.setTo(0.5, 0.5);
+        snow_1.angle = -90;
+        var snow_3 = snowGroup.create(780, 280, 'snowStuck2');
+        snow_3.snow = 'snow';
+        snow_3.anchor.setTo(0.5, 0.5);
+        snow_3.angle = 90;
+        // snow_3.scale.setTo(-1, 1);
+        var snow_2 = snowGroup.create(530 , 100, 'snowStuck3');
         snow_2.snow = 'snow';
         snow_2.angle = -90;
         snow_2.scale.setTo(-1, -1);
@@ -277,7 +285,7 @@ window.snowPongGame_5 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(750, 350, 'crack');
+        var aim_1 = aimsGroup.create(750, 350, 'crack2');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -587,7 +595,7 @@ window.snowPongGame_5 = {
       //   iceBall.sprite.x = 200 ;
       // }
       //textDebag
-      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
+      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы

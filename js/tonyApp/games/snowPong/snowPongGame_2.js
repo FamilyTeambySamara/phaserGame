@@ -213,7 +213,7 @@ window.snowPongGame_2 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(700, 7, 'crack');
+        var aim_1 = aimsGroup.create(650, 7, 'crack');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -545,7 +545,7 @@ window.snowPongGame_2 = {
 
         this.resetBall();
 
-        textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
+        // textDebag.text =   iceBall.sprite.body.velocity.x + '              ' + iceBall.sprite.body.velocity.y;
 
     },
 

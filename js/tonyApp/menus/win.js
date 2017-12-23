@@ -82,7 +82,7 @@ window.Win_SnowBallGame =
       calulateStarsEvent.repeat(100, stars, this.calculateStars, this);
       calulateStarsEvent.start(2000);
       //Добавлем бзыньк в конце пересчета
-        calculateSong.onStop.addOnce(function (){tempStarSong.play();}, this);
+      calculateSong.onStop.addOnce(function (){tempStarSong.play();}, this);
       //===================================
       //Считаем время
       calculateTimeEvent = gameTime().create();
@@ -116,14 +116,57 @@ window.Win_SnowBallGame =
       // gameAdd().text(250, 40, 'You are Win!!!', { fontSize: '32px', fill: 'red' });
       // gameAdd().text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
       //gameAdd().button( 250, 250, 'button', this.startPlay, this, 2, 1, 0);
+      if(getInfoCurrentGame().currentGame !== 'SnowBallGame'){
+        var button_cont = gameAdd().button( 420, 300, 'button_cont', this.goToNext, this, 1, 0 ,2);
+        button_cont.anchor.x = 0.5;
+      }
+
       var button_out = gameAdd().button( 400, 420, 'button_out', this.goToMenu, this, 1, 0 ,2);
       button_out.anchor.x = 0.5;
 
-      var button_again = gameAdd().button( 400, 350, 'button_again', this.startPlay, this, 1, 0 ,2);
+      var button_again = gameAdd().button( 400, 360, 'button_again', this.startPlay, this, 1, 0 ,2);
       button_again.anchor.x = 0.5;
 
     },
-
+    goToNext: function (){
+        gameSound().stopAll();
+        amountStars = 0;
+        amountClock = 0;
+        amountHp = 0;
+        commonScore = 0;
+        switch (getInfoCurrentGame().currentGame) {
+          case 'snowPongGame':
+            changeState('snowPongGame_2');
+            break;
+          case 'snowPongGame_2':
+            changeState('snowPongGame_3');
+            break;
+          case 'snowPongGame_3':
+            changeState('snowPongGame_4');
+            break;
+          case 'snowPongGame_4':
+            changeState('snowPongGame_5');
+            break;
+          case 'snowPongGame_5':
+            changeState('snowPongGame_6');
+            break;
+          case 'snowPongGame_6':
+            changeState('snowPongGame_7');
+            break;
+          case 'snowPongGame_7':
+            changeState('snowPongGame_8');
+            break;
+          case 'snowPongGame_8':
+            changeState('snowPongGame_9');
+            break;
+          case 'snowPongGame_9':
+            changeState('snowPongGame_10');
+            break;
+          case 'snowPongGame_10':
+            changeState('menu_cards');
+            break;
+        }
+    },
     startPlay: function () {
           gameSound().stopAll();
           amountStars = 0;

@@ -169,11 +169,11 @@ window.snowPongGame_4 = {
         var snow_1 = snowGroup.create(25, 280, 'snowStuckQuadro');
         snow_1.snow = 'snow';
         snow_1.anchor.setTo(0.5, 0.5);
-        var snow_2 = snowGroup.create(530 + snow_1.width, 460, 'snowStuck');
+        var snow_2 = snowGroup.create(560 + snow_1.width, 460, 'snowStuck');
         snow_2.snow = 'snow';
         snow_2.scale.setTo(-1, 1);
         snow_2.anchor.setTo(0.5, 0.5);
-        var snow_3 = snowGroup.create(530 + snow_1.width, 70, 'snowStuck');
+        var snow_3 = snowGroup.create(560 + snow_1.width, 70, 'snowStuck');
         snow_3.snow = 'snow';
         snow_3.scale.setTo(-1, -1);
         snow_3.anchor.setTo(0.5, 0.5);
@@ -246,7 +246,7 @@ window.snowPongGame_4 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(750, 250, 'crack2');
+        var aim_1 = aimsGroup.create(750, 235, 'crack2');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -545,7 +545,7 @@ window.snowPongGame_4 = {
         iceBall.sprite.x = 200 ;
       }
       //textDebag
-      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
+      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы

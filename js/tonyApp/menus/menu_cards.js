@@ -96,14 +96,14 @@ window.menu_cards = {
       buttonPlay_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1_anim, this, 3, 1 ,2);
       buttonPlay_1.anchor.setTo(0.5, 0.5);
       butGroup_1.add(buttonPlay_1);
-        bChangeLevel_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_1 = gameAdd().button(145, 364, 'easy', this.startGame_1, this, 1,0,2);
         bChangeLevel_1.anchor.setTo(0.5, 0.5);
         bChangeLevel_1.alpha = 0;
         bChangeLevel_1.level = 1;
-        bChangeLevel_2 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_2 = gameAdd().button(145, 364, 'middle', this.startGame_1, this, 1,0,2);
         bChangeLevel_2.anchor.setTo(0.5, 0.5);
         bChangeLevel_2.level = 2;
-        bChangeLevel_3 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1, this, 0,1,2);
+        bChangeLevel_3 = gameAdd().button(145, 364, 'difficult', this.startGame_1, this, 1,0,2);
         bChangeLevel_3.anchor.setTo(0.5, 0.5);
         bChangeLevel_3.level = 3;
         bChangeLevel_1.kill();
@@ -275,15 +275,15 @@ window.menu_cards = {
           gameAdd().tween(bChangeLevel_3).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_3).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
         }else {
-          gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_1).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-          gameAdd().tween(bChangeLevel_2.scale).to( {  x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_2.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_2).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_2).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-          gameAdd().tween(bChangeLevel_3.scale).to( { x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(bChangeLevel_3.scale).to( { x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_3).to( {x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
           var anim = gameAdd().tween(bChangeLevel_3).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
           anim.onComplete.addOnce(function (){

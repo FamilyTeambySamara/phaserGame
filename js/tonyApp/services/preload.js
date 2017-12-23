@@ -33,6 +33,12 @@
       gameLoad().image('Game_over', 'assets/img/menu_over2.png');
       gameLoad().image('moon', 'assets/img/moon.png');
 
+      gameLoad().spritesheet('easy', 'assets/img/button_sprite7.png', 193 , 71);
+      gameLoad().spritesheet('middle', 'assets/img/button_sprite8.png', 193 , 71);
+      gameLoad().spritesheet('difficult', 'assets/img/button_sprite9.png', 193 , 71);
+      gameLoad().spritesheet('button_cont', 'assets/img/button_sprite6.png', 193 , 71);
+
+
         //win and loos
       gameLoad().spritesheet('menuWin', 'assets/img/menuTruo.png', 350 , 171);
 

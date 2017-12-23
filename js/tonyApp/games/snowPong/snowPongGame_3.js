@@ -512,7 +512,7 @@ window.snowPongGame_3 = {
     update: function (){
 
       //textDebag
-      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
+      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы

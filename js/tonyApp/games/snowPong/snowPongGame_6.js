@@ -94,9 +94,9 @@ window.snowPongGame_6 = {
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
-        gameLoad().image('snowStuckQuadro', 'assets/img/snowPong/snowStuck2.png');
+        gameLoad().image('snowStuck2', 'assets/img/snowPong/snowStuck2.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
-        gameLoad().image('crack', 'assets/img/snowPong/crack.png');
+        gameLoad().image('crack2', 'assets/img/snowPong/crack2.png');
         gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
         gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
         gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
@@ -200,14 +200,14 @@ window.snowPongGame_6 = {
         snowGroup.enableBody = true;
 
 
-        // var snow_1 = snowGroup.create(25, 280, 'snowStuckQuadro');
-        // snow_1.snow = 'snow';
-        // snow_1.anchor.setTo(0.5, 0.5);
-        // var snow_2 = snowGroup.create(530 , 100, 'snowStuck');
-        // snow_2.snow = 'snow';
-        // snow_2.angle = -90;
-        // snow_2.scale.setTo(-1, -1);
-        // snow_2.anchor.setTo(0.5, 0.5);
+        var snow_1 = snowGroup.create(25, 280, 'snowStuck2');
+        snow_1.snow = 'snow';
+        snow_1.anchor.setTo(0.5, 0.5);
+        var snow_2 = snowGroup.create(530 , 100, 'snowStuck2');
+        snow_2.snow = 'snow';
+        snow_2.angle = -90;
+        snow_2.scale.setTo(-1, -1);
+        snow_2.anchor.setTo(0.5, 0.5);
         // var snow_3 = snowGroup.create(530 + snow_1.width, 70, 'snowStuck');
         // snow_3.snow = 'snow';
         // snow_3.scale.setTo(-1, -1);
@@ -292,7 +292,7 @@ window.snowPongGame_6 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(750, 150, 'crack');
+        var aim_1 = aimsGroup.create(750, 150, 'crack2');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
