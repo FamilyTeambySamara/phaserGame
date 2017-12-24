@@ -200,13 +200,14 @@ window.snowPongGame_6 = {
         snowGroup.enableBody = true;
 
 
-        var snow_1 = snowGroup.create(25, 280, 'snowStuck2');
+        var snow_1 = snowGroup.create(780, 290, 'snowStuck2');
         snow_1.snow = 'snow';
         snow_1.anchor.setTo(0.5, 0.5);
-        var snow_2 = snowGroup.create(530 , 100, 'snowStuck2');
+        snow_1.angle = -90;
+        var snow_2 = snowGroup.create(780 , 100, 'snowStuck2');
         snow_2.snow = 'snow';
-        snow_2.angle = -90;
-        snow_2.scale.setTo(-1, -1);
+        // snow_2.angle = -90;
+        // snow_2.scale.setTo(-1, -1);
         snow_2.anchor.setTo(0.5, 0.5);
         // var snow_3 = snowGroup.create(530 + snow_1.width, 70, 'snowStuck');
         // snow_3.snow = 'snow';
@@ -602,7 +603,7 @@ window.snowPongGame_6 = {
       //   iceBall.sprite.x = 200 ;
       // }
       //textDebag
-      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
+      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы

@@ -94,9 +94,9 @@ window.snowPongGame_9 = {
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
-        gameLoad().image('snowStuckQuadro', 'assets/img/snowPong/snowStuck2.png');
+        gameLoad().image('snowStuck2', 'assets/img/snowPong/snowStuck2.png');
         gameLoad().image('iceBrick', 'assets/img/snowPong/iceBrick.png');
-        gameLoad().image('crack', 'assets/img/snowPong/crack.png');
+        gameLoad().image('crack', 'assets/img/snowPong/crack2.png');
         gameLoad().image('stoneBig', 'assets/img/snowPong/stone.png');
         gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
         gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
@@ -180,11 +180,11 @@ window.snowPongGame_9 = {
         snowGroup = gameAdd().group();
         snowGroup.enableBody = true;
 
-        // var snow_2 = snowGroup.create(50 , 50, 'snowStuck');
-        // snow_2.snow = 'snow';
-        // snow_2.angle = -90;
-        // snow_2.scale.setTo(-1, -1);
-        // snow_2.anchor.setTo(0.5, 0.5);
+        var snow_2 = snowGroup.create(535 , 35, 'snowStuck2');
+        snow_2.snow = 'snow';
+        snow_2.angle = -90;
+        snow_2.scale.setTo(-1, -1);
+        snow_2.anchor.setTo(0.5, 0.5);
 
         //==============
 //Группа дырочек
@@ -263,7 +263,7 @@ window.snowPongGame_9 = {
         aimsGroup.enableBody = true;
         aimsGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        var aim_1 = aimsGroup.create(450, 15, 'crack');
+        var aim_1 = aimsGroup.create(435, 10, 'crack');
         aim_1.body.immovable = true;
         aim_1.anchor.setTo(0.5, 0);
         //aim_1.scale.setTo(0.5, 0.5);
@@ -573,7 +573,7 @@ window.snowPongGame_9 = {
       //   iceBall.sprite.x = 200 ;
       // }
       //textDebag
-      textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
+      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x + 'angle=' + angleVector_AxisX + '\n' + 'test=' + testAngle*180/Math.PI;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы

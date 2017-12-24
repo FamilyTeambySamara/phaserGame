@@ -73,6 +73,9 @@ var b_music_1;
 var b_music_2;
 var layerUnderMenu;
 
+var testAngle = Math.PI/2;
+var moveAngle = 0;
+
 var entity_5;
 //условие победы
 var cracksDestroy = 1;
@@ -83,7 +86,8 @@ var saveBox = { time: 0, hp: 0, stars: 0, score: 0, mod: 1};
 window.snowPongGame_4 = {
 
     preload: function () {
-        gameLoad().spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png', 70, 30);
+        // gameLoad().spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png', 70, 30);
+        gameLoad().spritesheet('arrow_indicator', 'assets/img/snowPong/arrow.png');
 
         gameLoad().image('fonPongGame', 'assets/img/snowPong/fon.png');
         gameLoad().image('snowStuck', 'assets/img/snowPong/snowStuck.png');
@@ -276,12 +280,14 @@ window.snowPongGame_4 = {
         iceBall.sprite = gameAdd().sprite(iceBall.startX, iceBall.startY, 'bigSnowBaall');//110 x 110 px
         gamePhysics().arcade.enable(iceBall.sprite);
         iceBall.sprite.body.bounce.set(1);
+        iceBall.sprite.animations.add('bigSnowBaall');
+        iceBall.sprite.animations.play('bigSnowBaall', true, true);
         // iceBall.sprite.body.mass = 50;
         iceBall.sprite.anchor.x = 0.5;
         iceBall.sprite.anchor.y = 0.5;
         iceBall.sprite.scale.setTo(0.5, 0.5);
         iceBall.sprite.volume = 0;
-        iceBall.sprite.animations.add('bigSnowBaall');
+        // iceBall.sprite.animations.add('bigSnowBaall');
         iceBall.sprite.outOfBoundsKill = true;
         iceBall.sprite.checkWorldBounds = true;
         // iceBall.sprite.body.setCircle(50);
@@ -418,7 +424,7 @@ window.snowPongGame_4 = {
         arrow.animations.play('arrow' , 5 , true);
         vectorSum = Math.sqrt(vectorX*vectorX + vectorY*vectorY);
 
-        arrowScale = vectorSum / (2 * iceBall.sprite.height);
+        arrowScale = vectorSum / (4 * iceBall.sprite.height);
 
         if (Math.abs(arrowScale - prevScale) > 0.5 && !indicator.isPlaying){
             indicator.play(false);
@@ -446,6 +452,7 @@ window.snowPongGame_4 = {
         iceBall.recentY = iceBall.sprite.y;
         iceBall.sprite.body.velocity.x = x * iceBall.velocityRatio;
         iceBall.sprite.body.velocity.y = y * iceBall.velocityRatio ;
+
         iceBall.isSet = false;
         iceBall.status = 'start';
         killArrow();
@@ -508,7 +515,7 @@ window.snowPongGame_4 = {
     },
     resetBall: function () {
 
-        if (!iceBall.sprite.alive || (iceBall.sprite.body.velocity.x == 0 && iceBall.sprite.body.velocity.y == 0 && countSnowSong !== 0)){
+        if (!iceBall.sprite.alive || (iceBall.sprite.body.velocity.x == 0 && iceBall.sprite.body.velocity.y == 0 && iceBall.status == 'start')){
             // alert( iceBall.sprite.alive);
             iceBall.tempX = 0;
             iceBall.tempY = 0;
@@ -521,6 +528,7 @@ window.snowPongGame_4 = {
             // realTimeNow = 0;
             // scoreStars = 0;
             health -= 1;
+            // iceBall.sprite.animations.stop();
 
             healthTable.text = health;
             scoreHartImage.animations.play('hartBar');
@@ -540,12 +548,26 @@ window.snowPongGame_4 = {
         }
     },
     update: function (){
+      if (iceBall.status == 'wait'){
+          iceBall.sprite.angle = testAngle *180 / Math.PI - 90;
+      }else if (iceBall.status == 'start'){
+        if(iceBall.sprite.body.velocity.x < 0 && iceBall.sprite.body.velocity.y < 0){
+          iceBall.sprite.angle = -moveAngle;
+        }else if (iceBall.sprite.body.velocity.y > 0 || iceBall.sprite.body.velocity.x < 0){
+          iceBall.sprite.angle = -moveAngle + 180;
+        }else{
+          iceBall.sprite.angle = -moveAngle;
+        }
+
+      }
+
+
       //ограничение на передвижение
       if (iceBall.sprite.x > 200  && iceBall.status == 'wait'){
         iceBall.sprite.x = 200 ;
       }
       //textDebag
-      // textDebag.text = iceBall.sprite.body.velocity.y + '         ' +iceBall.sprite.body.velocity.x;
+      // textDebag.text = 'velx' + iceBall.sprite.body.velocity.x + 'vely' + iceBall.sprite.body.velocity.y;
       //=========
       levelTable.text = realTimeNow;
       //проверка победы
@@ -599,6 +621,11 @@ window.snowPongGame_4 = {
         this.resetBall();
 
         entityGroup.forEachAlive(frictionAll, this );
+
+        //трение для шара
+        if(iceBall.sprite.body.velocity.x !== 0 || iceBall.sprite.body.velocity.y !== 0 && iceBall.status == 'start'){
+          frictionBall(iceBall.sprite);
+        }
 
     },
 
@@ -696,6 +723,9 @@ var friction = function (iceBall, snow) {
     // game.state.start('snowPongGame');
 }
 var rollingCounter = 0;
+
+
+
 var checkRollingBall = function () {
   if((Math.abs(iceBall.sprite.body.velocity.x) > 0 || Math.abs(iceBall.sprite.body.velocity.y) > 0) && !checkover){
     // var velocityXmax = iceBall.velocityRatio * 200;
@@ -889,17 +919,47 @@ function rotateWood (b) {
   // b.master.updateCrop();
 }
 
- function frictionAll (iceBall) {
-    if (iceBall.body.velocity.x > 0){
-        iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x - 1);
-    } else if (iceBall.body.velocity.x < 0){
-      iceBall.body.velocity.x = Math.floor(iceBall.body.velocity.x + 1);;
+ function  frictionBall (ball) {
+
+    var vX = ball.body.velocity.x;
+    var vY = ball.body.velocity.y;
+    moveAngle = Math.atan(vX/vY) * 180/Math.PI;
+    var v = Math.sqrt(vX*vX + vY*vY);
+    var kX = vX/v;
+    var kY = vY/v;
+
+    ball.body.velocity.x =   ball.body.velocity.x - kX;
+    ball.body.velocity.y =   ball.body.velocity.y - kY;
+
+    if (Math.abs(ball.body.velocity.x) < 10){
+      if (ball.body.velocity.x > 0){
+      ball.body.velocity.x = Math.floor(ball.body.velocity.x - 0.1);
+      }else {
+      ball.body.velocity.x = Math.ceil(ball.body.velocity.x + 0.1);
+      }
     }
-    if (iceBall.body.velocity.y > 0){
-        iceBall.body.velocity.y = Math.floor(iceBall.body.velocity.y - 1);;
-    } else if (iceBall.body.velocity.y < 0){
-       iceBall.body.velocity.y = Math.floor(iceBall.body.velocity.y + 1);;
+
+    if (Math.abs(ball.body.velocity.y) < 10){
+      if (ball.body.velocity.y > 0){
+      ball.body.velocity.y = Math.floor(ball.body.velocity.y - 0.1);
+      }else{
+      ball.body.velocity.y = Math.ceil(ball.body.velocity.y + 0.1);
+      }
     }
+
+}
+
+function frictionAll (brick) {
+   if (brick.body.velocity.x > 0){
+       brick.body.velocity.x = Math.floor(brick.body.velocity.x - 1);
+   } else if (brick.body.velocity.x < 0){
+     brick.body.velocity.x = Math.floor(brick.body.velocity.x + 1);
+   }
+   if (brick.body.velocity.y > 0){
+       brick.body.velocity.y = Math.floor(brick.body.velocity.y - 1);
+   } else if (brick.body.velocity.y < 0){
+      brick.body.velocity.y = Math.floor(brick.body.velocity.y + 1);
+   }
 }
 
 })()
