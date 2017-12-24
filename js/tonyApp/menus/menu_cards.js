@@ -39,10 +39,12 @@
   var bChangeLevel_1;
   var bChangeLevel_2;
   var bChangeLevel_3;
+
+  var infoRuls;
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
-
+      gameLoad().image('infoRuls', 'assets/img/rules/rulesAll.png');
     },
 
     create: function (){
@@ -181,6 +183,10 @@ window.menu_cards = {
       b_info = gameAdd().button(692, 40, 'b_info', this.showInfoGame, this,  1, 2 , 0);
       b_info.anchor.setTo(0.5, 0.5);
       butGroup_3.add(b_info);
+      infoRuls = gameAdd().image(0,0, 'infoRuls');
+      infoRuls.alpha = 0;
+      infoRuls.anchor.setTo(0.5, 0.5);
+      infoRuls.kill();
       likeVk = gameAdd().button(58, 40, 'likeVk', this.doLike, this,  0, 2, 1);
       likeVk.anchor.setTo(0.5, 0.5);
       butGroup_3.add(likeVk);
@@ -295,8 +301,18 @@ window.menu_cards = {
 
     },
     showInfoGame: function (){
-
-        alert('Правила игры');
+      if (infoRuls.alpha == 0){
+        infoRuls.reset(b_info.centerX, b_info.centerY);
+        infoRuls.scale.set(0);
+        gameAdd().tween(infoRuls.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+        gameAdd().tween(infoRuls).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+        gameAdd().tween(infoRuls).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+      }else{
+        gameAdd().tween(infoRuls.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+        gameAdd().tween(infoRuls).to( { x: b_info.centerX, y: b_info.centerY}, 100,  Phaser.Easing.Linear.None, true);
+        var anim = gameAdd().tween(infoRuls).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+        anim.onComplete.addOnce(function (){ infoRuls.kill();})
+      }
     },
     turnMusic: function (){
       // gameSound().mute = true;
