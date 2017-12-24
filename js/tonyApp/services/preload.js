@@ -38,6 +38,9 @@
       gameLoad().spritesheet('difficult', 'assets/img/button_sprite9.png', 193 , 71);
       gameLoad().spritesheet('button_cont', 'assets/img/button_sprite6.png', 193 , 71);
 
+      gameLoad().audio('iceBrickPunch',  'assets/audio/snowPongGame/iceBrickPunch.wav');
+      gameLoad().audio('waterSong',  'assets/audio/snowPongGame/waterSound.mp3');
+
 
         //win and loos
       gameLoad().spritesheet('menuWin', 'assets/img/menuTruo.png', 350 , 171);

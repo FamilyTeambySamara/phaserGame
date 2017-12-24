@@ -1,4 +1,5 @@
 (function (){
+  window.menuDialog = false;
   var buttonSong ;
   var  music;
 
@@ -41,6 +42,7 @@
   var bChangeLevel_3;
 
   var infoRuls;
+  var closeButton;
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
@@ -73,6 +75,8 @@ window.menu_cards = {
 
       back_emitter.start(false, 14000, 20);
       //======================================
+
+
       //карточки
       if (getInfo().game_1.status == 'over'){
         card_1 = gameAdd().image(145, -150, 'card_1_2');
@@ -255,7 +259,9 @@ window.menu_cards = {
       // card_1_anim.onComplete.add(changeWind, this);
       // bellsSong.volume = 0;
 
-      //=====================
+      //кнопка для закрытия окон
+      closeButton = gameAdd().button(145, 364, 'exit_game', closeWindow, this, 1, 0 ,2);
+      closeButton.kill();
     },
     startGame_1_anim: function (){
         if (bChangeLevel_1.alpha !== 1){
@@ -269,6 +275,7 @@ window.menu_cards = {
           bChangeLevel_3.scale.set(0.1);
           bChangeLevel_3.alpha = 0.8;
 
+
           gameAdd().tween(bChangeLevel_1.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
           gameAdd().tween(bChangeLevel_1).to( { x: gameWorld().centerX, y: gameWorld().centerY - 200 }, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_1).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
@@ -280,23 +287,28 @@ window.menu_cards = {
           gameAdd().tween(bChangeLevel_3.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
           gameAdd().tween(bChangeLevel_3).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_3).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
-        }else {
-          gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_1).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+          var animExit = function () {
+            gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_1).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-          gameAdd().tween(bChangeLevel_2.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_2).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_2).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_2.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_2).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_2).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-          gameAdd().tween(bChangeLevel_3.scale).to( { x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_3).to( {x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
-          var anim = gameAdd().tween(bChangeLevel_3).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-          anim.onComplete.addOnce(function (){
-            bChangeLevel_1.kill();
-            bChangeLevel_2.kill();
-            bChangeLevel_3.kill();
-          })
+            gameAdd().tween(bChangeLevel_3.scale).to( { x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+            gameAdd().tween(bChangeLevel_3).to( {x: buttonPlay_1.centerX, y: buttonPlay_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
+            var anim = gameAdd().tween(bChangeLevel_3).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+            anim.onComplete.addOnce(function (){
+              bChangeLevel_1.kill();
+              bChangeLevel_2.kill();
+              bChangeLevel_3.kill();
+            })
+          }
+
+          closeButton.reset(400, 25);
+          closeButton.anchor.setTo(0.5, 0.5);
+          closeButton.animation = animExit;
         }
 
     },
@@ -306,13 +318,19 @@ window.menu_cards = {
         infoRuls.scale.set(0);
         gameAdd().tween(infoRuls.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
         gameAdd().tween(infoRuls).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
-        gameAdd().tween(infoRuls).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
-      }else{
+        var anim_1 = gameAdd().tween(infoRuls).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+      }
+      var animExit = function () {
         gameAdd().tween(infoRuls.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
         gameAdd().tween(infoRuls).to( { x: b_info.centerX, y: b_info.centerY}, 100,  Phaser.Easing.Linear.None, true);
         var anim = gameAdd().tween(infoRuls).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-        anim.onComplete.addOnce(function (){ infoRuls.kill();})
       }
+      anim_1.onComplete.addOnce(function (){
+        closeButton.reset(infoRuls.right - 70, infoRuls.top + 70);
+        closeButton.anchor.setTo(0.5, 0.5);
+        closeButton.animation = animExit;
+      })
+
     },
     turnMusic: function (){
       // gameSound().mute = true;
@@ -400,18 +418,15 @@ window.menu_cards = {
       var access = getInfo().game_2.g_1.access;
       //временный переход
 
-      //==
       if (status == 'unstart' && access == 1){
         //перейти к презентации
         gameSound().stopAll();
         changeState('presentSnowPong');
         // changeState('map');
-
           // this.state.start('presentGame_2');
       } else if ((status == 'start' || status == 'over') && access == 1){
         //перети к карте
         changeState('map');
-          // this.state.start('SnowBallGame');
       }else {
         alert('нет доступа к игре');
       }
@@ -425,20 +440,12 @@ window.menu_cards = {
 
     startGame_3: function ()
     {
-
       alert('находится в разработке!');
-      // var status = getInfoUser().game_1.status;
-      // var access = getInfoUser().game_1.access;
-      //
-      // if (status == 'unstart' && access){
-      //     this.state.start('presentSnowBallGames');
-      // } else if ((status == 'start' || status == 'over') && access){
-      //     this.state.start('SnowBallGame');
-      // }
-      // //this.animationTransition();
-      // buttonSong.volume = 0.6;
-      // buttonSong.play();
-
     },
+}
+
+function closeWindow (b){
+  b.animation();
+  b.kill();
 }
 })();
