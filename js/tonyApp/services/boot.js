@@ -12,7 +12,7 @@
             gameLoad().bitmapFont('fontClock', 'assets/font/digitals/fontClock.png', 'assets/font/digitals/fontClock.fnt');
             gameLoad().bitmapFont('fontStar', 'assets/font/digitals/fontStar.png', 'assets/font/digitals/fontStar.fnt');
             gameLoad().bitmapFont('fontHart', 'assets/font/digitals/fontHart.png', 'assets/font/digitals/fontHart.fnt');
-
+            gameLoad().bitmapFont('fontStarMessage', 'assets/font/digitals/fontStarMessage.png', 'assets/font/digitals/fontStarMessage.fnt');
             gameLoad().image('logo', 'assets/img/preloader/Logo.png');
 
             // game.load.bitmapFont('mainFont', 'assets/font/ds_digital.png', 'assets/font/ds_digital.fnt');

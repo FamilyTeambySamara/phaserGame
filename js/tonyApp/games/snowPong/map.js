@@ -7,6 +7,7 @@
   var messageNotStars;
   var messageNotAccess;
   var closeButton;
+  var nEnoughStar;
   window.map = {
     preload: function (){
         gameLoad().image('map','assets/img/map/map.png');
@@ -96,6 +97,12 @@
         }else{
             b_music_1.kill();
         }
+        //info about stars
+        var infoStars = gameAdd().sprite(b_music_1.left - 35, b_music_1.centerY, 'infoStars', 2);
+        infoStars.name = 'infoStars';
+        infoStars.anchor.setTo(0.5, 0.5);
+        var totalStarScore = gameAdd().bitmapText(infoStars.centerX + 7, infoStars.centerY + 2, 'fontStarMessage', getInfo().user.totalstars, 22);
+        totalStarScore.anchor.setTo(0.5, 0.5);
         //============сообщения========================================
 
         messageNotStars = gameAdd().image(400,250, 'notStars');
@@ -103,7 +110,10 @@
         messageNotStars.alpha = 0;
         messageNotStars.scale.set(0);
 
-        nEnoughStar = gameAdd().bitmapText(50, 20, 'fontHart', 0, 32);
+        nEnoughStar = gameAdd().bitmapText(400, 250, 'fontStarMessage', 0, 32);
+        nEnoughStar.anchor.set(0.5);
+        nEnoughStar.alpha = 0;
+        nEnoughStar.scale.set(0);
 
         messageNotAccess = gameAdd().image(400,250, 'notAccess');
         messageNotAccess.anchor.set(0.5);
@@ -140,7 +150,10 @@
         // alert(but.gameName);
         var amount = changeState(but.gameName);
         if (amount == 'notAccess'){
-          
+          showMessage(messageNotAccess);
+        } else if (typeof(amount) == 'number'){
+            nEnoughStar.text = amount;
+            showMessage(messageNotStars);
         }
         if (changeState(but.gameName) !== 'notStars' && changeState(but.gameName) !== 'notAccess'){
           musicPlay = false;
@@ -180,13 +193,19 @@
 
   function showMessage (image){
     image.alpha = 1;
+    nEnoughStar.alpha = 1;
     var anim_1 = gameAdd().tween(image.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
     gameAdd().tween(image).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+    gameAdd().tween(nEnoughStar.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+    gameAdd().tween(nEnoughStar).to( { x: image.centerX + 22, y: image.centerY + 42 }, 100,  Phaser.Easing.Linear.None, true);
 
     var animExit = function (){
       gameAdd().tween(image.scale).to( { x: 0.1, y: 0.1 }, 200, Phaser.Easing.Linear.None, true);
       gameAdd().tween(image).to( { x:gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
       gameAdd().tween(image).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
+
+      nEnoughStar.alpha = 0;
+      nEnoughStar.scale.setTo(0,0);
     }
 
     anim_1.onComplete.addOnce(function (){
