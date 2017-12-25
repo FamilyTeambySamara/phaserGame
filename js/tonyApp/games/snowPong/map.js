@@ -97,6 +97,12 @@
         }else{
             b_music_1.kill();
         }
+        //info about stars
+        var infoStars = gameAdd().sprite(b_music_1.left - 35, b_music_1.centerY, 'infoStars', 2);
+        infoStars.name = 'infoStars';
+        infoStars.anchor.setTo(0.5, 0.5);
+        var totalStarScore = gameAdd().bitmapText(infoStars.centerX + 7, infoStars.centerY + 2, 'fontStarMessage', getInfo().user.totalstars, 22);
+        totalStarScore.anchor.setTo(0.5, 0.5);
         //============сообщения========================================
 
         messageNotStars = gameAdd().image(400,250, 'notStars');
