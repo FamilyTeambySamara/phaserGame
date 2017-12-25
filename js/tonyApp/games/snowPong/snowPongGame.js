@@ -249,13 +249,15 @@ window.snowPongGame = {
 
         //Табло================================================
         gameAdd().image(0, 0, 'underLyaer');
+        //Звузда
         scoreStarsImage = gameAdd().sprite (20 , 20, 'starBar');
         scoreStarsImage.scale.setTo(1, 1);
         scoreStarsImage.anchor.x = 0.5;
         scoreStarsImage.anchor.y = 0.5;
         scoreStarsImage.alpha = 1;
         scoreStarsImage.animations.add('starBar');
-        starTable = gameAdd().text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
+        starTable = gameAdd().bitmapText(50, 25, 'fontStarMessage', "0", 32);
+        // starTable = gameAdd().text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
         starTable.anchor.x = 0.5;
         starTable.anchor.y = 0.5;
         //Сердце
@@ -265,7 +267,8 @@ window.snowPongGame = {
         scoreHartImage.anchor.y = 0.5;
         scoreHartImage.alpha = 1;
         scoreHartImage.animations.add('hartBar');
-        healthTable = gameAdd().text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
+        healthTable = gameAdd().bitmapText(132, 25, 'fontHart', "0", 32);
+        // healthTable = gameAdd().text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
         healthTable.anchor.x = 0.5;
         healthTable.anchor.y = 0.5;
         //часы
@@ -275,7 +278,8 @@ window.snowPongGame = {
         scoreTimerImage.anchor.y = 0.5;
         scoreTimerImage.alpha = 1;
         scoreTimerImage.animations.add('timeBar');
-        levelTable = gameAdd().text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
+        levelTable = gameAdd().bitmapText(213, 25, 'fontClock', "0", 32);
+        // levelTable = gameAdd().text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
         levelTable.anchor.x = 0.5;
         levelTable.anchor.y = 0.5;
         //=================================================

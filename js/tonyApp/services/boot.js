@@ -2,7 +2,7 @@
   var music;
   window.Boot = {
         preload: function (){
-            gameLoad().audio('cristmas', ['assets/audio/menu.mp3', 'assets/audio/menu.ogg']);
+            gameLoad().audio('cristmas', 'assets/audio/new/veryCool.mp3');
             gameLoad().audio('bells', ['assets/audio/bells.mp3']);
 
             gameLoad().image('loading_bar', 'assets/img/preloader/loader3.png');
