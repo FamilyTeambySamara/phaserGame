@@ -44,11 +44,20 @@
 
   var infoRuls;
   var closeButton;
+  var messageNotTime;
+  var messageNotAccess;
   window.musicPlay = false;
 window.menu_cards = {
     preload: function (){
       gameLoad().image('infoRuls', 'assets/img/rules/rulesAll.png');
       gameLoad().image('window', 'assets/img/message/windowFor1game.png');
+      gameLoad().image('rules2', 'assets/img/rules/rules1.png');
+      gameLoad().image('rules1', 'assets/img/rules/rules2.png');
+
+      gameLoad().image('notAccess', 'assets/img/message/message1.png');
+      gameLoad().image('notTime', 'assets/img/message/message3.png');
+      // gameLoad().image('notAccess', 'assets/img/message/message1.png');
+      // gameLoad().image('rules1', 'assets/img/rules/rules1.png');
     },
 
     create: function (){
@@ -183,10 +192,27 @@ window.menu_cards = {
       b3_ruls.nGame = 3;
       butGroup_2.add(b3_ruls);
 
-      rulsText_1 = gameAdd().sprite(80, 230, 'button_ruls_1');
+      rulsText_1 = gameAdd().sprite(80, 230, 'rules1');
       rulsText_1.alpha = 0;
       rulsText_1.scale.setTo(0.1, 0.1);
       rulsText_1.anchor.setTo(0.5, 0.5);
+      rulsText_1.windowSize = 'full';
+
+      rulsText_2 = gameAdd().sprite(80, 230, 'rules2');
+      rulsText_2.alpha = 0;
+      rulsText_2.scale.setTo(0.1, 0.1);
+      rulsText_2.anchor.setTo(0.5, 0.5);
+      rulsText_2.windowSize = 'full';
+
+      messageNotTime = gameAdd().sprite(80, 230, 'notTime');
+      messageNotTime.alpha = 0;
+      messageNotTime.scale.setTo(0.1, 0.1);
+      messageNotTime.anchor.setTo(0.5, 0.5);
+      messageNotTime.windowSize = 'small';
+
+      b1_ruls.infoCard = rulsText_1;
+      b2_ruls.infoCard = rulsText_2;
+      b3_ruls.infoCard = messageNotTime;
 
       //===============================================
 
@@ -262,10 +288,12 @@ window.menu_cards = {
         }, this)
       }, this);
       butStart.start();
-      // card_1_anim.onComplete.add(changeWind, this);
-      // bellsSong.volume = 0;
 
-      //кнопка для закрытия окон
+      messageNotAccess = gameAdd().image(400,250, 'notAccess');
+      messageNotAccess.anchor.set(0.5);
+      messageNotAccess.alpha = 0;
+      messageNotAccess.scale.set(0);
+
       closeButton = gameAdd().button(145, 364, 'exit_game', closeWindow, this, 1, 0 ,2);
       closeButton.kill();
     },
@@ -368,28 +396,43 @@ window.menu_cards = {
       }
     },
     doLike: function (){
-      alert('лайкнуть игру');
+      showMessage(messageNotTime);
     },
     showRuls: function (b){
       // alert('правилы для игры: ' + b.nGame);
-      if (b.nGame == 1){
-        if(rulsText_1.alpha == 0){
-          rulsText_1.alpha = 1;
-          gameAdd().tween(rulsText_1.scale).to( { x: 5, y: 5 }, 1000, Phaser.Easing.Elastic.Out, true);
-          gameAdd().tween(rulsText_1).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
-        }else{
-          gameAdd().tween(rulsText_1.scale).to( { x: 0.1, y: 0.1 }, 1000, Phaser.Easing.Elastic.Out, true);
-          gameAdd().tween(rulsText_1).to( { x: b.centerX, y: b.centerY }, 100,  Phaser.Easing.Linear.None, true);
-          gameAdd().tween(rulsText_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+
+        if(b.infoCard.alpha == 0){
+          b.infoCard.alpha = 1;
+          var anim_1 = gameAdd().tween(b.infoCard.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(b.infoCard).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+        }
+        var animExit = function (){
+          gameAdd().tween(b.infoCard.scale).to( { x: 0.1, y: 0.1 }, 200, Phaser.Easing.Linear.None, true);
+          gameAdd().tween(b.infoCard).to( { x: b.centerX, y: b.centerY }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(b.infoCard).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
         }
 
-      }
+        anim_1.onComplete.addOnce(function (){
+          if (b.infoCard.windowSize == 'full'){
+            var cordX = b.infoCard.right - 70;
+            var cordY = b.infoCard.top + 70;
+          }else {
+            var cordX = b.infoCard.right - 15;
+            var cordY = b.infoCard.top + 15;
+          }
+
+          closeButton.reset(cordX, cordY);
+          closeButton.anchor.setTo(0.5, 0.5);
+          closeButton.animation = animExit;
+        })
+
+
     },
     showReit: function (b) {
-      alert('рейтинг для игры: ' + b.nGame);
+      showMessage(messageNotTime);
     },
     postPicture: function (b){
-        alert ('отправка открытки: ' + b.post);
+        showMessage(messageNotTime);
     },
     startPresent: function (b){
         switch (b.present) {
@@ -404,11 +447,11 @@ window.menu_cards = {
               gameSound().stopAll();
               changeState('presentSnowPong');
             }else{
-              alert('not access!');
+              showMessage(messageNotAccess);
             }
             break;
           case 3:
-            alert('в разработке');
+            this.showRuls(b3_ruls);
             break;
 
 
@@ -451,20 +494,36 @@ window.menu_cards = {
         //перети к карте
         changeState('map');
       }else {
-        alert('нет доступа к игре');
+        showMessage(messageNotAccess);
       }
-      //this.animationTransition();
-
-      // buttonSong.play();
-      //обращени к менеджеру
-      // gameSound().stopAll();
 
     },
 
     startGame_3: function ()
     {
-      alert('находится в разработке!');
+      this.showRuls(b3_ruls);
     },
+}
+
+function showMessage (image){
+  image.alpha = 1;
+  var anim_1 = gameAdd().tween(image.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+  gameAdd().tween(image).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+
+  var animExit = function (){
+    gameAdd().tween(image.scale).to( { x: 0.1, y: 0.1 }, 200, Phaser.Easing.Linear.None, true);
+    gameAdd().tween(image).to( { x:gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+    gameAdd().tween(image).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
+  }
+
+  anim_1.onComplete.addOnce(function (){
+    var cordX = image.right - 15;
+    var cordY = image.top + 15;
+
+    closeButton.reset(cordX, cordY);
+    closeButton.anchor.setTo(0.5, 0.5);
+    closeButton.animation = animExit;
+  })
 }
 
 function closeWindow (b){

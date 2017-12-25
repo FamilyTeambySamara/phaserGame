@@ -3,6 +3,10 @@
   var b_music_1;
   var b_music_2;
   var buttonSong;
+
+  var messageNotStars;
+  var messageNotAccess;
+  var closeButton;
   window.map = {
     preload: function (){
         gameLoad().image('map','assets/img/map/map.png');
@@ -17,6 +21,8 @@
         gameLoad().spritesheet('b_9', 'assets/img/map/9.png', 70 , 70);
         gameLoad().spritesheet('b_10', 'assets/img/map/10.png', 70 , 70);
         // gameLoad().image(0, 0, 'map');
+        gameLoad().image('notAccess', 'assets/img/message/message1.png');
+        gameLoad().image('notStars', 'assets/img/message/message2.png');
     },
 
     create: function (){
@@ -90,8 +96,20 @@
         }else{
             b_music_1.kill();
         }
-        //=============================================================
+        //============сообщения========================================
 
+        messageNotStars = gameAdd().image(400,250, 'notStars');
+        messageNotStars.anchor.set(0.5);
+        messageNotStars.alpha = 0;
+        messageNotStars.scale.set(0);
+
+        messageNotAccess = gameAdd().image(400,250, 'notAccess');
+        messageNotAccess.anchor.set(0.5);
+        messageNotAccess.alpha = 0;
+        messageNotAccess.scale.set(0);
+
+        closeButton = gameAdd().button(145, 364, 'exit_game', closeWindow, this, 1, 0 ,2);
+        closeButton.kill();
     },
     turnMusic: function (){
       // gameSound().mute = true;
@@ -116,14 +134,18 @@
     startGame: function(but){
         // changeState('snowPongGame');
 
-
         buttonSong.play();
         // alert(but.gameName);
-        if (changeState(but.gameName)){
+        if (changeState(but.gameName) !== 'notStars' && changeState(but.gameName) !== 'notAccess'){
           musicPlay = false;
           gameSound().stopAll();
         }else{
-          alert('уровень еще не открыт');
+          if (changeState(but.gameName) == 'notStars'){
+            showMessage(messageNotStars);
+          }else{
+            showMessage(messageNotAccess);
+          }
+
         }
 
       // alert(but.marker);
@@ -148,5 +170,31 @@
     }else {
       return 3;
     }
+  }
+
+  function showMessage (image){
+    image.alpha = 1;
+    var anim_1 = gameAdd().tween(image.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+    gameAdd().tween(image).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+
+    var animExit = function (){
+      gameAdd().tween(image.scale).to( { x: 0.1, y: 0.1 }, 200, Phaser.Easing.Linear.None, true);
+      gameAdd().tween(image).to( { x:gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+      gameAdd().tween(image).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
+    }
+
+    anim_1.onComplete.addOnce(function (){
+      var cordX = image.right - 15;
+      var cordY = image.top + 15;
+
+      closeButton.reset(cordX, cordY);
+      closeButton.anchor.setTo(0.5, 0.5);
+      closeButton.animation = animExit;
+    })
+  }
+
+  function closeWindow (b){
+    b.animation();
+    b.kill();
   }
 }())

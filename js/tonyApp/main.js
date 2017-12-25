@@ -88,11 +88,11 @@
           if (getInfo()[path][path_2].access == 1){
             switch (path_2) {
               case 'g_1':
-                if(getInfo().user.totalstars > 1){
+                if(getInfo().user.totalstars >= 0){
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_2':
@@ -100,7 +100,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                return false;
+                return 'notStars';
                 }
                 break;
               case 'g_3':
@@ -108,7 +108,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_4':
@@ -116,7 +116,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_5':
@@ -124,7 +124,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_6':
@@ -132,7 +132,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_7':
@@ -140,7 +140,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_8':
@@ -148,7 +148,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                return false;
+                return 'notStars';
                 }
                 break;
               case 'g_9':
@@ -156,7 +156,7 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
               case 'g_10':
@@ -164,12 +164,12 @@
                   game.state.start(st);
                   return true;
                 }else {
-                  return false;
+                  return 'notStars';
                 }
                 break;
             }
           }else{
-            return false;
+            return 'notAccess';
           }
         }
           if (getInfo()[path].access){
