@@ -26,6 +26,10 @@ var hp;
 var time;
 var stars;
 
+var messageNotStars;
+var closeButton;
+var nEnoughStar;
+
 
 window.Win_SnowBallGame =
 {
@@ -47,13 +51,6 @@ window.Win_SnowBallGame =
       time = getInfoCurrentGame().time;
       stars = getInfoCurrentGame().stars;
       mod = getInfoCurrentGame().mod;
-      // hp = 13;
-      // time = 13;
-      // stars = 13;
-      // mod = 13;
-      //alert(mod);
-
-
 
       calculateSong = gameAdd().audio('calculate');
       tempStarSong = gameAdd().audio('starSong');
@@ -103,17 +100,17 @@ window.Win_SnowBallGame =
       //repeat(delay, repeatCount, callback, callbackContext, arguments)
 
       // wholeBarstars = gameAdd().text(272, 217, '0', { fontSize: '32px', fill: '#7C4111', font: "mainFont"});
-      wholeBarstars = gameAdd().bitmapText(272, 217, 'fontHart', '0', 32);
+      wholeBarstars = gameAdd().bitmapText(272, 222, 'fontStarMessage', '0', 32);
       wholeBarstars.anchor.x = 0.5;
-      wholeBartime = gameAdd().bitmapText(398, 217, 'fontHart', '0', 32);
+      wholeBartime = gameAdd().bitmapText(398, 222, 'fontClock', '0', 32);
       // wholeBartime = gameAdd().text(398, 217, '0', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont' });
       wholeBartime.anchor.x = 0.5;
-      wholeBarhp = gameAdd().bitmapText(527, 217, 'fontHart', '0', 32);
+      wholeBarhp = gameAdd().bitmapText(527, 222, 'fontHart', '0', 32);
       // wholeBarhp  = gameAdd().text(527, 217, '0', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
       wholeBarhp.anchor.x = 0.5;
 
       wholeScore = gameAdd().bitmapText(400, 270, 'whiteFont', 'ИТОГОВЫЙ СЧЕТ', 32);
-      // wholeScore = gameAdd().text(400, 270, 'Итоговый счет:', { fontSize: '32px', fill: 'white', font: 'mainFont' });
+      // wholeScore = gameAdd().text(400, 270, 'ИТОГОВЫЙ СЧЕТ:', { fontSize: '32px', fill: 'white', font: 'mainFont' });
       wholeScore.anchor.x = 0.5;
 
       // whole = gameAdd().text()
@@ -131,6 +128,22 @@ window.Win_SnowBallGame =
       var button_again = gameAdd().button( 400, 360, 'button_again', this.startPlay, this, 1, 0 ,2);
       button_again.anchor.x = 0.5;
 
+      //сообщения
+
+
+      messageNotStars = gameAdd().image(400,250, 'notStars');
+      messageNotStars.anchor.set(0.5);
+      messageNotStars.alpha = 0;
+      messageNotStars.scale.set(0);
+
+      nEnoughStar = gameAdd().bitmapText(400, 250, 'fontStarMessage', 0, 32);
+      nEnoughStar.anchor.set(0.5);
+      nEnoughStar.alpha = 0;
+      nEnoughStar.scale.set(0);
+
+      closeButton = gameAdd().button(145, 364, 'exit_game', closeWindow, this, 1, 0 ,2);
+      closeButton.kill();
+
     },
     goToNext: function (){
         gameSound().stopAll();
@@ -140,31 +153,67 @@ window.Win_SnowBallGame =
         commonScore = 0;
         switch (getInfoCurrentGame().currentGame) {
           case 'snowPongGame':
-            changeState('snowPongGame_2');
+            var result = changeState('snowPongGame_2');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_2':
-            changeState('snowPongGame_3');
+            var result = changeState('snowPongGame_3');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_3':
-            changeState('snowPongGame_4');
+            var result = changeState('snowPongGame_4');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_4':
-            changeState('snowPongGame_5');
+            var result = changeState('snowPongGame_5');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_5':
-            changeState('snowPongGame_6');
+            var result = changeState('snowPongGame_6');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_6':
-            changeState('snowPongGame_7');
+            var result = changeState('snowPongGame_7');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_7':
-            changeState('snowPongGame_8');
+            var result = changeState('snowPongGame_8');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_8':
-            changeState('snowPongGame_9');
+            var result = changeState('snowPongGame_9');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_9':
-            changeState('snowPongGame_10');
+            var result = changeState('snowPongGame_10');
+            if (typeof(result) == 'number'){
+              nEnoughStar.text = result;
+              showMessage (messageNotStars);
+            }
             break;
           case 'snowPongGame_10':
             changeState('menu_cards');
@@ -242,42 +291,74 @@ window.Win_SnowBallGame =
       wholeBarhp.text = amountHp;
       //Звезды НЕ равны нулю
       if (amountClock == 0 && amountHp == 0 && amountStars !== 0){
-          wholeScore.text = 'Итоговый счет: ' + amountStars;
+          wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + amountStars;
       }
       else if (amountClock !== 0 && amountHp == 0 && amountStars !== 0){
           if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(1000/amountClock));
           }else{
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(120/amountClock));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(120/amountClock));
           }
 
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
         //alert(mod);
         if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
         }else{
-            wholeScore.text = 'Итоговый счет: ' + (amountStars * Math.floor(120/amountClock) * amountHp * (mod * mod));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(120/amountClock) * amountHp * (mod * mod));
         }
 
       }
       // Звезды равны нулю
       if (amountClock !== 0 && amountHp == 0 && amountStars == 0){
         if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
-          wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock);
+          wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' +  Math.floor(1000/amountClock);
         }else{
-          wholeScore.text = 'Итоговый счет: ' +  Math.floor(120/amountClock);
+          wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' +  Math.floor(120/amountClock);
         }
 
       } else if (amountStars == 0 && amountClock !== 0 && amountHp !== 0) {
               if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
-                wholeScore.text = 'Итоговый счет: ' +  Math.floor(1000/amountClock) * amountHp * (mod * mod);
+                wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' +  Math.floor(1000/amountClock) * amountHp * (mod * mod);
               }else{
-                wholeScore.text = 'Итоговый счет: ' +  Math.floor(120/amountClock) * amountHp * (mod * mod);
+                wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' +  Math.floor(120/amountClock) * amountHp * (mod * mod);
               }
 
       }
 
     }
+}
+
+function showMessage (image){
+  image.alpha = 1;
+  nEnoughStar.alpha = 1;
+  var anim_1 = gameAdd().tween(image.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+  gameAdd().tween(image).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+  gameAdd().tween(nEnoughStar.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+  gameAdd().tween(nEnoughStar).to( { x: image.centerX + 22, y: image.centerY + 42 }, 100,  Phaser.Easing.Linear.None, true);
+
+  var animExit = function (){
+    gameAdd().tween(image.scale).to( { x: 0.1, y: 0.1 }, 200, Phaser.Easing.Linear.None, true);
+    gameAdd().tween(image).to( { x:gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+    gameAdd().tween(image).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true);
+
+    nEnoughStar.alpha = 0;
+    nEnoughStar.scale.setTo(0,0);
+  }
+
+  anim_1.onComplete.addOnce(function (){
+    var cordX = image.right - 15;
+    var cordY = image.top + 15;
+
+    closeButton.reset(cordX, cordY);
+    closeButton.anchor.setTo(0.5, 0.5);
+    closeButton.animation = animExit;
+  })
+}
+
+function closeWindow (b){
+  b.animation();
+  b.kill();
 }
 
 })();
