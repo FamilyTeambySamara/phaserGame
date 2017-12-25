@@ -3,6 +3,9 @@
   {
       create: function ()
       {
+        var mainTheme = gameAdd().audio('loosSound');
+        mainTheme.volume = 0.4;
+        mainTheme.loopFull();
         gameAdd().image(0, 0, 'Game_over');
         // gameAdd().text(250, 40, 'GAME OVER', { fontSize: '32px', fill: 'red' });
         // gameAdd().text(250, 85, 'SCORE ' + SnowBallGame.getInfo(), { fontSize: '32px', fill: 'red' });
@@ -18,11 +21,13 @@
       startPlay: function () {
             Level = 1;
             score = 0;
+            gameSound().stopAll();
             changeState(getInfoCurrentGame().currentGame);
       },
 
       goToMenu: function ()
       {
+            gameSound().stopAll();
             changeState('menu_cards');
       }
   }

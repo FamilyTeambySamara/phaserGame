@@ -32,10 +32,10 @@
           // gameLoad().image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
           // gameLoad().image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
 
-          gameLoad().audio('mainTheme',  'assets/audio/Cellophane_Sam_-_05_-_Desire(present_start).mp3');
-          gameLoad().audio('crash',  'assets/audio/Carsh.mp3');
-          gameLoad().audio('silent',  'assets/audio/Nctrnm_-_01_-_Concern(action).mp3');
-          gameLoad().audio('action',  'assets/audio/Golden_Duck_Orchestra_-_02_-_Alien.mp3');
+          gameLoad().audio('mainTheme',  'assets/audio/new/Present2.mp3');
+          // gameLoad().audio('crash',  'assets/audio/Carsh.mp3');
+          // gameLoad().audio('silent',  'assets/audio/Nctrnm_-_01_-_Concern(action).mp3');
+          // gameLoad().audio('action',  'assets/audio/Golden_Duck_Orchestra_-_02_-_Alien.mp3');
       },
 
       create: function () {
@@ -59,9 +59,6 @@
           button_next = gameAdd().button(600, 390, 'arrow', this.goNext, this, 1, 2 ,0);
           button_next.alpha =  0;
 
-          // button_prev = gameAdd().button(-250, 390, 'arrow_2', this.goBack, this, 1, 2 ,0);
-          // button_prev.angle = -180;
-
           button_game = gameAdd().button(400, 390, 'button_play', this.goGame, this, 2, 0 ,1);
           button_game.anchor.setTo(0.5, 0.5);
           // button_game.alpha = 0;
@@ -81,27 +78,14 @@
             if(index + 1 == 2){
                 button_game.reset(400, 390);
                 var anim_start = gameAdd().tween(button_game).to({ width: 0.9*button_game.width, height: 0.9*button_game.height}, 1000, Phaser.Easing.Linear.None, true, 0, 0, true).loop();
-                // gameAdd().tween(button_game).to({ x: 500 }, 1000, Phaser.Easing.Linear.None, true,0,0, true)
-                // .to({ y: 100 }, 1000, Phaser.Easing.Linear.None).loop();
-                // to(properties, duration, ease, autoStart, delay, repeat, yoyo)
-                // anim_start.yoyo(true);
-                // gameAdd().tween(button_next).to({alpha: 0}, timeDilay_Small, Phaser.Easing.Exponential.Out, true, 0);
                 button_next.kill();
             }
             var slide = slides.getChildAt(index);
             ++index;
             if (index + 1 == 2){
-                silent.stop();
-                action.play();
             }
 
             if (index + 1 == 4){
-              // alert(slide);
-              // alert(timeDilay_Small);
-              crash.play();
-              mainTheme.stop();
-              action.stop();
-              silent.play();
 
               var tween_1 = gameAdd().tween(slide).to( { alpha: 0 }, timeDilay_Small, Phaser.Easing.Exponential.Out, true, 0);
               tween_1.onStart.add(this.start, this);
@@ -119,17 +103,10 @@
           slide.alpha = 0;
 
           if (index + 1 == 4){
-              //удар корабля
-              // alert(timeDilay_Big);
               gameAdd().tween(slide).to( { alpha: 1 }, timeDilay_Big , Phaser.Easing.Linear.None, true, 0);
           } else{
               gameAdd().tween(slide).to( { alpha: 1 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);//Phaser.Easing.Linear.None
           }
-
-          // if (index >= 1){
-          //     gameAdd().tween(button_prev).to( { x : 10 }, timeDelay, Phaser.Easing.Exponential.Out, true, 0);
-          //     //button_prev.x = 100;
-          // }
       },
 
       goBack: function (){
@@ -138,8 +115,8 @@
         }
         gameAdd().tween(button_next).to({alpha: 0}, timeDilay_Small, Phaser.Easing.Exponential.Out, true, 0);
           if(index + 1 < 7 && index + 1 > 3){
-            action.stop();
-            silent.play();
+            // action.stop();
+            // silent.play();
           }
           buttonSong.play();
           var slide = slides.getChildAt(index);
@@ -163,10 +140,8 @@
         something.kill();
       },
       goGame: function (){
-          // action.stop();
           gameSound().stopAll();
           index = 0;
-          // changeLevel(1);
           changeState('snowPongGame');
       }
 

@@ -2,6 +2,7 @@
   var music;
   window.Boot = {
         preload: function (){
+            gameLoad().audio('loosSound', 'assets/audio/new/Jahzzar_-_02_-_Family_Tree(loos).mp3');
             gameLoad().audio('cristmas', 'assets/audio/new/veryCool.mp3');
             gameLoad().audio('bells', ['assets/audio/bells.mp3']);
 
@@ -14,8 +15,6 @@
             gameLoad().bitmapFont('fontHart', 'assets/font/digitals/fontHart.png', 'assets/font/digitals/fontHart.fnt');
             gameLoad().bitmapFont('fontStarMessage', 'assets/font/digitals/fontStarMessage.png', 'assets/font/digitals/fontStarMessage.fnt');
             gameLoad().image('logo', 'assets/img/preloader/Logo.png');
-
-            // game.load.bitmapFont('mainFont', 'assets/font/ds_digital.png', 'assets/font/ds_digital.fnt');
         },
 
         create: function (){
