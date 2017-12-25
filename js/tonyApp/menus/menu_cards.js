@@ -40,6 +40,7 @@
   var bChangeLevel_1;
   var bChangeLevel_2;
   var bChangeLevel_3;
+  var windowFor1game;
 
   var infoRuls;
   var closeButton;
@@ -47,6 +48,7 @@
 window.menu_cards = {
     preload: function (){
       gameLoad().image('infoRuls', 'assets/img/rules/rulesAll.png');
+      gameLoad().image('window', 'assets/img/message/windowFor1game.png');
     },
 
     create: function (){
@@ -99,22 +101,26 @@ window.menu_cards = {
       butGroup_2 = gameAdd().group();
       butGroup_3 = gameAdd().group();
 
+      windowFor1game = gameAdd().image(0,0, 'window');
+      windowFor1game.kill();
       buttonPlay_1 = gameAdd().button(145, 364, 'button_play_cards', this.startGame_1_anim, this, 3, 1 ,2);
       buttonPlay_1.anchor.setTo(0.5, 0.5);
       butGroup_1.add(buttonPlay_1);
-        bChangeLevel_1 = gameAdd().button(145, 364, 'easy', this.startGame_1, this, 1,0,2);
+        bChangeLevel_1 = gameAdd().button(145, 364, 'easy', this.startGame_1, this, 1, 0, 2);
         bChangeLevel_1.anchor.setTo(0.5, 0.5);
         bChangeLevel_1.alpha = 0;
         bChangeLevel_1.level = 1;
-        bChangeLevel_2 = gameAdd().button(145, 364, 'middle', this.startGame_1, this, 1,0,2);
+        bChangeLevel_2 = gameAdd().button(145, 364, 'middle', this.startGame_1, this, 0, 1, 2);
         bChangeLevel_2.anchor.setTo(0.5, 0.5);
         bChangeLevel_2.level = 2;
-        bChangeLevel_3 = gameAdd().button(145, 364, 'difficult', this.startGame_1, this, 1,0,2);
+        bChangeLevel_3 = gameAdd().button(145, 364, 'difficult', this.startGame_1, this, 1, 2 , 0);
         bChangeLevel_3.anchor.setTo(0.5, 0.5);
         bChangeLevel_3.level = 3;
         bChangeLevel_1.kill();
         bChangeLevel_2.kill();
         bChangeLevel_3.kill();
+
+
 
       buttonPlay_2 = gameAdd().button(400, 364, 'button_play_cards', this.startGame_2, this, 3, 1 ,2);
       buttonPlay_2.anchor.setTo(0.5, 0.5);
@@ -264,30 +270,45 @@ window.menu_cards = {
       closeButton.kill();
     },
     startGame_1_anim: function (){
-        if (bChangeLevel_1.alpha !== 1){
+        if (bChangeLevel_1.alpha == 0){
           bChangeLevel_1.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
           bChangeLevel_1.scale.set(0.1);
+          bChangeLevel_1.anchor.setTo(0.5,0.5);
           bChangeLevel_1.alpha = 0.8;
           bChangeLevel_2.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
           bChangeLevel_2.scale.set(0.1);
           bChangeLevel_2.alpha = 0.8;
+          bChangeLevel_2.anchor.setTo(0.5,0.5);
           bChangeLevel_3.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
           bChangeLevel_3.scale.set(0.1);
           bChangeLevel_3.alpha = 0.8;
+          bChangeLevel_3.anchor.setTo(0.5,0.5);
 
+          windowFor1game.reset(buttonPlay_1.centerX, buttonPlay_1.centerY);
+          windowFor1game.scale.set(0.1);
+          windowFor1game.alpha = 0.8;
+          windowFor1game.anchor.setTo(0.5,0.5);
+
+          gameAdd().tween(windowFor1game.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+          gameAdd().tween(windowFor1game).to( { x: card_1.centerX, y: card_1.centerY }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(windowFor1game).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
           gameAdd().tween(bChangeLevel_1.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-          gameAdd().tween(bChangeLevel_1).to( { x: gameWorld().centerX, y: gameWorld().centerY - 200 }, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_1).to( { x: card_1.centerX + 25, y: card_1.centerY - 100 }, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_1).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
           gameAdd().tween(bChangeLevel_2.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-          gameAdd().tween(bChangeLevel_2).to( { x: gameWorld().centerX, y: gameWorld().centerY -100}, 100,  Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_2).to( { x: card_1.centerX + 20, y: card_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
           gameAdd().tween(bChangeLevel_2).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
 
           gameAdd().tween(bChangeLevel_3.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-          gameAdd().tween(bChangeLevel_3).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
-          gameAdd().tween(bChangeLevel_3).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+          gameAdd().tween(bChangeLevel_3).to( { x: card_1.centerX + 20, y: card_1.centerY + 100 }, 100,  Phaser.Easing.Linear.None, true);
+          var animTrigger = gameAdd().tween(bChangeLevel_3).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
           var animExit = function () {
+            gameAdd().tween(windowFor1game.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+            gameAdd().tween(windowFor1game).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
+            gameAdd().tween(windowFor1game).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+
             gameAdd().tween(bChangeLevel_1.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
             gameAdd().tween(bChangeLevel_1).to( { x: buttonPlay_1.centerX, y: buttonPlay_1.centerY}, 100,  Phaser.Easing.Linear.None, true);
             gameAdd().tween(bChangeLevel_1).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
@@ -305,10 +326,12 @@ window.menu_cards = {
               bChangeLevel_3.kill();
             })
           }
+          animTrigger.onComplete.addOnce(function (){
+            closeButton.reset(windowFor1game.right -15, windowFor1game.top + 10);
+            closeButton.anchor.setTo(0.5, 0.5);
+            closeButton.animation = animExit;
+          })
 
-          closeButton.reset(400, 25);
-          closeButton.anchor.setTo(0.5, 0.5);
-          closeButton.animation = animExit;
         }
 
     },
