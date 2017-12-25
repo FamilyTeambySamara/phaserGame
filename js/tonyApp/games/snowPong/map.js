@@ -103,6 +103,8 @@
         messageNotStars.alpha = 0;
         messageNotStars.scale.set(0);
 
+        nEnoughStar = gameAdd().bitmapText(50, 20, 'fontHart', 0, 32);
+
         messageNotAccess = gameAdd().image(400,250, 'notAccess');
         messageNotAccess.anchor.set(0.5);
         messageNotAccess.alpha = 0;
@@ -136,6 +138,10 @@
 
         buttonSong.play();
         // alert(but.gameName);
+        var amount = changeState(but.gameName);
+        if (amount == 'notAccess'){
+          
+        }
         if (changeState(but.gameName) !== 'notStars' && changeState(but.gameName) !== 'notAccess'){
           musicPlay = false;
           gameSound().stopAll();

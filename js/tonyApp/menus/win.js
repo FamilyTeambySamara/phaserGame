@@ -102,14 +102,18 @@ window.Win_SnowBallGame =
 
       //repeat(delay, repeatCount, callback, callbackContext, arguments)
 
-      wholeBarstars = gameAdd().text(272, 217, '0', { fontSize: '32px', fill: '#7C4111', font: "mainFont"});
+      // wholeBarstars = gameAdd().text(272, 217, '0', { fontSize: '32px', fill: '#7C4111', font: "mainFont"});
+      wholeBarstars = gameAdd().bitmapText(272, 217, 'fontHart', '0', 32);
       wholeBarstars.anchor.x = 0.5;
-      wholeBartime = gameAdd().text(398, 217, '0', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont' });
+      wholeBartime = gameAdd().bitmapText(398, 217, 'fontHart', '0', 32);
+      // wholeBartime = gameAdd().text(398, 217, '0', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont' });
       wholeBartime.anchor.x = 0.5;
-      wholeBarhp  = gameAdd().text(527, 217, '0', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
+      wholeBarhp = gameAdd().bitmapText(527, 217, 'fontHart', '0', 32);
+      // wholeBarhp  = gameAdd().text(527, 217, '0', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
       wholeBarhp.anchor.x = 0.5;
 
-      wholeScore = gameAdd().text(400, 270, 'Итоговый счет:', { fontSize: '32px', fill: 'white', font: 'mainFont' });
+      wholeScore = gameAdd().bitmapText(400, 270, 'whiteFont', 'ИТОГОВЫЙ СЧЕТ', 32);
+      // wholeScore = gameAdd().text(400, 270, 'Итоговый счет:', { fontSize: '32px', fill: 'white', font: 'mainFont' });
       wholeScore.anchor.x = 0.5;
 
       // whole = gameAdd().text()

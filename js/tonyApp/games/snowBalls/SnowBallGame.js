@@ -306,7 +306,8 @@ window.SnowBallGame =
       scoreStarsImage.anchor.y = 0.5;
       scoreStarsImage.alpha = 1;
       scoreStarsImage.animations.add('starBar');
-      starTable = gameAdd().text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
+      starTable = gameAdd().bitmapText(50, 20, 'fontHart', 0, 32);
+      // starTable = gameAdd().text(50, 20, '-', { fontSize: '32px', fill: '#7C4111', font: 'mainFont' });
       starTable.anchor.x = 0.5;
       starTable.anchor.y = 0.5;
       //Сердце
@@ -316,7 +317,8 @@ window.SnowBallGame =
       scoreHartImage.anchor.y = 0.5;
       scoreHartImage.alpha = 1;
       scoreHartImage.animations.add('hartBar');
-      healthTable = gameAdd().text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
+      healthTable = gameAdd().bitmapText(132, 20, 'fontHart', 0, 32);
+      // healthTable = gameAdd().text(132, 20, '-', { fontSize: '32px', fill: '#91294E', font: 'mainFont' });
       healthTable.anchor.x = 0.5;
       healthTable.anchor.y = 0.5;
       //часы
@@ -326,11 +328,12 @@ window.SnowBallGame =
       scoreTimerImage.anchor.y = 0.5;
       scoreTimerImage.alpha = 1;
       scoreTimerImage.animations.add('timeBar');
-      levelTable = gameAdd().text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
+      levelTable = gameAdd().bitmapText(213, 20, 'fontHart', 0, 32);
+      // levelTable = gameAdd().text(213, 20,  '-', { fontSize: '32px', fill: '#8E3E36', font: 'mainFont'  });
       levelTable.anchor.x = 0.5;
       levelTable.anchor.y = 0.5;
 
-      scoreTable =  gameAdd().text(55, 60, 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead, { fontSize: '32px', fill: 'white' });
+      // scoreTable =  gameAdd().text(55, 60, 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead, { fontSize: '32px', fill: 'white' });
       //healthTable = gameAdd().text(16, 95, 'Health: ' +  health, { fontSize: '32px', fill: 'red' });
 
 
@@ -496,7 +499,7 @@ window.SnowBallGame =
             if (polar.hp >= 1){
               score = score + 1;
             }
-            scoreTable.text = 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead;
+            // scoreTable.text = 'simple: ' + simplePolarDead +   ' \n smart ' + smartPolarDead + '\n big' + bigPolarDead;
             //убиваем и взрываем пулю
             bullet.kill();
 
@@ -561,6 +564,7 @@ window.SnowBallGame =
                     saveBox.currentGame = 'SnowBallGame';
                     saveStat(1);
                     //========Сброс настроек====
+                    wholeStars = 2*(+mod);
                     counterStarterTime = 0;
                     scoreStars = 0;
                     simplePolarDead = 0;
@@ -639,6 +643,7 @@ window.SnowBallGame =
             saveBox.currentGame = 'SnowBallGame';
             saveStat(1);
             //========Сброс настроек====
+            wholeStars = 2*(+mod);
             counterStarterTime = 0;
             scoreStars = 0;
             simplePolarDead = 0;
@@ -1128,6 +1133,7 @@ doReplayGame = function (){
   saveBox.currentGame = 'SnowBallGame';
   saveStat(1);
   //========Сброс настроек====
+  wholeStars = 2*(+mod);
   counterStarterTime = 0;
   scoreStars = 0;
   simplePolarDead = 0;
@@ -1150,6 +1156,7 @@ doExitGame = function (){
   saveBox.currentGame = 'SnowBallGame';
   saveStat(1);
   //========Сброс настроек====
+  wholeStars = 2*(+mod);
   counterStarterTime = 0;
   scoreStars = 0;
   simplePolarDead = 0;

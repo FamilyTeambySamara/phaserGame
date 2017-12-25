@@ -231,8 +231,13 @@ window.menu_cards = {
       infoStars.anchor.setTo(0.5, 0.5);
       butGroup_3.add(infoStars);
 
-      totalStarScore = gameAdd().text(infoStars.centerX - 3, infoStars.centerY, getInfo().user.totalstars, { fontSize: '22px', fill: '#7C4111', font: 'mainFont' });
-      totalStarScore.anchor.setTo(0, 0.5);
+      // totalStarScore = gameAdd().text(infoStars.centerX - 3, infoStars.centerY, getInfo().user.totalstars, { fontSize: '22px', fill: '#7C4111', font: 'mainFont' });
+      // totalStarScore.anchor.setTo(0, 0.5);
+
+      totalStarScore = gameAdd().bitmapText(infoStars.centerX + 7, infoStars.centerY, 'fontHart', getInfo().user.totalstars, 22);
+      // loadingText = this.gameAdd().bitmapText(410, 150, 'ds_digital', 'loading...', 72);
+      totalStarScore.anchor.setTo(0.5, 0.5);
+
       totalStarScore.name = 'infoStars';
       butGroup_3.add(totalStarScore);
       //управление музыкой==========================

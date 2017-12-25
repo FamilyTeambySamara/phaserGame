@@ -17,7 +17,7 @@
       loadText.anchor.setTo(0.5, 0.5);
 
       gameLoad().setPreloadSprite(loadingBar, 0);
-
+            gameLoad().bitmapFont('whiteFont', 'assets/font/font/whiteFont.png', 'assets/font/font/whiteFont.fnt');
           // var loadingText = this.gameAdd().bitmapText(410, 150, 'ds_digital', 'loading...', 72);
           // loadingText.anchor.setTo(0.5, 0.5);
       gameLoad().audio('wind',  'assets/audio/wind.wav');
