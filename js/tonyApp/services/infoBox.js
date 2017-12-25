@@ -10,9 +10,6 @@ var currentGameStat = {
   currentGame: 'game'
 }
 var infoBox = {
-  // password: "",
-  // appRun: false,
-
   user : {
       id: 78,
       name: 'newUser',
@@ -75,7 +72,7 @@ var infoBox = {
 window.getInfo = function (){
   return infoBox;
 }
-window.getPass = function() {
+var getPass = function() {
   return pass;
 }
 window.getInfoCurrentGame = function (){
@@ -120,34 +117,55 @@ window.saveStat = function (currentGame){
       currentGameStat = snowPongGame_10.getInfo();
         break;
     }
-    console.log(currentGameStat);
+    // console.log(currentGameStat);
 }
 window.update = function (){
-
-  $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "checkUser.php",
-            data: "id_vk=" + id + "&name=" + name,
-            success: function(result){
-              console.log(result);
+  VK.init(function() {
+     VK.api("users.get", {"access_token": "Zg7Wppz2W21OvAXPgXTE"}, function (data) {
+           //ajax запрос к checkUser.php
+           var id = data.response[0].id;
+           var name = data.response[0].first_name;
+       $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "checkUser.php",
+          data: "id_vk=" + id + "&name=" + name,
+          success: function(result){
             pass = result.pass;
             result.pass = "";
             infoBox = result;
             appRun = true;
-            alert('hello' + result.user.name);
-            // alert(result);
-            //запустить приложение !!!!!!!!
             startAppJs ();
-            }
-        });
-}
+          }
+      });
+ });
+  }, function() {
+}, '5.69');
+  //===========
 
+  // $.ajax({
+  //           type: "POST",
+  //           dataType: "json",
+  //           url: "checkUser.php",
+  //           data: "id_vk=" + id + "&name=" + name,
+  //           success: function(result){
+  //             // console.log(result);
+  //           pass = result.pass;
+  //           result.pass = "";
+  //           infoBox = result;
+  //           appRun = true;
+  //           // alert('hello' + result.user.name);
+  //           // alert(result);
+  //           //запустить приложение !!!!!!!!
+  //           startAppJs ();
+  //           }
+  //       });
+}
 window.saveDb = function () {
       var statistic = currentGameStat;
       switch (statistic.currentGame) {
         case 'SnowBallGame':
-          alert('начинаем');
+          // alert('начинаем');
           var game = getInfo().game_1;
           var game_next = 'game_21';
           var table = 'game_1';
@@ -219,7 +237,7 @@ window.saveDb = function () {
 function checkChange (game, game_next, statistic, table){
   //играет первый раз
   // var gamePath = game.status;
-  alert(game.status);
+  // alert(game.status);
   if (game.status == 'unstart' || game.status == 'start'){
      //ajax запрос на сохранение результатов игры
      var info = {};
@@ -230,12 +248,12 @@ function checkChange (game, game_next, statistic, table){
      info['method'] = 'saveNewGame';
      info['table'] = table;
      info['game_next'] = game_next;
-     alert( info['currentScore']);
+     // alert( info['currentScore']);
      query(info);
      // queryUser(totalStars, status);
   }else if (game.status == 'over' && statistic.currentGame == 'SnowBallGame'){
     //добавляем звездочки к имеющимся
-    alert(' game_1 перезапись звезд');
+    // alert(' game_1 перезапись звезд');
     var starsCurrent = (+statistic.stars);
     var scoreCurrent = (+statistic.score);
     var starsAlready = (+infoBox.game_1.stars);
@@ -256,13 +274,13 @@ function checkChange (game, game_next, statistic, table){
     info['totalStars'] = (+starsCurrent + (+infoBox.user.totalstars));
     //обновляем информацию в приложении
     // infoBox.user.totalstars = info['totalStars'];
-    alert(info['totalStars']);
+    // alert(info['totalStars']);
     // infoBox + '.' + game + '.stars' = info['stars'];
     // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
   }else if (game.status == 'over' && statistic.currentGame !== 'SnowBallGame'){
-    alert(' я не там!');
+    // alert(' я не там!');
     //сравниваем результат игр с имеющимся и все улучшения записываем
     var starsCurrent = statistic.stars;
     var scoreCurrent = statistic.score;
@@ -305,7 +323,7 @@ function checkChange (game, game_next, statistic, table){
     var data = info;
     data.id = id;
     data.pass = pass;
-    alert(pass);
+    // alert(pass);
     $.ajax({
               type: "POST",
               // dataType: "json",
@@ -316,11 +334,11 @@ function checkChange (game, game_next, statistic, table){
               success: function(result){
               // infoBox.user = result.user;
               // alert (infoBox.user.name);
-                alert('запрос отправлен');
+                // alert('запрос отправлен');
                 if (result){
-                    alert('данные обновлены');
+                    // alert('данные обновлены');
                     infoBox = result;
-                    console.log(result);
+                    // console.log(result);
                 }
                 // alert( "Прибыли данные: " + msg );
               }

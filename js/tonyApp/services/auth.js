@@ -3,28 +3,28 @@
 
 //Инициализация VK
 <script type="text/javascript">
-//   VK.init(function() {
-//      // API initialization succeeded
-//      // Your code here
-//      VK.api("users.get", {"access_token": "DjUsoVJWogmtBEVzOa5R"}, function (data) {
-//            //ajax запрос к checkUser.php
-//            var id = data.response[0].id;
-//            var name = data.response[0].first_name;
-//        $.ajax({
-//           type: "POST",
-//           url: "php/checkUser.php",
-//           data: "id=" + id + "&name=" + name,
-//           success: function(result){
-//             // alert( "Прибыли данные: " + msg );
-//           }
-//       });
-//
-//  });
-//   }, function() {
-//
-//      // API initialization failed
-//      // Can reload page here
-// }, '5.69');
+  VK.init(function() {
+     // API initialization succeeded
+     // Your code here
+     VK.api("users.get", {"access_token": "DjUsoVJWogmtBEVzOa5R"}, function (data) {
+           //ajax запрос к checkUser.php
+           var id = data.response[0].id;
+           var name = data.response[0].first_name;
+       $.ajax({
+          type: "POST",
+          url: "php/checkUser.php",
+          data: "id=" + id + "&name=" + name,
+          success: function(result){
+            // alert( "Прибыли данные: " + msg );
+          }
+      });
+
+ });
+  }, function() {
+
+     // API initialization failed
+     // Can reload page here
+}, '5.69');
 var id = 11111;
 var name = vkUser;
 $.ajax({
