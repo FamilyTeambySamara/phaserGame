@@ -142,6 +142,7 @@ window.update = function (){
   }, function() {
 }, '5.69');
 
+VK.Widgets.Like("vk_like", {type: "button"});
 //==пример настройки
 // ?api_url=https://api.vk.com/api.php&api_id=6295768&api_settings=2&viewer_id=51532049&viewer_type=2&
 // sid=e48ae4966c1db6066acd1e9571ac7e7ccfa65de6b141c550d21e5309313426205d7fb2c61ef58f46cf4e6&secret=d8c51df9e9&
