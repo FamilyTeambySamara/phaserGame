@@ -34,11 +34,11 @@ var nEnoughStar;
 window.Win_SnowBallGame =
 {
     preload: function () {
-          gameLoad().audio('calculate', 'assets/audio/calculate.mp3');
-          gameLoad().audio('starSong', 'assets/audio/bell.mp3');
-          gameLoad().audio('clockSound', 'assets/audio/clockSound.mp3');
-          gameLoad().audio('hartSound', 'assets/audio/hartSound.mp3');
-          gameLoad().audio('winSound', 'assets/audio/Kevin_MacLeod_-_Running_Fanfare(win_sound).mp3');
+          gameLoad().audio('calculate', 'assets/audio/calculate.ogg');
+          gameLoad().audio('starSong', 'assets/audio/bell.ogg');
+          gameLoad().audio('clockSound', 'assets/audio/clockSound.ogg');
+          gameLoad().audio('hartSound', 'assets/audio/hartSound.ogg');
+          gameLoad().audio('winSound', 'assets/audio/Kevin_MacLeod_-_Running_Fanfare(win_sound).ogg');
 
 
     },

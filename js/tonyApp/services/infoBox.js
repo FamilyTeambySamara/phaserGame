@@ -1,6 +1,7 @@
 (function(){
 var pass = 0;
 var appRun = false;
+var userToken;
 var currentGameStat = {
   time: 0,
   hp: 0,
@@ -142,6 +143,7 @@ window.update = function (){
   }, function() {
 }, '5.69');
 
+
 //==пример настройки
 // ?api_url=https://api.vk.com/api.php&api_id=6295768&api_settings=2&viewer_id=51532049&viewer_type=2&
 // sid=e48ae4966c1db6066acd1e9571ac7e7ccfa65de6b141c550d21e5309313426205d7fb2c61ef58f46cf4e6&secret=d8c51df9e9&
@@ -164,7 +166,7 @@ if(get != '') {
         param[tmp2[n][0]] = tmp2[n][1];
   }
 }
-var token = param['access_token'];
+ userToken = param['access_token'];
 // console.log(get);
 // console.log(param['access_token']);
 // VK.api("wall.post", {"message": "Hello!"}, function (data) {
@@ -173,15 +175,14 @@ var token = param['access_token'];
 //
 // });
 
-// VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "access_token": token}, function (data) {
-//       //ajax запрос к checkUser.php
-//     console.log(data);
-//
-// });
+VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "attachments": "photo,-146880406,photo-146880406_456239019", "access_token": userToken}, function (data) {
+      //ajax запрос к checkUser.php
+    console.log(data);
+
+});
 // VK.callMethod("showShareBox", 'hello');
 
 
-VK.callMethod("showInviteBox");
 // 'id': "51532049",
 // VK.api("apps.getFriendsList", {"access_token":token},function (data) {
 //     // alert(data.reror);
@@ -189,10 +190,14 @@ VK.callMethod("showInviteBox");
 //     console.log(data);
 // });
 //список друзей получен!
-VK.api("friends.get", {"access_token": token}, function (data) {
-    // alert(data.reror);
+VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, function (data) {
 
-    console.log(data);
+    // for(var i=0; i < data.response.items.length; i++){
+    //   var photo = data.response.items[i].photo_50;
+    //   var name = data.response.items[i].first_name;
+    //   var fam = data.response.items[i].last_name;
+    //   console.log(photo + name + fam);
+    // }
 });
   //===========
 
@@ -213,6 +218,23 @@ VK.api("friends.get", {"access_token": token}, function (data) {
   //           startAppJs ();
   //           }
   //       });
+}
+window.showBox = function (){
+  VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, function (data) {
+      // for(var i=0; i < data.response.items.length; i++){
+      //   var photo = data.response.items[i].photo_50;
+      //   var name = data.response.items[i].first_name;
+      //   var fam = data.response.items[i].last_name;
+      //   console.log(photo + name + fam);
+      // }
+      var users = data.response.items;
+
+  });
+}
+window.post = function (id){
+  VK.api("wall.post", {"owner_id": id, "message": "Hello!", "attachments":
+  "photo,-146880406,photo-146880406_456239019", "access_token": userToken}, function (data) {
+  });
 }
 window.saveDb = function () {
       var statistic = currentGameStat;

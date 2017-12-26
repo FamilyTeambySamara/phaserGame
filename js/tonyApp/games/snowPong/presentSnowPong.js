@@ -32,10 +32,10 @@
           // gameLoad().image('slide_6', 'assets/img/presentGameSnowBall/slide_6.png');
           // gameLoad().image('slide_7', 'assets/img/presentGameSnowBall/slide_7.png');
 
-          gameLoad().audio('mainTheme',  'assets/audio/new/Present2.mp3');
-          // gameLoad().audio('crash',  'assets/audio/Carsh.mp3');
-          // gameLoad().audio('silent',  'assets/audio/Nctrnm_-_01_-_Concern(action).mp3');
-          // gameLoad().audio('action',  'assets/audio/Golden_Duck_Orchestra_-_02_-_Alien.mp3');
+          gameLoad().audio('mainTheme',  'assets/audio/new/Present2.ogg');
+          // gameLoad().audio('crash',  'assets/audio/Carsh.ogg');
+          // gameLoad().audio('silent',  'assets/audio/Nctrnm_-_01_-_Concern(action).ogg');
+          // gameLoad().audio('action',  'assets/audio/Golden_Duck_Orchestra_-_02_-_Alien.ogg');
       },
 
       create: function () {

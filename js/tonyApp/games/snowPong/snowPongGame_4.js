@@ -108,14 +108,14 @@ window.snowPongGame_4 = {
 
         gameLoad().image('smallSnow', 'assets/img/smallSnow.png');
 
-        gameLoad().audio('mainSound', 'assets/audio/snowPongGame/Broke_For_Free_-_05_-_Something_Elated(main_sound).mp3');
-        gameLoad().audio('iceCrack', 'assets/audio/snowPongGame/iceCrack_cuted.mp3');
-        gameLoad().audio('rollingBall', 'assets/audio/snowPongGame/MarbleRollonWood_cuted.mp3');
-        gameLoad().audio('indicator', 'assets/audio/snowPongGame/Rezinovyi_shar_trut_skrepit_cuted.mp3');
-        gameLoad().audio('snow_poof', 'assets/audio/snowPongGame/Snow_cuted.mp3');
-        gameLoad().audio('stoun_hit', 'assets/audio/snowPongGame/StounSong_cuted.mp3');
-        gameLoad().audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.mp3');
-        gameLoad().audio('iceWall', 'assets/audio/snowPongGame/iceWall_cuted.mp3');
+        gameLoad().audio('mainSound', 'assets/audio/snowPongGame/Broke_For_Free_-_05_-_Something_Elated(main_sound).ogg');
+        gameLoad().audio('iceCrack', 'assets/audio/snowPongGame/iceCrack_cuted.ogg');
+        gameLoad().audio('rollingBall', 'assets/audio/snowPongGame/MarbleRollonWood_cuted.ogg');
+        gameLoad().audio('indicator', 'assets/audio/snowPongGame/Rezinovyi_shar_trut_skrepit_cuted.ogg');
+        gameLoad().audio('snow_poof', 'assets/audio/snowPongGame/Snow_cuted.ogg');
+        gameLoad().audio('stoun_hit', 'assets/audio/snowPongGame/StounSong_cuted.ogg');
+        gameLoad().audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.ogg');
+        gameLoad().audio('iceWall', 'assets/audio/snowPongGame/iceWall_cuted.ogg');
     },
     create: function (){
         gameAdd().image(0, 0, 'fonPongGame');

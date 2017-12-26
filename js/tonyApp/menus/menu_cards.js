@@ -401,7 +401,7 @@ window.menu_cards = {
       }
     },
     doLike: function (){
-      showMessage(messageNotTime);
+      VK.callMethod("showInviteBox");
     },
     showRuls: function (b){
       // alert('правилы для игры: ' + b.nGame);
@@ -437,7 +437,9 @@ window.menu_cards = {
       showMessage(messageNotTime);
     },
     postPicture: function (b){
-        showMessage(messageNotTime);
+        // showMessage(messageNotTime);
+        //открываем диалоговое окно
+        showBox();
     },
     startPresent: function (b){
         switch (b.present) {

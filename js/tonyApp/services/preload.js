@@ -39,7 +39,7 @@
       gameLoad().spritesheet('button_cont', 'assets/img/button_sprite6.png', 193 , 71);
 
       gameLoad().audio('iceBrickPunch',  'assets/audio/snowPongGame/iceBrickPunch.wav');
-      gameLoad().audio('waterSong',  'assets/audio/snowPongGame/waterSound.mp3');
+      gameLoad().audio('waterSong',  'assets/audio/snowPongGame/waterSound.ogg');
 
       gameLoad().image('notAccess', 'assets/img/message/message1.png');
       gameLoad().image('notStars', 'assets/img/message/message2.png');
@@ -54,16 +54,16 @@
         //Добавлем музыку
 
       gameLoad().audio('throw', 'assets/audio/throw_2.wav');
-      gameLoad().audio('snowBallGame_mainTrack', 'assets/audio/snowBallGame.mp3');
-      gameLoad().audio('happySong', 'assets/audio/HappySong.mp3');
+      gameLoad().audio('snowBallGame_mainTrack', 'assets/audio/snowBallGame.ogg');
+      gameLoad().audio('happySong', 'assets/audio/HappySong.ogg');
 
 
 
         //для snowBalls
-      gameLoad().audio('harmPolar', 'assets/audio/harmPolar_4.mp3');
-      gameLoad().audio('clap', 'assets/audio/clap_2.mp3');
+      gameLoad().audio('harmPolar', 'assets/audio/harmPolar_4.ogg');
+      gameLoad().audio('clap', 'assets/audio/clap_2.ogg');
       gameLoad().audio('hitPinguin', 'assets/audio/hitPinguin.wav');
-      gameLoad().audio('starSong', 'assets/audio/bell.mp3');
+      gameLoad().audio('starSong', 'assets/audio/bell.ogg');
       //button
       gameLoad().audio('pushSmall', 'assets/audio/button/NFF-clog-up.wav');
       gameLoad().audio('message', 'assets/audio/button/NFF-slowdown.wav');

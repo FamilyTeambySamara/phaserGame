@@ -10,8 +10,14 @@
     src:  url(assets/font/8951.otf); /* Путь к файлу со шрифтом local(assets/font/8951.otf),*/
 
    }
+   #vk_like {
+     margin: auto;
+     padding-top: 10px;
+   }
    #game {
-     margin: 0;
+     margin: auto;
+     width: 800 px;
+     height: 500 px;
    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,11 +27,17 @@
   <!-- <script src="https://ad.mail.ru/static/admanhtml/rbadman-html5.min.js"></script>
   <script src="https://vk.com/js/api/adman_init.js"></script>
   <script src="https://js.appscentrum.com/scr/preroll.js"></script> -->
-
+<!-- //виджкт -->
 </head>
 <body>
 
     <div id = "game"></div>
+    <div id = "vk_like"></div>
+
+    <script type="text/javascript" language="javascript">
+    // VK.Widgets.Comments('vk_like', {limit: 10, width: '627', attach: '*', pageUrl: "https://vk.com/app12345"});
+    VK.Widgets.Like('vk_like', {type: "button"});
+    </script>
 
     <script src="js/tonyApp/engine/phaser.min.js"></script>
 
