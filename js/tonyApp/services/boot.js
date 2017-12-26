@@ -2,9 +2,9 @@
   var music;
   window.Boot = {
         preload: function (){
-            gameLoad().audio('loosSound', 'assets/audio/new/Jahzzar_-_02_-_Family_Tree(loos).mp3');
-            gameLoad().audio('cristmas', 'assets/audio/new/veryCool.mp3');
-            gameLoad().audio('bells', ['assets/audio/bells.mp3']);
+            gameLoad().audio('loosSound', 'assets/audio/new/Jahzzar_-_02_-_Family_Tree(loos).ogg');
+            gameLoad().audio('cristmas', 'assets/audio/new/veryCool.ogg');
+            gameLoad().audio('bells', ['assets/audio/bells.ogg']);
 
             gameLoad().image('loading_bar', 'assets/img/preloader/loader3.png');
             gameLoad().image('loading_fon', 'assets/img/preloader/loadingLights.png');
