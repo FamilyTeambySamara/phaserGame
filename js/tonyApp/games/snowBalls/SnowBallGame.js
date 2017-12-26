@@ -64,6 +64,8 @@ var realTimeNow;
 // var plyaerMouse;
 var cursors;
 var fireButton;
+
+var blockKeys =  false;
 //=====Для стрельбы=================================================
 
 //Группы пуль
@@ -119,6 +121,11 @@ var saveBox = {};
 /////////================================================\\\\\\\\\\\\\\\\\\\\
 
 //кнопки управления
+var distanceToMove;
+var angleToMove;
+var moveToX;
+var moveToY;
+
 var replayGame;
 var exitGame;
 var doReplayGame;
@@ -293,6 +300,7 @@ window.SnowBallGame =
       playerBet.status = 'whait';
       gamePhysics().arcade.enable(playerBet);
       playerBet.body.setSize(30, 58, 10, 10);
+      playerBet.fullVelocity = 250;
       playerBet.animations.add('throw',[ 7 , 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20], 40);
       playerBet.animations.add('right',[21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41], 25, true);
       playerBet.animations.add('hit',[42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], 25);
@@ -358,13 +366,16 @@ window.SnowBallGame =
       }else{
           b_music_1.kill();
       }
-      //=================================
-
+      //=====================debag========
+textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red'});
 //=========Управление игроком========================================
        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
        cursors = gameInput().keyboard.createCursorKeys();
        // plyaerMouse = gameInput().x;
        //gameInput().onDown.add(this.releaseBall, this);
+       // gamePhysics().angleToPointer(displayObject, pointer, world) //вычисляем угол
+       // gamePhysics().distanceToPointer(displayObject, pointer, world)//вычисляем расстояние
+       gameInput().onDown.add(this.fireBulletAndGo, this); //стреляем
 //===================================================================
     },
     turnMusic: function (){
@@ -379,9 +390,95 @@ window.SnowBallGame =
         b_music_1.reset(layerUnderMenu.left + 2, layerUnderMenu.centerY);
       }
     },
+    fireBulletAndGo:function ()
+    {
+      blockKeys = true;
+      playerBet.status = 'start';
+      distanceToMove =  gamePhysics().arcade.distanceToPointer(playerBet);
+      if (Math.abs(distanceToMove)>20){
+        moveToX = gameInput().x;
+        moveToY = gameInput().y;
+        angleToMove = gamePhysics().arcade.angleToPointer(playerBet);
+        playerBet.angle = angleToMove * 180/Math.PI;
+        playerBet.body.velocity.x = Math.cos(angleToMove)*playerBet.fullVelocity;
+        playerBet.body.velocity.y = Math.sin(angleToMove)*playerBet.fullVelocity;
+        playerBet.animations.play('right');
+      }
+
+   //  To avoid them being allowed to fire too fast we set a time limit
+   if (gameTime().now > bulletTime)
+   {
+     bullet = bullets.getFirstExists(false);
+     playerBet.animations.play('throw');
+     throw_plyer.play();
+     bullet.reset(playerBet.x, playerBet.y);
+     bullet.body.velocity.x = Math.cos(angleToMove)*playerBulletVelocity;
+     bullet.body.velocity.y = Math.sin(angleToMove)*playerBulletVelocity;
+     bulletTime = gameTime().now + timeDilayPlayer;
+    //      switch (playerBet.angle) {
+    //        case 90:
+    //        //вниз
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x, playerBet.y + 5);
+    //            bullet.body.velocity.y = playerBulletVelocity;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //        case 45:
+    //          //вниз-право
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x, playerBet.y + 5);
+    //            bullet.body.velocity.y = playerBulletVelocity/2;
+    //            bullet.body.velocity.x = playerBulletVelocity/2;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //        case -45:
+    //            //вверх-право
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x, playerBet.y + 5);
+    //            bullet.body.velocity.y = -playerBulletVelocity/2;
+    //            bullet.body.velocity.x = playerBulletVelocity/2;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //        case 135:
+    //          //вниз-лево
+    //          throw_plyer.play();
+    //          bullet.reset(playerBet.x, playerBet.y + 5);
+    //          bullet.body.velocity.y = playerBulletVelocity/2;
+    //          bullet.body.velocity.x = -playerBulletVelocity/2;
+    //          bulletTime = gameTime().now + timeDilayPlayer;
+    //          break;
+    //        case -135:
+    //          //вверх-лево
+    //          throw_plyer.play();
+    //          bullet.reset(playerBet.x, playerBet.y + 5);
+    //          bullet.body.velocity.y = -playerBulletVelocity/2;
+    //          bullet.body.velocity.x = -playerBulletVelocity/2;
+    //          bulletTime = gameTime().now + timeDilayPlayer;
+    //          break;
+    //        case -90:
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x, playerBet.y - 5);
+    //            bullet.body.velocity.y = -playerBulletVelocity;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //        case -180:
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x - 5, playerBet.y);
+    //            bullet.body.velocity.x = -playerBulletVelocity;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //        case 0:
+    //            throw_plyer.play();
+    //            bullet.reset(playerBet.x + 5, playerBet.y);
+    //            bullet.body.velocity.x = playerBulletVelocity;
+    //            bulletTime = gameTime().now + timeDilayPlayer;
+    //            break;
+    //      }
+    }
+  },
     //Стрельба PLayer
      fireBullet: function () {
-
+       playerBet.status = 'start';
     //  To avoid them being allowed to fire too fast we set a time limit
     if (gameTime().now > bulletTime)
     {
@@ -759,6 +856,7 @@ window.SnowBallGame =
       },
 
      update: function () {
+       // textDebag.text = 'расстояние' + distanceToMove + '\n угол' + angleToMove + '\n скорость' + playerBet.body.velocity.y;
 
        //Timer
        if (counterStarterTime == 0 && playerBet.status == 'start'){
@@ -769,7 +867,6 @@ window.SnowBallGame =
           //scoreHartImage.animations.play('hartBar');
           scoreTimerImage.animations.getAnimation('timeBar').onComplete.add(function () {scoreHartImage.animations.play('hartBar');}, this);
           scoreHartImage.animations.getAnimation('hartBar').onComplete.add(function () {scoreStarsImage.animations.play('starBar');}, this);
-
        }
 
        if (playerBet.status == 'start'){
@@ -786,84 +883,95 @@ window.SnowBallGame =
             playerBet.status = 'start';
         }
 //Управление Player============================================================
-         if (cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown){
-              playerBet.angle = 0;
-              playerBet.status = 'start';
+if(cursors.right.isDown || cursors.up.isDown || cursors.down.isDown || cursors.left.isDown){
+  blockKeys = false;
+}
+if((Math.abs(moveToX - playerBet.x) < 5 && Math.abs(moveToY - playerBet.y) < 5) && blockKeys){
+  playerBet.animations.stop('right');
+  playerBet.body.velocity.x = 0;
+  playerBet.body.velocity.y = 0;
+}
+  if(!blockKeys){
+      if (cursors.right.isDown && !cursors.up.isDown && !cursors.down.isDown){
+           playerBet.angle = 0;
+           playerBet.status = 'start';
+           if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+             playerBet.animations.play('right');
+           }
+           playerBet.body.velocity.x = 250;
+           playerBet.body.velocity.y = 0;
+           //playerBet.angle = 90;
+           //  playerBet.animations.play('left'); ждем спрайтов
+      } else if (cursors.left.isDown && !cursors.up.isDown && !cursors.down.isDown){
+            if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+              playerBet.animations.play('right');
+            }
+           playerBet.angle = 180;
+           playerBet.body.velocity.x = -250;
+           playerBet.body.velocity.y = 0;
+           playerBet.status = 'start';
+           //  playerBet.animations.play('left'); ждем спрайтов
+      } else if (cursors.up.isDown && !cursors.left.isDown && !cursors.right.isDown){
               if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
                 playerBet.animations.play('right');
               }
-              playerBet.body.velocity.x = 250;
-              playerBet.body.velocity.y = 0;
-              //playerBet.angle = 90;
-              //  playerBet.animations.play('left'); ждем спрайтов
-         } else if (cursors.left.isDown && !cursors.up.isDown && !cursors.down.isDown){
-               if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                 playerBet.animations.play('right');
-               }
-              playerBet.angle = 180;
-              playerBet.body.velocity.x = -250;
-              playerBet.body.velocity.y = 0;
-              playerBet.status = 'start';
-              //  playerBet.animations.play('left'); ждем спрайтов
-         } else if (cursors.up.isDown && !cursors.left.isDown && !cursors.right.isDown){
-                 if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                   playerBet.animations.play('right');
-                 }
-                playerBet.angle = 270;
-                playerBet.body.velocity.y = -250;
-                playerBet.body.velocity.x = 0;
-                playerBet.status = 'start';
-             //playerBet.animations.stop();
-             // player.frame = 4;
-         } else if (cursors.down.isDown && !cursors.left.isDown && !cursors.right.isDown){
-               if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                 playerBet.animations.play('right');
-               }
-                playerBet.angle = 90;
-                playerBet.body.velocity.y = 250;
-                playerBet.body.velocity.x = 0;
-                playerBet.status = 'start';
-         } else if (cursors.down.isDown && cursors.left.isDown){
-               if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                 playerBet.animations.play('right');
-               }
-               playerBet.angle = 135;
-               playerBet.body.velocity.y = 125;
-               playerBet.body.velocity.x = -125;
-               playerBet.status = 'start';
+             playerBet.angle = 270;
+             playerBet.body.velocity.y = -250;
+             playerBet.body.velocity.x = 0;
+             playerBet.status = 'start';
+          //playerBet.animations.stop();
+          // player.frame = 4;
+      } else if (cursors.down.isDown && !cursors.left.isDown && !cursors.right.isDown){
+            if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+              playerBet.animations.play('right');
+            }
+             playerBet.angle = 90;
+             playerBet.body.velocity.y = 250;
+             playerBet.body.velocity.x = 0;
+             playerBet.status = 'start';
+      } else if (cursors.down.isDown && cursors.left.isDown){
+            if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+              playerBet.animations.play('right');
+            }
+            playerBet.angle = 135;
+            playerBet.body.velocity.y = 125;
+            playerBet.body.velocity.x = -125;
+            playerBet.status = 'start';
 
-          } else if (cursors.down.isDown && cursors.right.isDown){
-                if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                  playerBet.animations.play('right');
-                }
-                playerBet.angle = 45;
-                playerBet.body.velocity.y = 125;
-                playerBet.body.velocity.x = 125;
-                playerBet.status = 'start';
+       } else if (cursors.down.isDown && cursors.right.isDown){
+             if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+               playerBet.animations.play('right');
+             }
+             playerBet.angle = 45;
+             playerBet.body.velocity.y = 125;
+             playerBet.body.velocity.x = 125;
+             playerBet.status = 'start';
 
-         } else if (cursors.up.isDown && cursors.left.isDown){
-               if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                 playerBet.animations.play('right');
-               }
-               playerBet.angle = 225;
-               playerBet.body.velocity.y = -125;
-               playerBet.body.velocity.x = -125;
-               playerBet.status = 'start';
+      } else if (cursors.up.isDown && cursors.left.isDown){
+            if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+              playerBet.animations.play('right');
+            }
+            playerBet.angle = 225;
+            playerBet.body.velocity.y = -125;
+            playerBet.body.velocity.x = -125;
+            playerBet.status = 'start';
 
-          } else if (cursors.up.isDown && cursors.right.isDown){
-                if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
-                  playerBet.animations.play('right');
-                }
-                playerBet.angle = 315;
-                playerBet.body.velocity.y = -125;
-                playerBet.body.velocity.x = 125;
-                playerBet.status = 'start';
+       } else if (cursors.up.isDown && cursors.right.isDown){
+             if (!playerBet.animations.getAnimation('hit').isPlaying  && !playerBet.animations.getAnimation('throw').isPlaying ){
+               playerBet.animations.play('right');
+             }
+             playerBet.angle = 315;
+             playerBet.body.velocity.y = -125;
+             playerBet.body.velocity.x = 125;
+             playerBet.status = 'start';
 
-           } else {
-            playerBet.animations.stop('right');
-            playerBet.body.velocity.y = 0;
-            playerBet.body.velocity.x = 0;
-       }
+        } else {
+         playerBet.animations.stop('right');
+         playerBet.body.velocity.y = 0;
+         playerBet.body.velocity.x = 0;
+    }
+  }
+
 //=====================================================================
 //=========================================================================
 //Ограничения для игрока по высоте и ширине карты
