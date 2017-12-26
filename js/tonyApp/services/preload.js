@@ -41,6 +41,8 @@
       gameLoad().audio('iceBrickPunch',  'assets/audio/snowPongGame/iceBrickPunch.wav');
       gameLoad().audio('waterSong',  'assets/audio/snowPongGame/waterSound.mp3');
 
+      gameLoad().image('notAccess', 'assets/img/message/message1.png');
+      gameLoad().image('notStars', 'assets/img/message/message2.png');
 
         //win and loos
       gameLoad().spritesheet('menuWin', 'assets/img/menuTruo.png', 350 , 171);

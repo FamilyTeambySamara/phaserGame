@@ -10,9 +10,6 @@ var currentGameStat = {
   currentGame: 'game'
 }
 var infoBox = {
-  // password: "",
-  // appRun: false,
-
   user : {
       id: 78,
       name: 'newUser',
@@ -75,7 +72,7 @@ var infoBox = {
 window.getInfo = function (){
   return infoBox;
 }
-window.getPass = function() {
+var getPass = function() {
   return pass;
 }
 window.getInfoCurrentGame = function (){
@@ -120,34 +117,108 @@ window.saveStat = function (currentGame){
       currentGameStat = snowPongGame_10.getInfo();
         break;
     }
-    console.log(currentGameStat);
+    // console.log(currentGameStat);
 }
 window.update = function (){
-
-  $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "checkUser.php",
-            data: "id_vk=" + id + "&name=" + name,
-            success: function(result){
-              console.log(result);
+  VK.init(function() {
+     VK.api("users.get", {"access_token": "Zg7Wppz2W21OvAXPgXTE"}, function (data) {
+           //ajax запрос к checkUser.php
+           var id = data.response[0].id;
+           var name = data.response[0].first_name;
+       $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "checkUser.php",
+          data: "id_vk=" + id + "&name=" + name,
+          success: function(result){
             pass = result.pass;
             result.pass = "";
             infoBox = result;
             appRun = true;
-            alert('hello' + result.user.name);
-            // alert(result);
-            //запустить приложение !!!!!!!!
             startAppJs ();
-            }
-        });
-}
+          }
+      });
+ });
+  }, function() {
+}, '5.69');
 
+//==пример настройки
+// ?api_url=https://api.vk.com/api.php&api_id=6295768&api_settings=2&viewer_id=51532049&viewer_type=2&
+// sid=e48ae4966c1db6066acd1e9571ac7e7ccfa65de6b141c550d21e5309313426205d7fb2c61ef58f46cf4e6&secret=d8c51df9e9&
+// access_token=b1be250f226c57a84e530d08e22a7d2217f90aa2427670651780784570fdbf45987a0f2d2270b2bb076ad&user_id=51532049&group_id=0&
+// is_app_user=1&auth_key=74d3aefb837b02921e21334be93a2ddf&language=0&parent_language=0&is_secure=1&ads_app_id=6295768_53a2d699e3bd30105e
+// &referrer=unknown&lc_name=
+//============
+
+var tmp = new Array();		// два вспомагательных
+var tmp2 = new Array();		// массива
+var param = new Array();
+
+var get = location.search;	// строка GET запроса
+if(get != '') {
+	tmp = (get.substr(1)).split('&');	// разделяем переменные
+	for(var i=0; i < tmp.length; i++) {
+    tmp2[i] = tmp[i].split('='); // массив param будет содержать param[tmp2[0]] = tmp2[1]; // пары ключ(имя переменной)->значение
+	}
+  for (var n=0; n < tmp2.length; n++){
+        param[tmp2[n][0]] = tmp2[n][1];
+  }
+}
+var token = param['access_token'];
+// console.log(get);
+// console.log(param['access_token']);
+// VK.api("wall.post", {"message": "Hello!"}, function (data) {
+//
+//     alert("Post ID:" + data.response.post_id);
+//
+// });
+
+// VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "access_token": token}, function (data) {
+//       //ajax запрос к checkUser.php
+//     console.log(data);
+//
+// });
+// VK.callMethod("showShareBox", 'hello');
+
+
+VK.callMethod("showInviteBox");
+// 'id': "51532049",
+// VK.api("apps.getFriendsList", {"access_token":token},function (data) {
+//     // alert(data.reror);
+//     console.log('nono!');
+//     console.log(data);
+// });
+//список друзей получен!
+VK.api("friends.get", {"access_token": token}, function (data) {
+    // alert(data.reror);
+
+    console.log(data);
+});
+  //===========
+
+  // $.ajax({
+  //           type: "POST",
+  //           dataType: "json",
+  //           url: "checkUser.php",
+  //           data: "id_vk=" + id + "&name=" + name,
+  //           success: function(result){
+  //             // console.log(result);
+  //           pass = result.pass;
+  //           result.pass = "";
+  //           infoBox = result;
+  //           appRun = true;
+  //           // alert('hello' + result.user.name);
+  //           // alert(result);
+  //           //запустить приложение !!!!!!!!
+  //           startAppJs ();
+  //           }
+  //       });
+}
 window.saveDb = function () {
       var statistic = currentGameStat;
       switch (statistic.currentGame) {
         case 'SnowBallGame':
-          alert('начинаем');
+          // alert('начинаем');
           var game = getInfo().game_1;
           var game_next = 'game_21';
           var table = 'game_1';
@@ -219,7 +290,7 @@ window.saveDb = function () {
 function checkChange (game, game_next, statistic, table){
   //играет первый раз
   // var gamePath = game.status;
-  alert(game.status);
+  // alert(game.status);
   if (game.status == 'unstart' || game.status == 'start'){
      //ajax запрос на сохранение результатов игры
      var info = {};
@@ -230,12 +301,12 @@ function checkChange (game, game_next, statistic, table){
      info['method'] = 'saveNewGame';
      info['table'] = table;
      info['game_next'] = game_next;
-     alert( info['currentScore']);
+     // alert( info['currentScore']);
      query(info);
      // queryUser(totalStars, status);
   }else if (game.status == 'over' && statistic.currentGame == 'SnowBallGame'){
     //добавляем звездочки к имеющимся
-    alert(' game_1 перезапись звезд');
+    // alert(' game_1 перезапись звезд');
     var starsCurrent = (+statistic.stars);
     var scoreCurrent = (+statistic.score);
     var starsAlready = (+infoBox.game_1.stars);
@@ -256,13 +327,13 @@ function checkChange (game, game_next, statistic, table){
     info['totalStars'] = (+starsCurrent + (+infoBox.user.totalstars));
     //обновляем информацию в приложении
     // infoBox.user.totalstars = info['totalStars'];
-    alert(info['totalStars']);
+    // alert(info['totalStars']);
     // infoBox + '.' + game + '.stars' = info['stars'];
     // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
   }else if (game.status == 'over' && statistic.currentGame !== 'SnowBallGame'){
-    alert(' я не там!');
+    // alert(' я не там!');
     //сравниваем результат игр с имеющимся и все улучшения записываем
     var starsCurrent = statistic.stars;
     var scoreCurrent = statistic.score;
@@ -305,7 +376,7 @@ function checkChange (game, game_next, statistic, table){
     var data = info;
     data.id = id;
     data.pass = pass;
-    alert(pass);
+    // alert(pass);
     $.ajax({
               type: "POST",
               // dataType: "json",
@@ -316,11 +387,11 @@ function checkChange (game, game_next, statistic, table){
               success: function(result){
               // infoBox.user = result.user;
               // alert (infoBox.user.name);
-                alert('запрос отправлен');
+                // alert('запрос отправлен');
                 if (result){
-                    alert('данные обновлены');
+                    // alert('данные обновлены');
                     infoBox = result;
-                    console.log(result);
+                    // console.log(result);
                 }
                 // alert( "Прибыли данные: " + msg );
               }

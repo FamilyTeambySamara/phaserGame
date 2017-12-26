@@ -22,8 +22,6 @@
         gameLoad().spritesheet('b_9', 'assets/img/map/9.png', 70 , 70);
         gameLoad().spritesheet('b_10', 'assets/img/map/10.png', 70 , 70);
         // gameLoad().image(0, 0, 'map');
-        gameLoad().image('notAccess', 'assets/img/message/message1.png');
-        gameLoad().image('notStars', 'assets/img/message/message2.png');
     },
 
     create: function (){
