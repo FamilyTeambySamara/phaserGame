@@ -46,6 +46,7 @@ window.Win_SnowBallGame =
     {
 
       saveDb();
+      // getMoney();
 
       hp = getInfoCurrentGame().hp;
       time = getInfoCurrentGame().time;
@@ -359,6 +360,28 @@ function showMessage (image){
 function closeWindow (b){
   b.animation();
   b.kill();
+}
+
+function getMoney (){
+
+  window.addEventListener('load', function() {
+
+  var user_id = null;
+  var app_id = 6295768;
+
+  admanInit({
+  user_id: user_id,
+  app_id: app_id,
+  type: 'preloader'
+  }, onAdsReady, onNoAds);
+
+  function onAdsReady(adman) {
+  adman.onStarted(function () { admanStat(app_id, user_id); });
+  adman.start('preroll');
+  };
+
+  function onNoAds() {};
+  });
 }
 
 })();

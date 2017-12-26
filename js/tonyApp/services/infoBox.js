@@ -141,6 +141,59 @@ window.update = function (){
  });
   }, function() {
 }, '5.69');
+
+//==пример настройки
+// ?api_url=https://api.vk.com/api.php&api_id=6295768&api_settings=2&viewer_id=51532049&viewer_type=2&
+// sid=e48ae4966c1db6066acd1e9571ac7e7ccfa65de6b141c550d21e5309313426205d7fb2c61ef58f46cf4e6&secret=d8c51df9e9&
+// access_token=b1be250f226c57a84e530d08e22a7d2217f90aa2427670651780784570fdbf45987a0f2d2270b2bb076ad&user_id=51532049&group_id=0&
+// is_app_user=1&auth_key=74d3aefb837b02921e21334be93a2ddf&language=0&parent_language=0&is_secure=1&ads_app_id=6295768_53a2d699e3bd30105e
+// &referrer=unknown&lc_name=
+//============
+
+var tmp = new Array();		// два вспомагательных
+var tmp2 = new Array();		// массива
+var param = new Array();
+
+var get = location.search;	// строка GET запроса
+if(get != '') {
+	tmp = (get.substr(1)).split('&');	// разделяем переменные
+	for(var i=0; i < tmp.length; i++) {
+    tmp2[i] = tmp[i].split('='); // массив param будет содержать param[tmp2[0]] = tmp2[1]; // пары ключ(имя переменной)->значение
+	}
+  for (var n=0; n < tmp2.length; n++){
+        param[tmp2[n][0]] = tmp2[n][1];
+  }
+}
+var token = param['access_token'];
+// console.log(get);
+// console.log(param['access_token']);
+// VK.api("wall.post", {"message": "Hello!"}, function (data) {
+//
+//     alert("Post ID:" + data.response.post_id);
+//
+// });
+
+// VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "access_token": token}, function (data) {
+//       //ajax запрос к checkUser.php
+//     console.log(data);
+//
+// });
+// VK.callMethod("showShareBox", 'hello');
+
+
+VK.callMethod("showInviteBox");
+// 'id': "51532049",
+// VK.api("apps.getFriendsList", {"access_token":token},function (data) {
+//     // alert(data.reror);
+//     console.log('nono!');
+//     console.log(data);
+// });
+//список друзей получен!
+VK.api("friends.get", {"access_token": token}, function (data) {
+    // alert(data.reror);
+
+    console.log(data);
+});
   //===========
 
   // $.ajax({
