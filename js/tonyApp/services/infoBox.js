@@ -175,11 +175,11 @@ if(get != '') {
 //
 // });
 
-VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "attachments": "photo,-146880406,photo-146880406_456239019", "access_token": userToken}, function (data) {
-      //ajax запрос к checkUser.php
-    console.log(data);
-
-});
+// VK.api("wall.post", {"owner_id": '11971008', "message": "Hello!", "attachments": "photo,-146880406,photo-146880406_456239019", "access_token": userToken}, function (data) {
+//       //ajax запрос к checkUser.php
+//     console.log(data);
+//
+// });
 // VK.callMethod("showShareBox", 'hello');
 
 
@@ -220,6 +220,7 @@ VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, functio
   //       });
 }
 window.showBox = function (){
+
   VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, function (data) {
       // for(var i=0; i < data.response.items.length; i++){
       //   var photo = data.response.items[i].photo_50;
@@ -228,8 +229,9 @@ window.showBox = function (){
       //   console.log(photo + name + fam);
       // }
       var users = data.response.items;
-
+      showModalWin(users);
   });
+
 }
 window.post = function (id){
   VK.api("wall.post", {"owner_id": id, "message": "Hello!", "attachments":
