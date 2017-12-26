@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Выше 3 Мета-теги ** должны прийти в первую очередь в голове; любой другой руководитель контент *после* эти теги -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+               .modalwin {
+                  right: 0;
+                  left: 0;
+                   margin: auto;
+                   z-index:2; /* поверх всех */
+                   display: none;  /* сначала невидим */
+                   position: fixed; /* фиксированное позиционирование, окно стабильно при прокрутке */
+               }
+               #shadow {
+                   position: fixed;
+                   width:100%;
+                   height:100%;
+                   z-index:1; /* поверх всех  кроме окна*/
+                   background:#000;
+                   opacity: 0.5; /*прозрачность*/
+                   left:0;
+                   top:0;
+               }
+           </style>
+  <script type="text/javascript">
+      function showModalWin() {
+          getSpicok();
+          var darkLayer = document.createElement('div'); // слой затемнения
+          darkLayer.id = 'shadow'; // id чтобы подхватить стиль
+          document.body.appendChild(darkLayer); // включаем затемнение
+
+          var modalWin = document.getElementById('popupWin'); // находим наше "окно"
+          modalWin.style.display = 'block'; // "включаем" его
+
+          var cancelUser =document.querySelector('.cancelUs');
+
+          cancelUser.onclick = function () {  // при клике на слой затемнения все исчезнет
+            darkLayer.parentNode.removeChild(darkLayer); // удаляем затемнение
+                              modalWin.style.display = 'none'; // делаем окно невидимым
+                              return false;
+                          };
+
+      }
+
+      var getSpicok = function () {
+        // for (var j = 0; j < users.lenght; j++) {
+          var olUser = document.querySelector('.media');
+
+          var divUser = document.createElement('div');
+          divUser.classList.add('radio');
+          var firstNamefriends = 'Вика';
+          var lastNamefriends = 'Цыман';
+          var fullNamefriends = firstNamefriends + " " + lastNamefriends;
+          var photofriends = "12.png"
+          // var firstNamefriends = users.firstName[j];
+          // var lastNamefriends = users.lastName[j];
+          // var fullNamefriends = firstNamefriends + " " +  lastNamefriends;
+          // var photofriends = users.foto[j];
+
+          divUser.innerHTML = '<label>' +  '<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>'
+          + '<div class="media-body">' + '<h4 class="media-heading">' +  fullNamefriends + '</h4>' +
+          '</div>' + '<div class="media-left">' +
+            '<img class="media-object img-circle" src=' + photofriends + ' alt="..." width="50px">'+
+            '</div>'+ '</label>'
+
+        olUser.appendChild(divUser);
+      // }
+      };
+  </script>
+
+  </head>
+  <body>
+
+    <div  id="popupWin" class="modalwin">
+      <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <h4 class="modal-title" id="myModalLabel">Отправление открытки</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="media"></div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default cancelUs" data-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-primary" onclick="function">Отправить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- на jQuery (необходим для Bootstrap - х JavaScript плагины) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- Включают все скомпилированные плагины (ниже), или включать отдельные файлы по мере необходимости -->
+    <script src="js/bootstrap.js"></script>
+     <!-- <script src="myScrip  t.js" defer></script> -->
+  </body>
+</html>
