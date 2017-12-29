@@ -1,5 +1,5 @@
 
-    window.showModalWin = function (users) {
+    window.showModalWin = function (users, photo) {
         var users = users;
         var olUser = document.querySelector('.media');
         getSpicok(users, olUser);
@@ -25,8 +25,13 @@
                   var chekUser = document.getElementById(users[n].id);
                   // console.log(chekUser);
                   if(chekUser.checked){
-                      post(users[n].id);
+                    if(photo == "photo-159168333_456239017"){
+                      post(users[n].id, photo, '-159168462');
                       break;
+                    }else{
+                      post(users[n].id, photo, '-159168482');
+                    }
+
                   }
               }
               darkLayer.parentNode.removeChild(darkLayer);

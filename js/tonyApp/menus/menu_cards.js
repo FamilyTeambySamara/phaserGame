@@ -439,7 +439,14 @@ window.menu_cards = {
     postPicture: function (b){
         // showMessage(messageNotTime);
         //открываем диалоговое окно
-        showBox();
+        if(b.post == 1 && getInfo().game_1.access == 1){
+            showBox('photo-159168462_456239017');
+        }else if (b.post == 2 && getInfo().game_2.g_10.access == 1){
+            showBox('photo-159168482_456239017');
+        }else{
+          showMessage(messageNotAccess);
+        }
+
         // showModalWin();
     },
     startPresent: function (b){

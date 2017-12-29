@@ -661,7 +661,7 @@ textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red'});
                     saveBox.currentGame = 'SnowBallGame';
                     saveStat(1);
                     //========Сброс настроек====
-                    wholeStars = 2*(+mod);
+                    wholeStars = 2*(+saveBox.mod);
                     counterStarterTime = 0;
                     scoreStars = 0;
                     simplePolarDead = 0;
@@ -740,7 +740,7 @@ textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red'});
             saveBox.currentGame = 'SnowBallGame';
             saveStat(1);
             //========Сброс настроек====
-            wholeStars = 2*(+mod);
+            wholeStars = 2*(+saveBox.mod);
             counterStarterTime = 0;
             scoreStars = 0;
             simplePolarDead = 0;
@@ -1241,7 +1241,7 @@ doReplayGame = function (){
   saveBox.currentGame = 'SnowBallGame';
   saveStat(1);
   //========Сброс настроек====
-  wholeStars = 2*(+mod);
+  wholeStars = 2*(+saveBox.mod);
   counterStarterTime = 0;
   scoreStars = 0;
   simplePolarDead = 0;
@@ -1264,7 +1264,7 @@ doExitGame = function (){
   saveBox.currentGame = 'SnowBallGame';
   saveStat(1);
   //========Сброс настроек====
-  wholeStars = 2*(+mod);
+  wholeStars = 2*(+saveBox.mod);
   counterStarterTime = 0;
   scoreStars = 0;
   simplePolarDead = 0;
