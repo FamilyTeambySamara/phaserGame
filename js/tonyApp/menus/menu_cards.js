@@ -440,6 +440,7 @@ window.menu_cards = {
         // showMessage(messageNotTime);
         //открываем диалоговое окно
         showBox();
+        // showModalWin();
     },
     startPresent: function (b){
         switch (b.present) {
