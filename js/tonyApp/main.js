@@ -210,6 +210,10 @@
   window.gameWorld = function (){
     return game.world;
   }
+  window.gamePused = function (stage){
+    game.paused = stage;
+    return true;
+  }
 }())
 
 

@@ -103,7 +103,7 @@ window.snowPongGame_10 = {
         gameLoad().image('stoneMiddle', 'assets/img/snowPong/stoneMiddle.png');
         gameLoad().image('stoneSmall', 'assets/img/snowPong/stoneSmall.png');
         gameLoad().image('woodBox', 'assets/img/snowPong/woodBox.png');
-        gameLoad().image('hole', 'assets/img/snowPong/hole.png');
+        gameLoad().image('hole', 'assets/img/snowPong/holeBig.png');
 
         gameLoad().image('iceWall', 'assets/img/snowPong/iceWall.png');
         gameLoad().image('woodStick', 'assets/img/snowPong/woodStick.png');
@@ -196,14 +196,14 @@ window.snowPongGame_10 = {
                 entity_hole.body.setCircle(entity_hole.width/2);
                 entity_hole.type = 'hole';
                 entity_hole.anchor.set(0.5);
-                entity_hole.scale.set(2);
+                // entity_hole.scale.set(2);
                 var entity_hole_2 = holesGroup.create(650, 380, 'hole');
                 // entity_hole.scale.set(1.5);
                 entity_hole_2.body.immovable = true;
                 entity_hole_2.body.setCircle(entity_hole.width/2);
                 entity_hole_2.type = 'hole';
                 entity_hole_2.anchor.set(0.5);
-                entity_hole_2.scale.set(2);
+                // entity_hole_2.scale.set(2);
         //=========
 
         //Группы препятствий и прочих штук на карте==================

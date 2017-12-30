@@ -219,7 +219,7 @@ VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, functio
   //           }
   //       });
 }
-window.showBox = function (){
+window.showBox = function (photo){
 
   VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, function (data) {
       // for(var i=0; i < data.response.items.length; i++){
@@ -229,13 +229,13 @@ window.showBox = function (){
       //   console.log(photo + name + fam);
       // }
       var users = data.response.items;
-      showModalWin(users);
+      showModalWin(users, photo);
   });
 
 }
-window.post = function (id){
-  VK.api("wall.post", {"owner_id": id, "message": "Hello!", "attachments":
-  "photo,-146880406,photo-146880406_456239019", "access_token": userToken}, function (data) {
+window.post = function (id, photo, group){
+  VK.api("wall.post", {"owner_id": id, "message": "С новым годом!!!", "attachments":
+  "photo,"+ group + ","+ photo + ",https://vk.com/app6295768_51532049", "access_token": userToken}, function (data) {
   });
 }
 window.saveDb = function () {
