@@ -20,7 +20,7 @@
      width: 800 px;
      height: 500 px;
    }
-   .modalwin {
+   .modalwin, .modalwin1 {
       right: 0;
       left: 0;
        margin: auto;
@@ -40,8 +40,38 @@
    }
    .modal-body {
      overflow: auto;
-     height: 300px;
+     height:200px;
    }
+     .oneBlock {
+      background-color: #5B88BD;
+      }
+      .modal-title {
+      color: white;
+      }
+      .twoBlock, .modal-footer {
+      background-color: #FAFBFC;
+      }
+      .form-control {
+      margin-top: 10px;
+      }
+      #foto123 {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      }
+      .table1 {
+        width: 100%;
+      }
+      .stroka1 {
+        width: 40%;
+      }
+      .stroka0 {
+        width: 10%;
+      }
+      .stroka2, .stroka3{
+        width: 25%;
+      }
+
 
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -62,12 +92,22 @@
     <div class="modal-dialog" role="document">
 
       <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Отправление открытки</h4>
-          <p>Выбери одного друга, которому хочешь отправить новогоднюю открытку.
-             И не забудь проверить, что у него открыта стена для сообщений!</p>
-        </div>
+        <div class="modal-header oneBlock">
 
+            <h5 class="modal-title" id="myModalLabel">Отправление открытки</h5>
+            </div>
+            <div class="modal-header twoBlock">
+            <p><strong>Выбери одного друга, которому хочешь отправить новогоднюю открытку.</strong></p>
+            <p>И не забудь проверить, что у него открыта стена для сообщений!</p>
+
+            <a href="https://pp.userapi.com/c824500/v824500960/6518c/_DPzwhlqFmc.jpg" id = "referTopictur"  class="dropdown-toggle" target="_blank">
+
+            <img id="foto123" src="" width="150" border="1">
+            <p class="text-center">Посмотреть открытку</p></a>
+
+            <input type="text" class="form-control" id="exampleInputName3" value = 'С новым годом!!!'>
+
+        </div>
         <div class="modal-body">
           <form class="media">
 
@@ -81,7 +121,38 @@
       </div>
     </div>
   </div>
+  <!-- <!— // Рейтинг —> -->
+  <div id="popupWin1" class="modalwin1">
+  <div class="modal-dialog" role="document">
 
+  <div class="modal-content">
+  <div class="modal-header oneBlock">
+
+  <h5 class="modal-title" id="myModalLabel2">Просмотр рейтинга</h5>
+  </div>
+  <div class="modal-header twoBlock">
+      <table class="table1">
+        <tr>
+        <td class="stroka0 text-center">№</td>
+        <td class="stroka1 text-center">Имя</td>
+        <td class="stroka2 text-center">Итоговый счет</td>
+        <td class="stroka3 text-center">Звезды</td>
+      </tr>
+      </table>
+  </div>
+
+  <div class="modal-body">
+  <div class="media reit"></div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="media reitUser">
+    </div>
+  <button type="button" class="btn btn-primary cancelUs1">Выйти</button>
+  </div>
+  </div>
+  </div>
+  </div>
 
     <div id = "game"></div>
     <div id = "vk_like"></div>
@@ -126,13 +197,55 @@
 
     <script src="js/tonyApp/main.js"></script>
 
+    <script type="text/javascript" src="//vk.com/js/api/xd_connection.js?2" charset="utf-8"></script>
+    <script type="text/javascript" src="//ad.mail.ru/static/admanhtml/rbadman-html5.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="//vk.com/js/api/adman_init.js" charset="utf-8"></script>
+    <script type="text/javascript" src="//js.appscentrum.com/scr/preroll.js" charset="utf-8"></script>
+    <script>
+      window.addEventListener('load', function() {
+
+        var user_id = null;   // id пользователя
+        var app_id = 	6314454;  // id вашего приложения
+
+        window.initAdman = function (){
+          admanInit({
+            user_id: user_id,
+            app_id: app_id,
+            type: 'preloader',    // 'preloader' или 'rewarded' (по-умолчанию 'preloader')
+            // params: {preview: 1}   // для проверки корректности работы рекламы
+          }, onAdsReady, onNoAds);
+
+          function onAdsReady(adman) {
+              adman.onStarted(function () {
+              // console.log("Adman: Started");
+              admanStat(app_id, user_id);
+            });
+            // var anim = anim;
+            adman.onCompleted(function(anim) { animationStart(); });
+            adman.onSkipped(function(anim) { animationStart();});
+            // adman.onClicked(function() { console.log("Adman: Clicked"); });
+
+          if(true){
+            // console.log('старт');
+            adman.start('preroll');
+          }
+        }
+
+        };
+
+        function onNoAds() { animationStart();};
+      });
+    </script>
+    <script src="js/showScoreList.js" defer></script>
+    <script src="js/showBoxPost.js"></script>
     <script type="text/javascript">
 
     update();
 
+
     </script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/showBoxPost.js" defer></script>
+
 
 </body>
 </html>

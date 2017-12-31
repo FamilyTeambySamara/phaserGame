@@ -10,6 +10,7 @@ var currentGameStat = {
   mod: 1,
   currentGame: 'game'
 }
+var scoreList;
 var infoBox = {
   user : {
       id: 78,
@@ -126,6 +127,7 @@ window.update = function (){
            //ajax запрос к checkUser.php
            var id = data.response[0].id;
            var name = data.response[0].first_name;
+           // console.log('start');
        $.ajax({
           type: "POST",
           dataType: "json",
@@ -136,12 +138,15 @@ window.update = function (){
             result.pass = "";
             infoBox = result;
             appRun = true;
-            startAppJs ();
+           // window.showList();
+            startAppJs();
           }
       });
  });
   }, function() {
 }, '5.69');
+
+
 
 
 //==пример настройки
@@ -220,7 +225,7 @@ VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, functio
   //       });
 }
 window.showBox = function (photo){
-
+    var photo = photo;
   VK.api("friends.get", {"fields": "photo_50", "access_token": userToken}, function (data) {
       // for(var i=0; i < data.response.items.length; i++){
       //   var photo = data.response.items[i].photo_50;
@@ -228,16 +233,55 @@ window.showBox = function (photo){
       //   var fam = data.response.items[i].last_name;
       //   console.log(photo + name + fam);
       // }
+
       var users = data.response.items;
+      // console.log();
       showModalWin(users, photo);
   });
 
 }
-window.post = function (id, photo, group){
-  VK.api("wall.post", {"owner_id": id, "message": "С новым годом!!!", "attachments":
+window.post = function (id, photo, group, message){
+  VK.api("wall.post", {"owner_id": id, "message": message, "attachments":
   "photo,"+ group + ","+ photo + ",https://vk.com/app6295768_51532049", "access_token": userToken}, function (data) {
   });
 }
+
+
+window.getScoreList = function (id, game) {
+    // console.log(id);
+  var resp;
+  // console.log(game);
+  var result = $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "php/getList.php",
+            // processData: false,
+            // dataType: "json",
+            data: "id=" + id + "&game=" + game + "&pass=" + getPass(),
+            success: function(data){
+
+              if (data){
+                  // console.log(data);
+                // resp = data;
+                getSpicok1(data);
+                getUserScore(data);
+              }
+            },
+            complete: function (data){
+              resp = data;
+            }
+        });
+    //     console.log(result);
+    //     // result.onComplete =
+    // if (result.readyState == 4){
+    //   console.log(resp);
+    //   return resp;
+    }
+    // console.log(result);
+    // return result;
+
+
+
 window.saveDb = function () {
       var statistic = currentGameStat;
       switch (statistic.currentGame) {
@@ -350,10 +394,6 @@ function checkChange (game, game_next, statistic, table){
     }
     info['totalStars'] = (+starsCurrent + (+infoBox.user.totalstars));
     //обновляем информацию в приложении
-    // infoBox.user.totalstars = info['totalStars'];
-    // alert(info['totalStars']);
-    // infoBox + '.' + game + '.stars' = info['stars'];
-    // infoBox + '.' + game + '.score' = info['score'];
 
     query(info);
   }else if (game.status == 'over' && statistic.currentGame !== 'SnowBallGame'){
