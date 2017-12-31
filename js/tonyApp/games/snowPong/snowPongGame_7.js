@@ -119,7 +119,7 @@ window.snowPongGame_7 = {
         gameLoad().audio('indicator', 'assets/audio/snowPongGame/Rezinovyi_shar_trut_skrepit_cuted.ogg');
         gameLoad().audio('snow_poof', 'assets/audio/snowPongGame/Snow_cuted.ogg');
         gameLoad().audio('stoun_hit', 'assets/audio/snowPongGame/StounSong_cuted.ogg');
-        gameLoad().audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.ogg');
+        gameLoad().audio('wood_hit', 'assets/audio/snowPongGame/Metal_Strike_on_Wood_cuted.mp3');
         gameLoad().audio('iceWall', 'assets/audio/snowPongGame/iceWall_cuted.ogg');
     },
     create: function (){

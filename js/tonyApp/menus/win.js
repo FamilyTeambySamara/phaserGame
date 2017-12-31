@@ -45,7 +45,13 @@ window.Win_SnowBallGame =
     },
     create: function ()
     {
-      initAdman();
+      // if(getInfo().game_1.status == 'start' || getInfo().game_1.status == 'over'){
+      //
+      // }else{
+      //   animationStart();
+      // }
+        initAdman();
+
 
       saveDb();
       // getMoney();
