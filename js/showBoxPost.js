@@ -1,5 +1,6 @@
 
     window.showModalWin = function (users, photo) {
+        var photo = photo;
         var users = users;
         var olUser = document.querySelector('.media');
         getSpicok(users, olUser);
@@ -13,6 +14,23 @@
         var cancelUser = document.querySelector('.cancelUs');
         var postPhotoUser =document.querySelector('.postPhoto');
 
+        // if(photo == "photo-159168333_456239017"){
+        // console.log(photo);
+        switch (photo) {
+          case 'photo-159168462_456239017':
+            document.getElementById('foto123').src = "assets/img/gifts/game1.jpg";
+            document.getElementById('referTopictur').href = "https://pp.userapi.com/c824500/v824500960/6518c/_DPzwhlqFmc.jpg";
+            break;
+          case 'photo-159168482_456239017':
+             document.getElementById('foto123').src = "assets/img/gifts/game2.jpg";
+             document.getElementById('referTopictur').href = "https://pp.userapi.com/c841022/v841022688/54a34/Br7ErYcc39I.jpg";
+             break;
+        }
+          // document.getElementById('foto123').src = "assets/img/gifts/game1.jpg";
+        // }else if(photo == 'photo-159168482_456239017'){
+        //   document.getElementById('foto123').src = "assets/img/gifts/game2.jpg";
+        // }
+
         cancelUser.onclick = function () {  // при клике на слой затемнения все исчезнет
               darkLayer.parentNode.removeChild(darkLayer); // удаляем затемнение
               olUser.innerHTML = "";
@@ -21,15 +39,17 @@
                         };
         postPhotoUser.onclick = function () {
               //находим выбранного пользователя
+              var message = document.getElementById("exampleInputName3").value;
+              console.log(document.getElementById("exampleInputName3").value);
               for (var n = 0; n < users.length; n++){
                   var chekUser = document.getElementById(users[n].id);
                   // console.log(chekUser);
                   if(chekUser.checked){
                     if(photo == "photo-159168333_456239017"){
-                      post(users[n].id, photo, '-159168462');
+                      post(users[n].id, photo, '-159168462', message);
                       break;
                     }else{
-                      post(users[n].id, photo, '-159168482');
+                      post(users[n].id, photo, '-159168482', message);
                     }
 
                   }

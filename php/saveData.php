@@ -2,20 +2,11 @@
 include "db.php";
 
 $db = Db::getInstance();
-// $_POST['data'] =  '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-// $data = json_decode($_POST['data'], true);
-// $id_user = $_POST['data'];
-// $pass = $_POST['pass'];
-// $info = $_POST['info'];
 
 $id_user = $_POST['id'];
 $pass = $_POST['pass'];
 
 
-// $id_user = 27;
-// $pass = $db->getPass();
-// $info = [];
- //
  $info['table'] = $_POST['table'];
  $info['game_next'] = $_POST['game_next'];
  $info['currentStars'] = $_POST['currentStars'];
@@ -24,17 +15,6 @@ $pass = $_POST['pass'];
  $info['totalStars'] = $_POST['totalStars'];
  $info['method'] = $_POST['method'];
 
- // info['currentStars'] = statistic.stars;
- // info['currentScore'] = statistic.score;
- // info['status'] = 'over';
- // info['totalStars'] = statistic.stars + infoBox.user.totalStars;
- // info['method'] = 'saveNewGame';
- // info['table'] = table;
- // info['game_next'] = game_next;
- // var_dump($_POST['data']);
- // echo 'iam here!';
-//  var_dump($_POST);
-// exit ();
 
 if($pass == $db->getPass() ){
     switch ($info['method']) {
@@ -48,8 +28,7 @@ if($pass == $db->getPass() ){
 
         //запрос к соответствующей таблице игры
         $db->execute("UPDATE {$table} SET stars =:stars , score =:score , status =:status WHERE id_user =:id_user " , [':id_user' => $id_user, ':stars' => $stars, ':score' => $score, ':status' => $status]);
-        // $db->execute("UPDATE game_1 SET stars =:stars WHERE id_user =:id_user " , [':id_user' => $id_user, ':stars' => $stars]);
-        // $db->execute("UPDATE game_1 SET stars = 5, score = 25 WHERE id_user = 27", []);
+
         //запрос к таблице users для обновления общего количества звезд
         $db->execute("UPDATE users SET totalstars = :totalstars WHERE id = :id",
         [':id' => $id_user, ':totalstars' => $totalStars]);
@@ -98,7 +77,7 @@ if($pass == $db->getPass() ){
     }
 }else {
   // echo $pass. '  ' . $db->getPass();
-  echo 'пароль' . $pass . '  метод' . $_POST['method'];
+  // echo 'пароль' . $pass . '  метод' . $_POST['method'];
 }
 
 
@@ -117,7 +96,6 @@ function getFullInfo ($id_user, $db) {
     $result['game_2']['g_8'] = $db->fetchOne("SELECT * FROM game_28 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_9'] = $db->fetchOne("SELECT * FROM game_29 WHERE id_user = :id", [":id" => $id_user]);
     $result['game_2']['g_10'] = $db->fetchOne("SELECT * FROM game_210 WHERE id_user = :id", [":id" => $id_user]);
-
 
     return json_encode($result);
 }

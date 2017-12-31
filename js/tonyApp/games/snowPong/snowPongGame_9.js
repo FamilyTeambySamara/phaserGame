@@ -78,6 +78,9 @@ var moveAngle = 0;
 
 var iceBrickHitSong;
 var waterSong;
+var infoRuls;
+var b_info ;
+var closeButton;
 
 var entity_5;
 //условие победы
@@ -328,6 +331,14 @@ window.snowPongGame_9 = {
         gamePhysics().enable(iceBall.sprite, Phaser.Physics.ARCADE);
 
         //Табло================================================
+        infoRuls = gameAdd().image(0,0, 'infoRuls');
+        infoRuls.alpha = 0;
+        infoRuls.anchor.setTo(0.5, 0.5);
+        infoRuls.kill();
+        b_info = gameAdd().button(400, 0, 'infoButton', showInfoGame, this,  1, 2 , 0);
+        b_info.anchor.setTo(0.5, 0);
+        closeButton = gameAdd().button(145, 364, 'button_play', closeWindow, this, 2, 1 ,0);
+        closeButton.kill();
         gameAdd().image(0, 0, 'underLyaer');
         //Звузда
         scoreStarsImage = gameAdd().sprite (20 , 20, 'starBar');
@@ -595,7 +606,7 @@ var iceBall = {
 }
 
 var killAim = function (iceBall, aim) {
-    iceCrack.play();
+    // iceCrack.play();
     aim.kill();
 }
 
@@ -748,7 +759,7 @@ var goMenuWin = function () {
   saveBox.hp = health;
   saveBox.stars = scoreStars;
   if (scoreStars){
-      saveBox.score = scoreStars * Math.floor(120/realTimeNow) * health;
+      saveBox.score = (scoreStars*100) + Math.floor(120/realTimeNow) * health;
   }else {
       saveBox.score = Math.floor(120/realTimeNow) * health;
   }
@@ -857,5 +868,33 @@ function killAll (hole, ent){
   }
 
 }
+var showInfoGame = function (){
+  if (infoRuls.alpha == 0){
+    infoRuls.reset(b_info.centerX, b_info.centerY);
+    infoRuls.scale.set(0);
+    gameAdd().tween(infoRuls.scale).to( { x: 1, y: 1 }, 100, Phaser.Easing.Elastic.Out, true);
+    gameAdd().tween(infoRuls).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+    var anim_1 = gameAdd().tween(infoRuls).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true);
 
+    var animExit = function () {
+      gameAdd().tween(infoRuls.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+      gameAdd().tween(infoRuls).to( { x: b_info.centerX, y: b_info.centerY}, 100,  Phaser.Easing.Linear.None, true);
+      var anim = gameAdd().tween(infoRuls).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+    }
+    anim_1.onComplete.addOnce(function (){
+      gamePaused();
+      closeButton.reset(infoRuls.centerX, infoRuls.bottom - 45);
+      closeButton.anchor.setTo(0.5, 0.5);
+      closeButton.animation = animExit;
+    })
+  }
+
+
+}
+
+function closeWindow (b){
+  b.animation();
+  gamePaused();
+  b.kill();
+}
 })()

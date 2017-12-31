@@ -136,11 +136,15 @@ var wholeStars;
 var b_music_1;
 var b_music_2;
 var layerUnderMenu;
+
+var infoRuls;
+var b_info ;
+var closeButton;
 window.snowBallMainTrack = false;
 window.SnowBallGame =
 {
     preload: function () {
-
+        gameLoad().image('infoRuls', 'assets/img/rules/rules2.png');
     },
     create: function () {
 
@@ -306,6 +310,14 @@ window.SnowBallGame =
       playerBet.animations.add('hit',[42, 41, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53], 25);
 //==================Табло=======================
       //Подложка
+      infoRuls = gameAdd().image(0,0, 'infoRuls');
+      infoRuls.alpha = 0;
+      infoRuls.anchor.setTo(0.5, 0.5);
+      infoRuls.kill();
+      b_info = gameAdd().button(400, 0, 'infoButton', showInfoGame, this,  1, 2 , 0);
+      b_info.anchor.setTo(0.5, 0);
+      closeButton = gameAdd().button(145, 364, 'button_play', closeWindow, this, 2, 1 ,0);
+      closeButton.kill();
       gameAdd().image(0, 0, 'underLyaer');
       //Звузда
       scoreStarsImage = gameAdd().sprite (20 , 20, 'starBar');
@@ -377,6 +389,9 @@ textDebag = gameAdd().text(220, 200, '', { fontSize: '32px', fill: 'red'});
        // gamePhysics().distanceToPointer(displayObject, pointer, world)//вычисляем расстояние
        gameInput().onDown.add(this.fireBulletAndGo, this); //стреляем
 //===================================================================
+if (getInfo().game_1.status == 'unstart'){
+  showInfoGame();
+}
     },
     turnMusic: function (){
       // gameSound().mute = true;
@@ -1210,24 +1225,24 @@ window.changeLevel = function (mod) {
     case 1:
       saveBox.mod = mod;
     //уровень 1
-    countSimple_1 = 3;  //общее количество
+    countSimple_1 = 1;  //общее количество
     aliveSimple_1 = 1;  //одновременно живых
 
     changeLevel_1 = countSimple_1;
     //уровень 2
-    countSimple_2 = 4;
+    countSimple_2 = 1;
     aliveSimple_2 = 1;
 
-    countSmart_2 = 2;
+    countSmart_2 = 1;
     aliveSmart_2 = 1;
 
     changeLevel_2 = countSimple_2 + countSmart_2;
     //уровень 3
-    countSimple_3 = 6;
-    aliveSimple_3 = 2;
+    countSimple_3 = 2;
+    aliveSimple_3 = 1;
 
-    countSmart_3 = 4;
-    aliveSmart_3 = 2;
+    countSmart_3 = 2;
+    aliveSmart_3 = 1;
 
     countBig_3 = 0;
     aliveBig_3 = 0;
@@ -1286,6 +1301,34 @@ doExitGame = function (){
 }
 
 
+var showInfoGame = function (){
+  if (infoRuls.alpha == 0){
+    infoRuls.reset(b_info.centerX, b_info.centerY);
+    infoRuls.scale.set(0);
+    gameAdd().tween(infoRuls.scale).to( { x: 1, y: 1 }, 100, Phaser.Easing.Elastic.Out, true);
+    gameAdd().tween(infoRuls).to( { x: gameWorld().centerX, y: gameWorld().centerY }, 100,  Phaser.Easing.Linear.None, true);
+    var anim_1 = gameAdd().tween(infoRuls).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true);
 
+    var animExit = function () {
+      gameAdd().tween(infoRuls.scale).to( {  x: 0, y: 0 }, 200, Phaser.Easing.Linear.None, true);
+      gameAdd().tween(infoRuls).to( { x: b_info.centerX, y: b_info.centerY}, 100,  Phaser.Easing.Linear.None, true);
+      var anim = gameAdd().tween(infoRuls).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+    }
+    anim_1.onComplete.addOnce(function (){
+      gamePaused();
+      closeButton.reset(infoRuls.centerX, infoRuls.bottom - 75);
+      closeButton.anchor.setTo(0.5, 0.5);
+      closeButton.animation = animExit;
+    })
+  }
+
+
+}
+
+function closeWindow (b){
+  b.animation();
+  gamePaused();
+  b.kill();
+}
 
 })();

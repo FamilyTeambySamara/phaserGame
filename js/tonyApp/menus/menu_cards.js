@@ -434,7 +434,13 @@ window.menu_cards = {
 
     },
     showReit: function (b) {
-      showMessage(messageNotTime);
+      // showMessage(messageNotTime);
+      if(b.nGame == 1){
+        showList('game_1');
+      }else{
+        showList('game_2');
+      }
+
     },
     postPicture: function (b){
         // showMessage(messageNotTime);

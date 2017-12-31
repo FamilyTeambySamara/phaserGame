@@ -210,10 +210,15 @@
   window.gameWorld = function (){
     return game.world;
   }
-  window.gamePused = function (stage){
-    game.paused = stage;
-    return true;
+
+window.gamePaused = function (){
+  if(game.paused == true){
+    game.paused = false;
+  }else{
+    game.paused = true;
   }
+  return true;
+}
 }())
 
 

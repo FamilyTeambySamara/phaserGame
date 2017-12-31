@@ -29,6 +29,7 @@ var stars;
 var messageNotStars;
 var closeButton;
 var nEnoughStar;
+var happySong;
 
 
 window.Win_SnowBallGame =
@@ -44,6 +45,7 @@ window.Win_SnowBallGame =
     },
     create: function ()
     {
+      initAdman();
 
       saveDb();
       // getMoney();
@@ -59,10 +61,10 @@ window.Win_SnowBallGame =
       hartSound = gameAdd().audio('hartSound');
       winSound = gameAdd().audio('winSound');
 
-      var happySong = gameAdd().audio('happySong');
-      happySong.play();
+      happySong = gameAdd().audio('happySong');
 
-      winSound.play();
+
+      // winSound.play();
       gameAdd().image(0, 0, 'Game_win');
 
       var menuAnim = gameAdd().sprite(400, 100, 'menuWin');
@@ -78,7 +80,11 @@ window.Win_SnowBallGame =
       //Считаем звузды
       calulateStarsEvent = gameTime().create();
       calulateStarsEvent.repeat(100, stars, this.calculateStars, this);
-      calulateStarsEvent.start(2000);
+      window.animationStart = function (){
+        winSound.play();
+        calulateStarsEvent.start(2000);
+      }
+
       //Добавлем бзыньк в конце пересчета
       calculateSong.onStop.addOnce(function (){tempStarSong.play();}, this);
       //===================================
@@ -251,6 +257,7 @@ window.Win_SnowBallGame =
           changeState('menu_cards');
     },
     calculateStars: function (){
+      happySong.play();
       if (stars > 0) amountStars++;
 
     },
@@ -298,15 +305,16 @@ window.Win_SnowBallGame =
           if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
             wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(1000/amountClock));
           }else{
-            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(120/amountClock));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + ((amountStars*100) + Math.floor(120/amountClock));
           }
+          // saveBox.score = (scoreStars*100) + Math.floor(120/realTimeNow) * health;
 
       } else if (amountStars !== 0 && amountClock !== 0 && amountHp !== 0) {
         //alert(mod);
         if(getInfoCurrentGame().currentGame == 'SnowBallGame'){
             wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(1000/amountClock) * amountHp * (mod * mod));
         }else{
-            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + (amountStars * Math.floor(120/amountClock) * amountHp * (mod * mod));
+            wholeScore.text = 'ИТОГОВЫЙ СЧЕТ: ' + ((amountStars*100) + Math.floor(120/amountClock) * amountHp * (mod * mod));
         }
 
       }

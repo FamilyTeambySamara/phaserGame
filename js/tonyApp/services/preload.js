@@ -33,6 +33,8 @@
       gameLoad().image('Game_over', 'assets/img/menu_over2.png');
       gameLoad().image('moon', 'assets/img/moon.png');
 
+      gameLoad().spritesheet('infoButton', 'assets/img/message/infoButton.png', 40 , 40);
+
       gameLoad().spritesheet('easy', 'assets/img/button_sprite7.png', 193 , 71);
       gameLoad().spritesheet('middle', 'assets/img/button_sprite8.png', 193 , 71);
       gameLoad().spritesheet('difficult', 'assets/img/button_sprite9.png', 193 , 71);
