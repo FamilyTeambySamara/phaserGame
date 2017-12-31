@@ -250,7 +250,7 @@ window.post = function (id, photo, group, message){
 window.getScoreList = function (id, game) {
     // console.log(id);
   var resp;
-  console.log(game);
+  // console.log(game);
   var result = $.ajax({
             type: "POST",
             dataType: "json",
@@ -261,7 +261,7 @@ window.getScoreList = function (id, game) {
             success: function(data){
 
               if (data){
-                  console.log(data);
+                  // console.log(data);
                 // resp = data;
                 getSpicok1(data);
                 getUserScore(data);

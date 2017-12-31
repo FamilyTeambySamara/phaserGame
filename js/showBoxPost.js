@@ -40,7 +40,7 @@
         postPhotoUser.onclick = function () {
               //находим выбранного пользователя
               var message = document.getElementById("exampleInputName3").value;
-              console.log(document.getElementById("exampleInputName3").value);
+              // console.log(document.getElementById("exampleInputName3").value);
               for (var n = 0; n < users.length; n++){
                   var chekUser = document.getElementById(users[n].id);
                   // console.log(chekUser);

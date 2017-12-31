@@ -81,8 +81,8 @@ window.Win_SnowBallGame =
       calulateStarsEvent = gameTime().create();
       calulateStarsEvent.repeat(100, stars, this.calculateStars, this);
       window.animationStart = function (){
-        winSound.play();
         calulateStarsEvent.start(2000);
+        winSound.play();
       }
 
       //Добавлем бзыньк в конце пересчета
@@ -245,7 +245,11 @@ window.Win_SnowBallGame =
 
 
     },
+    calculateStars: function (){
+      happySong.play();
+      if (stars > 0) amountStars++;
 
+    },
     goToMenu: function ()
 
     {
@@ -256,11 +260,7 @@ window.Win_SnowBallGame =
           commonScore = 0;
           changeState('menu_cards');
     },
-    calculateStars: function (){
-      happySong.play();
-      if (stars > 0) amountStars++;
 
-    },
     calculateTime: function (){
        amountClock++;
     },

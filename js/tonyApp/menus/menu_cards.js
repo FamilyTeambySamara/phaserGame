@@ -437,8 +437,10 @@ window.menu_cards = {
       // showMessage(messageNotTime);
       if(b.nGame == 1){
         showList('game_1');
-      }else{
+      }else if (b.nGame == 2){
         showList('game_2');
+      }else{
+        showMessage(messageNotTime);
       }
 
     },
