@@ -50,7 +50,7 @@ window.Win_SnowBallGame =
       // }else{
       //   animationStart();
       // }
-        initAdman();
+        // initAdman();
 
 
       saveDb();
@@ -86,10 +86,10 @@ window.Win_SnowBallGame =
       //Считаем звузды
       calulateStarsEvent = gameTime().create();
       calulateStarsEvent.repeat(100, stars, this.calculateStars, this);
-      window.animationStart = function (){
+      // window.animationStart = function (){
         calulateStarsEvent.start(2000);
         winSound.play();
-      }
+      // }
 
       //Добавлем бзыньк в конце пересчета
       calculateSong.onStop.addOnce(function (){tempStarSong.play();}, this);
