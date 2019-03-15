@@ -187,45 +187,8 @@
 
     <script src="js/tonyApp/main.js"></script>
 
-    <script type="text/javascript" src="//vk.com/js/api/xd_connection.js?2" charset="utf-8"></script>
-    <script type="text/javascript" src="//ad.mail.ru/static/admanhtml/rbadman-html5.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="//vk.com/js/api/adman_init.js" charset="utf-8"></script>
-    <script type="text/javascript" src="//js.appscentrum.com/scr/preroll.js" charset="utf-8"></script>
-    <script>
-      window.addEventListener('load', function() {
 
-        var user_id = null;   // id пользователя
-        var app_id = 	6314454;  // id вашего приложения
-
-        window.initAdman = function (){
-          admanInit({
-            user_id: user_id,
-            app_id: app_id,
-            type: 'preloader',    // 'preloader' или 'rewarded' (по-умолчанию 'preloader')
-            // params: {preview: 1}   // для проверки корректности работы рекламы
-          }, onAdsReady, onNoAds);
-
-          function onAdsReady(adman) {
-              adman.onStarted(function () {
-              // console.log("Adman: Started");
-              admanStat(app_id, user_id);
-            });
-            // var anim = anim;
-            adman.onCompleted(function(anim) { animationStart(); });
-            adman.onSkipped(function(anim) { animationStart();});
-            // adman.onClicked(function() { console.log("Adman: Clicked"); });
-
-          if(true){
-            // console.log('старт');
-            adman.start('preroll');
-          }
-        }
-
-        };
-
-        function onNoAds() { animationStart();};
-      });
-    </script>-->
+   
     <script type="text/javascript">
 
     update();
